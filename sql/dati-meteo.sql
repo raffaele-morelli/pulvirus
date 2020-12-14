@@ -1,0 +1,27 @@
+﻿create table public.dati_meteo (
+station_code varchar(255),
+station_eu_code varchar(255),
+date varchar(255),
+t2m double precision,
+tmin2m double precision,
+tmax2m double precision,
+tp double precision,
+ptp double precision,
+rh double precision,
+u10m double precision,
+v10m double precision,
+wspeed double precision,
+pwspeed double precision,
+wdir double precision,
+sp double precision,
+nirradiance double precision,
+pbl00 double precision,
+pbl12 double precision,
+pblmin double precision,
+pblmax double precision,
+coordx double precision,
+coordy double precision,
+altitude double precision,
+altitudedem double precision
+
+)

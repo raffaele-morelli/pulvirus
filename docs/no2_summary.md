@@ -7,7 +7,3 @@
 
 ## Valide:
  299 
-
-## Numero stazioni valide - dettaglio: 
-Valide: 169 
-Non valide: 130 

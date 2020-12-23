@@ -18,9 +18,7 @@ prefix <- ""
 # importazione ####
 data.files <-  list.files(path = "dati/dati-agenzie/csv-regioni", pattern = paste0(prefix, pltnt), full.names = TRUE)
 
-data <- lapply( data.files, function(x) read_delim(x, 
-                                                   ",", escape_double = FALSE, 
-                                                   trim_ws = TRUE) )
+data <- lapply( data.files, function(x) read_delim(x, ",", escape_double = FALSE, trim_ws = TRUE) )
 
 for(i in 1:length(data.files)) {
   names(data[[i]])[4] <- pltnt

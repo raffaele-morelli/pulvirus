@@ -2,7 +2,7 @@
 
 # NO2
 
-[NO2](no2_summary.md)
+[NO2](no2_summary.html)
 
 [NO2 valide](no2_valide_summary.md)
 

@@ -4,12 +4,12 @@
 
 |regione        |   n|
 |:--------------|---:|
-|BASILICATA     |   3|
-|CAMPANIA       |   4|
-|EMILIA_ROMAGNA |  18|
+|BASILICATA     |   2|
+|CAMPANIA       |   5|
+|EMILIA_ROMAGNA |  20|
 |LAZIO          |  38|
-|LOMBARDIA      |  19|
-|MOLISE         |   2|
+|LOMBARDIA      |  18|
+|MOLISE         |   3|
 |PA_BOLZANO     |   5|
 |PA_TRENTO      |   5|
 |PIEMONTE       |   8|
@@ -18,7 +18,7 @@
 |TOSCANA        |  34|
 |VALLE_AOSTA    |   3|
 |VENETO         |   2|
-|Total          | 169|
+|Total          | 171|
 
 ## TOSCANA : 34
 
@@ -61,7 +61,7 @@
 |IT2241A         |TRUE   |TRUE |TRUE   |         9|TOSCANA |Massa Carrara |
 
 
-## EMILIA_ROMAGNA : 18
+## EMILIA_ROMAGNA : 20
 
 
 |station_eu_code |p16_19 |p20  |Valida | region_id|regione        |provincia          |
@@ -73,6 +73,8 @@
 |IT1159A         |TRUE   |TRUE |TRUE   |         8|EMILIA_ROMAGNA |Bologna            |
 |IT1179A         |TRUE   |TRUE |TRUE   |         8|EMILIA_ROMAGNA |Ferrara            |
 |IT1451A         |TRUE   |TRUE |TRUE   |         8|EMILIA_ROMAGNA |Bologna            |
+|IT1670A         |TRUE   |TRUE |TRUE   |         8|EMILIA_ROMAGNA |Forli'-Cesena      |
+|IT1672A         |TRUE   |TRUE |TRUE   |         8|EMILIA_ROMAGNA |Reggio nell'Emilia |
 |IT1771A         |TRUE   |TRUE |TRUE   |         8|EMILIA_ROMAGNA |Modena             |
 |IT1910A         |TRUE   |TRUE |TRUE   |         8|EMILIA_ROMAGNA |Parma              |
 |IT1914A         |TRUE   |TRUE |TRUE   |         8|EMILIA_ROMAGNA |Reggio nell'Emilia |
@@ -109,7 +111,7 @@
 |IT1859A         |TRUE   |TRUE |TRUE   |        42|PA_TRENTO |Trento    |
 
 
-## LOMBARDIA : 19
+## LOMBARDIA : 18
 
 
 |station_eu_code |p16_19 |p20  |Valida | region_id|regione   |provincia |
@@ -129,7 +131,6 @@
 |IT1588A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Varese    |
 |IT1692A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Milano    |
 |IT1739A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Cremona   |
-|IT1826A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Lecco     |
 |IT1868A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Mantova   |
 |IT1869A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Mantova   |
 |IT1965A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Lodi      |
@@ -142,9 +143,9 @@
 |:---------------|:------|:----|:------|---------:|:--------|:-----------|
 |IT0643A         |TRUE   |TRUE |TRUE   |         1|PIEMONTE |Alessandria |
 |IT1120A         |TRUE   |TRUE |TRUE   |         1|PIEMONTE |Torino      |
-|IT1121A         |TRUE   |TRUE |TRUE   |         1|PIEMONTE |Torino      |
 |IT1130A         |TRUE   |TRUE |TRUE   |         1|PIEMONTE |Torino      |
 |IT1524A         |TRUE   |TRUE |TRUE   |         1|PIEMONTE |Cuneo       |
+|IT1529A         |TRUE   |TRUE |TRUE   |         1|PIEMONTE |Cuneo       |
 |IT1533A         |TRUE   |TRUE |TRUE   |         1|PIEMONTE |Vercelli    |
 |IT1788A         |TRUE   |TRUE |TRUE   |         1|PIEMONTE |Torino      |
 |IT1904A         |TRUE   |TRUE |TRUE   |         1|PIEMONTE |Alessandria |
@@ -205,7 +206,7 @@
 |IT2233A         |TRUE   |TRUE |TRUE   |         2|VALLE_AOSTA |Aosta     |
 
 
-## CAMPANIA : 4
+## CAMPANIA : 5
 
 
 |station_eu_code |p16_19 |p20  |Valida | region_id|regione  |provincia |
@@ -214,6 +215,7 @@
 |IT1495A         |TRUE   |TRUE |TRUE   |        15|CAMPANIA |Napoli    |
 |IT1496A         |TRUE   |TRUE |TRUE   |        15|CAMPANIA |Napoli    |
 |IT1497A         |TRUE   |TRUE |TRUE   |        15|CAMPANIA |Napoli    |
+|IT2214A         |TRUE   |TRUE |TRUE   |        15|CAMPANIA |Salerno   |
 
 
 ## PA_TRENTO : 1
@@ -222,16 +224,6 @@
 |station_eu_code |p16_19 |p20  |Valida | region_id|regione   |provincia |
 |:---------------|:------|:----|:------|---------:|:---------|:---------|
 |IT1191A         |TRUE   |TRUE |TRUE   |         4|PA_TRENTO |Trento    |
-
-
-## BASILICATA : 3
-
-
-|station_eu_code |p16_19 |p20  |Valida | region_id|regione    |provincia |
-|:---------------|:------|:----|:------|---------:|:----------|:---------|
-|IT1193A         |TRUE   |TRUE |TRUE   |        17|BASILICATA |Potenza   |
-|IT1742A         |TRUE   |TRUE |TRUE   |        17|BASILICATA |Potenza   |
-|IT2205A         |TRUE   |TRUE |TRUE   |        17|BASILICATA |Potenza   |
 
 
 ## SARDEGNA : 20
@@ -285,11 +277,21 @@
 |IT2148A         |TRUE   |TRUE |TRUE   |        16|PUGLIA  |Brindisi  |
 
 
-## MOLISE : 2
+## BASILICATA : 2
+
+
+|station_eu_code |p16_19 |p20  |Valida | region_id|regione    |provincia |
+|:---------------|:------|:----|:------|---------:|:----------|:---------|
+|IT1742A         |TRUE   |TRUE |TRUE   |        17|BASILICATA |Potenza   |
+|IT2205A         |TRUE   |TRUE |TRUE   |        17|BASILICATA |Potenza   |
+
+
+## MOLISE : 3
 
 
 |station_eu_code |p16_19 |p20  |Valida | region_id|regione |provincia  |
 |:---------------|:------|:----|:------|---------:|:-------|:----------|
 |IT1753A         |TRUE   |TRUE |TRUE   |        14|MOLISE  |Campobasso |
 |IT1799A         |TRUE   |TRUE |TRUE   |        14|MOLISE  |Campobasso |
+|IT1801A         |TRUE   |TRUE |TRUE   |        14|MOLISE  |Campobasso |
 

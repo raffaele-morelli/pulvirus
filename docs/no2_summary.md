@@ -1,5 +1,3 @@
-Untitled
-================
 
 ## Numero stazioni 2016-2020: 
 
@@ -9,3 +7,7 @@ Untitled
 
 ## Valide:
  299 
+
+## Numero stazioni valide - dettaglio: 
+Valide: 171 
+Non valide: 128 

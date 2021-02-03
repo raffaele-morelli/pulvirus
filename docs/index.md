@@ -1,4 +1,4 @@
-## Welcome... chi lo sa
+## Welcome...
 
 # NO2
 

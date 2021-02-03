@@ -2,12 +2,12 @@
 ## Numero stazioni 2016-2020: 
 
 ## Non valide per anni:
- 563 
+ 300 
 
 
 ## Valide:
- 93 
+ 362 
 
 ## Numero stazioni valide - dettaglio: 
-Valide: 87 
-Non valide: 6 
+Valide: 280 
+Non valide: 82 

@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>VALIDE</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>VALIDE</h1>
+
+<table><thead>
+<tr>
+<th align="left">regione</th>
+<th align="right">n</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">BASILICATA</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="right">23</td>
+</tr>
+<tr>
+<td align="left">FRIULI_VENEZIA_GIULIA</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="left">LAZIO</td>
+<td align="right">16</td>
+</tr>
+<tr>
+<td align="left">LOMBARDIA</td>
+<td align="right">21</td>
+</tr>
+<tr>
+<td align="left">PA_BOLZANO</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">PA_TRENTO</td>
+<td align="right">3</td>
+</tr>
+<tr>
+<td align="left">PIEMONTE</td>
+<td align="right">9</td>
+</tr>
+<tr>
+<td align="left">PUGLIA</td>
+<td align="right">6</td>
+</tr>
+<tr>
+<td align="left">SARDEGNA</td>
+<td align="right">7</td>
+</tr>
+<tr>
+<td align="left">TOSCANA</td>
+<td align="right">15</td>
+</tr>
+<tr>
+<td align="left">UMBRIA</td>
+<td align="right">12</td>
+</tr>
+<tr>
+<td align="left">VALLE_AOSTA</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">VENETO</td>
+<td align="right">7</td>
+</tr>
+<tr>
+<td align="left">Total</td>
+<td align="right">125</td>
+</tr>
+</tbody></table>
+
+<h2>PA_BOLZANO : 2</h2>
+
+<table><thead>
+<tr>
+<th align="left">station_eu_code</th>
+<th align="left">p16_19</th>
+<th align="left">p20</th>
+<th align="left">Valida</th>
+<th align="right">region_id</th>
+<th align="left">regione</th>
+<th align="left">provincia</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">IT0499A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">41</td>
+<td align="left">PA_BOLZANO</td>
+<td align="left">Bolzano</td>
+</tr>
+<tr>
+<td align="left">IT1696A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">41</td>
+<td align="left">PA_BOLZANO</td>
+<td align="left">Bolzano</td>
+</tr>
+</tbody></table>
+
+<h2>PA_TRENTO : 3</h2>
+
+<table><thead>
+<tr>
+<th align="left">station_eu_code</th>
+<th align="left">p16_19</th>
+<th align="left">p20</th>
+<th align="left">Valida</th>
+<th align="right">region_id</th>
+<th align="left">regione</th>
+<th align="left">provincia</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">IT0591A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">42</td>
+<td align="left">PA_TRENTO</td>
+<td align="left">Trento</td>
+</tr>
+<tr>
+<td align="left">IT0703A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">42</td>
+<td align="left">PA_TRENTO</td>
+<td align="left">Trento</td>
+</tr>
+<tr>
+<td align="left">IT1037A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">42</td>
+<td align="left">PA_TRENTO</td>
+<td align="left">Trento</td>
+</tr>
+</tbody></table>
+
+<h2>LOMBARDIA : 21</h2>
+
+<table><thead>
+<tr>
+<th align="left">station_eu_code</th>
+<th align="left">p16_19</th>
+<th align="left">p20</th>
+<th align="left">Valida</th>
+<th align="right">region_id</th>
+<th align="left">regione</th>
+<th align="left">provincia</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">IT0594A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Brescia</td>
+</tr>
+<tr>
+<td align="left">IT0692A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Pavia</td>
+</tr>
+<tr>
+<td align="left">IT0707A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Bergamo</td>
+</tr>
+<tr>
+<td align="left">IT0771A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Como</td>
+</tr>
+<tr>
+<td align="left">IT0777A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Lecco</td>
+</tr>
+<tr>
+<td align="left">IT0778A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Bergamo</td>
+</tr>
+<tr>
+<td align="left">IT0840A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Cremona</td>
+</tr>
+<tr>
+<td align="left">IT1016A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Milano</td>
+</tr>
+<tr>
+<td align="left">IT1153A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Cremona</td>
+</tr>
+<tr>
+<td align="left">IT1388A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Mantova</td>
+</tr>
+<tr>
+<td align="left">IT1464A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Bergamo</td>
+</tr>
+<tr>
+<td align="left">IT1588A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Varese</td>
+</tr>
+<tr>
+<td align="left">IT1650A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Varese</td>
+</tr>
+<tr>
+<td align="left">IT1692A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Milano</td>
+</tr>
+<tr>
+<td align="left">IT1743A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Monza e della Brianza</td>
+</tr>
+<tr>
+<td align="left">IT1826A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Lecco</td>
+</tr>
+<tr>
+<td align="left">IT1865A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Mantova</td>
+</tr>
+<tr>
+<td align="left">IT1868A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Mantova</td>
+</tr>
+<tr>
+<td align="left">IT1876A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Bergamo</td>
+</tr>
+<tr>
+<td align="left">IT1965A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Lodi</td>
+</tr>
+<tr>
+<td align="left">IT1967A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">3</td>
+<td align="left">LOMBARDIA</td>
+<td align="left">Sondrio</td>
+</tr>
+</tbody></table>
+
+<h2>EMILIA_ROMAGNA : 23</h2>
+
+<table><thead>
+<tr>
+<th align="left">station_eu_code</th>
+<th align="left">p16_19</th>
+<th align="left">p20</th>
+<th align="left">Valida</th>
+<th align="right">region_id</th>
+<th align="left">regione</th>
+<th align="left">provincia</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">IT0804A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Parma</td>
+</tr>
+<tr>
+<td align="left">IT0892A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Bologna</td>
+</tr>
+<tr>
+<td align="left">IT0903A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Reggio nell&#39;Emilia</td>
+</tr>
+<tr>
+<td align="left">IT0940A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Reggio nell&#39;Emilia</td>
+</tr>
+<tr>
+<td align="left">IT1043A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Rimini</td>
+</tr>
+<tr>
+<td align="left">IT1048A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Forli&#39;-Cesena</td>
+</tr>
+<tr>
+<td align="left">IT1159A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Bologna</td>
+</tr>
+<tr>
+<td align="left">IT1179A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Ferrara</td>
+</tr>
+<tr>
+<td align="left">IT1204A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Ravenna</td>
+</tr>
+<tr>
+<td align="left">IT1451A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Bologna</td>
+</tr>
+<tr>
+<td align="left">IT1771A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Modena</td>
+</tr>
+<tr>
+<td align="left">IT1911A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Parma</td>
+</tr>
+<tr>
+<td align="left">IT1914A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Reggio nell&#39;Emilia</td>
+</tr>
+<tr>
+<td align="left">IT1915A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Rimini</td>
+</tr>
+<tr>
+<td align="left">IT1918A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Ferrara</td>
+</tr>
+<tr>
+<td align="left">IT1919A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Ferrara</td>
+</tr>
+<tr>
+<td align="left">IT1921A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Modena</td>
+</tr>
+<tr>
+<td align="left">IT1924A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Piacenza</td>
+</tr>
+<tr>
+<td align="left">IT1927A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Ravenna</td>
+</tr>
+<tr>
+<td align="left">IT1975A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Piacenza</td>
+</tr>
+<tr>
+<td align="left">IT2073A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Modena</td>
+</tr>
+<tr>
+<td align="left">IT2097A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Bologna</td>
+</tr>
+<tr>
+<td align="left">IT2209A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">8</td>
+<td align="left">EMILIA_ROMAGNA</td>
+<td align="left">Ravenna</td>
+</tr>
+</tbody></table>
+
+<h2>LAZIO : 16</h2>
+
+<table><thead>
+<tr>
+<th align="left">station_eu_code</th>
+<th align="left">p16_19</th>
+<th align="left">p20</th>
+<th align="left">Valida</th>
+<th align="right">region_id</th>
+<th align="left">regione</th>
+<th align="left">provincia</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">IT0825A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Roma</td>
+</tr>
+<tr>
+<td align="left">IT0863A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Viterbo</td>
+</tr>
+<tr>
+<td align="left">IT0867A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Rieti</td>
+</tr>
+<tr>
+<td align="left">IT0887A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Roma</td>
+</tr>
+<tr>
+<td align="left">IT0952A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Roma</td>
+</tr>
+<tr>
+<td align="left">IT0953A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Roma</td>
+</tr>
+<tr>
+<td align="left">IT0956A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Roma</td>
+</tr>
+<tr>
+<td align="left">IT0957A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Roma</td>
+</tr>
+<tr>
+<td align="left">IT0989A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Rieti</td>
+</tr>
+<tr>
+<td align="left">IT1183A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Frosinone</td>
+</tr>
+<tr>
+<td align="left">IT1184A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Latina</td>
+</tr>
+<tr>
+<td align="left">IT1836A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Roma</td>
+</tr>
+<tr>
+<td align="left">IT1906A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Roma</td>
+</tr>
+<tr>
+<td align="left">IT2012A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Roma</td>
+</tr>
+<tr>
+<td align="left">IT2013A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Frosinone</td>
+</tr>
+<tr>
+<td align="left">IT2023A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">12</td>
+<td align="left">LAZIO</td>
+<td align="left">Viterbo</td>
+</tr>
+</tbody></table>
+
+<h2>TOSCANA : 15</h2>
+
+<table><thead>
+<tr>
+<th align="left">station_eu_code</th>
+<th align="left">p16_19</th>
+<th align="left">p20</th>
+<th align="left">Valida</th>
+<th align="right">region_id</th>
+<th align="left">regione</th>
+<th align="left">provincia</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">IT0861A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Firenze</td>
+</tr>
+<tr>
+<td align="left">IT0862A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Firenze</td>
+</tr>
+<tr>
+<td align="left">IT0945A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Prato</td>
+</tr>
+<tr>
+<td align="left">IT0950A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Arezzo</td>
+</tr>
+<tr>
+<td align="left">IT1110A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Pisa</td>
+</tr>
+<tr>
+<td align="left">IT1186A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Lucca</td>
+</tr>
+<tr>
+<td align="left">IT1187A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Lucca</td>
+</tr>
+<tr>
+<td align="left">IT1409A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Pisa</td>
+</tr>
+<tr>
+<td align="left">IT1553A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Pistoia</td>
+</tr>
+<tr>
+<td align="left">IT1557A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Livorno</td>
+</tr>
+<tr>
+<td align="left">IT1560A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Livorno</td>
+</tr>
+<tr>
+<td align="left">IT1593A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Grosseto</td>
+</tr>
+<tr>
+<td align="left">IT1654A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Prato</td>
+</tr>
+<tr>
+<td align="left">IT2032A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Siena</td>
+</tr>
+<tr>
+<td align="left">IT2241A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">9</td>
+<td align="left">TOSCANA</td>
+<td align="left">Massa Carrara</td>
+</tr>
+</tbody></table>
+
+<h2>FRIULI_VENEZIA_GIULIA : 1</h2>
+
+<table><thead>
+<tr>
+<th align="left">station_eu_code</th>
+<th align="left">p16_19</th>
+<th align="left">p20</th>
+<th align="left">Valida</th>
+<th align="right">region_id</th>
+<th align="left">regione</th>
+<th align="left">provincia</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">IT0966A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">6</td>
+<td align="left">FRIULI_VENEZIA_GIULIA</td>
+<td align="left">Udine</td>
+</tr>
+</tbody></table>
+
+<h2>VALLE_AOSTA : 2</h2>
+
+<table><thead>
+<tr>
+<th align="left">station_eu_code</th>
+<th align="left">p16_19</th>
+<th align="left">p20</th>
+<th align="left">Valida</th>
+<th align="right">region_id</th>
+<th align="left">regione</th>
+<th align="left">provincia</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">IT0983A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">2</td>
+<td align="left">VALLE_AOSTA</td>
+<td align="left">Aosta</td>
+</tr>
+<tr>
+<td align="left">IT2233A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">2</td>
+<td align="left">VALLE_AOSTA</td>
+<td align="left">Aosta</td>
+</tr>
+</tbody></table>
+
+<h2>UMBRIA : 12</h2>
+
+<table><thead>
+<tr>
+<th align="left">station_eu_code</th>
+<th align="left">p16_19</th>
+<th align="left">p20</th>
+<th align="left">Valida</th>
+<th align="right">region_id</th>
+<th align="left">regione</th>
+<th align="left">provincia</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">IT1011A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">10</td>
+<td align="left">UMBRIA</td>
+<td align="left">Terni</td>
+</tr>
+<tr>
+<td align="left">IT1180A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">10</td>
+<td align="left">UMBRIA</td>
+<td align="left">Perugia</td>
+</tr>
+<tr>
+<td align="left">IT1728A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">10</td>
+<td align="left">UMBRIA</td>
+<td align="left">Terni</td>
+</tr>
+<tr>
+<td align="left">IT1860A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">10</td>
+<td align="left">UMBRIA</td>
+<td align="left">Perugia</td>
+</tr>
+<tr>
+<td align="left">IT1900A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">10</td>
+<td align="left">UMBRIA</td>
+<td align="left">Perugia</td>
+</tr>
+<tr>
+<td align="left">IT1901A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">10</td>
+<td align="left">UMBRIA</td>
+<td align="left">Perugia</td>
+</tr>
+<tr>
+<td align="left">IT1902A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">10</td>
+<td align="left">UMBRIA</td>
+<td align="left">Perugia</td>
+</tr>
+<tr>
+<td align="left">IT2004A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">10</td>
+<td align="left">UMBRIA</td>
+<td align="left">Perugia</td>
+</tr>
+<tr>
+<td align="left">IT2100A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">10</td>
+<td align="left">UMBRIA</td>
+<td align="left">Perugia</td>
+</tr>
+<tr>
+<td align="left">IT2105A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">10</td>
+<td align="left">UMBRIA</td>
+<td align="left">Perugia</td>
+</tr>
+<tr>
+<td align="left">IT2109A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">10</td>
+<td align="left">UMBRIA</td>
+<td align="left">Terni</td>
+</tr>
+<tr>
+<td align="left">IT2113A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">10</td>
+<td align="left">UMBRIA</td>
+<td align="left">Terni</td>
+</tr>
+</tbody></table>
+
+<h2>VENETO : 7</h2>
+
+<table><thead>
+<tr>
+<th align="left">station_eu_code</th>
+<th align="left">p16_19</th>
+<th align="left">p20</th>
+<th align="left">Valida</th>
+<th align="right">region_id</th>
+<th align="left">regione</th>
+<th align="left">provincia</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">IT1065A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">5</td>
+<td align="left">VENETO</td>
+<td align="left">Vicenza</td>
+</tr>
+<tr>
+<td align="left">IT1222A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">5</td>
+<td align="left">VENETO</td>
+<td align="left">Venezia</td>
+</tr>
+<tr>
+<td align="left">IT1453A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">5</td>
+<td align="left">VENETO</td>
+<td align="left">Padova</td>
+</tr>
+<tr>
+<td align="left">IT1590A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">5</td>
+<td align="left">VENETO</td>
+<td align="left">Treviso</td>
+</tr>
+<tr>
+<td align="left">IT1619A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">5</td>
+<td align="left">VENETO</td>
+<td align="left">Belluno</td>
+</tr>
+<tr>
+<td align="left">IT1871A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">5</td>
+<td align="left">VENETO</td>
+<td align="left">Padova</td>
+</tr>
+<tr>
+<td align="left">IT1936A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">5</td>
+<td align="left">VENETO</td>
+<td align="left">Venezia</td>
+</tr>
+</tbody></table>
+
+<h2>PIEMONTE : 9</h2>
+
+<table><thead>
+<tr>
+<th align="left">station_eu_code</th>
+<th align="left">p16_19</th>
+<th align="left">p20</th>
+<th align="left">Valida</th>
+<th align="right">region_id</th>
+<th align="left">regione</th>
+<th align="left">provincia</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">IT1130A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">PIEMONTE</td>
+<td align="left">Torino</td>
+</tr>
+<tr>
+<td align="left">IT1247A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">PIEMONTE</td>
+<td align="left">Biella</td>
+</tr>
+<tr>
+<td align="left">IT1510A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">PIEMONTE</td>
+<td align="left">Verbano-Cusio-Ossola</td>
+</tr>
+<tr>
+<td align="left">IT1529A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">PIEMONTE</td>
+<td align="left">Cuneo</td>
+</tr>
+<tr>
+<td align="left">IT1532A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">PIEMONTE</td>
+<td align="left">Vercelli</td>
+</tr>
+<tr>
+<td align="left">IT1788A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">PIEMONTE</td>
+<td align="left">Torino</td>
+</tr>
+<tr>
+<td align="left">IT1830A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">PIEMONTE</td>
+<td align="left">Alessandria</td>
+</tr>
+<tr>
+<td align="left">IT1878A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">PIEMONTE</td>
+<td align="left">Vercelli</td>
+</tr>
+<tr>
+<td align="left">IT1948A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="left">PIEMONTE</td>
+<td align="left">Asti</td>
+</tr>
+</tbody></table>
+
+<h2>SARDEGNA : 7</h2>
+
+<table><thead>
+<tr>
+<th align="left">station_eu_code</th>
+<th align="left">p16_19</th>
+<th align="left">p20</th>
+<th align="left">Valida</th>
+<th align="right">region_id</th>
+<th align="left">regione</th>
+<th align="left">provincia</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">IT1575A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">20</td>
+<td align="left">SARDEGNA</td>
+<td align="left">Carbonia-Iglesias</td>
+</tr>
+<tr>
+<td align="left">IT1576A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">20</td>
+<td align="left">SARDEGNA</td>
+<td align="left">Carbonia-Iglesias</td>
+</tr>
+<tr>
+<td align="left">IT1993A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">20</td>
+<td align="left">SARDEGNA</td>
+<td align="left">Cagliari</td>
+</tr>
+<tr>
+<td align="left">IT1996A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">20</td>
+<td align="left">SARDEGNA</td>
+<td align="left">Nuoro</td>
+</tr>
+<tr>
+<td align="left">IT2009A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">20</td>
+<td align="left">SARDEGNA</td>
+<td align="left">Sassari</td>
+</tr>
+<tr>
+<td align="left">IT2011A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">20</td>
+<td align="left">SARDEGNA</td>
+<td align="left">Cagliari</td>
+</tr>
+<tr>
+<td align="left">IT2056A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">20</td>
+<td align="left">SARDEGNA</td>
+<td align="left">Cagliari</td>
+</tr>
+</tbody></table>
+
+<h2>PUGLIA : 6</h2>
+
+<table><thead>
+<tr>
+<th align="left">station_eu_code</th>
+<th align="left">p16_19</th>
+<th align="left">p20</th>
+<th align="left">Valida</th>
+<th align="right">region_id</th>
+<th align="left">regione</th>
+<th align="left">provincia</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">IT1609A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">16</td>
+<td align="left">PUGLIA</td>
+<td align="left">Taranto</td>
+</tr>
+<tr>
+<td align="left">IT1611A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">16</td>
+<td align="left">PUGLIA</td>
+<td align="left">Taranto</td>
+</tr>
+<tr>
+<td align="left">IT1613A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">16</td>
+<td align="left">PUGLIA</td>
+<td align="left">Taranto</td>
+</tr>
+<tr>
+<td align="left">IT1658A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">16</td>
+<td align="left">PUGLIA</td>
+<td align="left">Brindisi</td>
+</tr>
+<tr>
+<td align="left">IT2148A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">16</td>
+<td align="left">PUGLIA</td>
+<td align="left">Brindisi</td>
+</tr>
+<tr>
+<td align="left">IT2151A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">16</td>
+<td align="left">PUGLIA</td>
+<td align="left">Brindisi</td>
+</tr>
+</tbody></table>
+
+<h2>BASILICATA : 1</h2>
+
+<table><thead>
+<tr>
+<th align="left">station_eu_code</th>
+<th align="left">p16_19</th>
+<th align="left">p20</th>
+<th align="left">Valida</th>
+<th align="right">region_id</th>
+<th align="left">regione</th>
+<th align="left">provincia</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">IT2205A</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="right">17</td>
+<td align="left">BASILICATA</td>
+<td align="left">Potenza</td>
+</tr>
+</tbody></table>
+
+</body>
+
+</html>

@@ -12,33 +12,7 @@
 |PA_BOLZANO     |  1|
 |SARDEGNA       |  4|
 |TOSCANA        |  2|
-|VENETO         | 18|
-|Total          | 51|
-
-
-## VENETO : 18
-
-
-|station_eu_code |p16_19 |p20   |Valida | region_id|regione |provincia |
-|:---------------|:------|:-----|:------|---------:|:-------|:---------|
-|IT0448A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Venezia   |
-|IT0663A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Vicenza   |
-|IT0963A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Venezia   |
-|IT1177A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Vicenza   |
-|IT1214A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Rovigo    |
-|IT1215A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Rovigo    |
-|IT1222A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Venezia   |
-|IT1453A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Padova    |
-|IT1590A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Treviso   |
-|IT1594A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Belluno   |
-|IT1596A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Treviso   |
-|IT1838A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Vicenza   |
-|IT1862A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Venezia   |
-|IT1870A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Padova    |
-|IT1880A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Padova    |
-|IT2071A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Padova    |
-|IT2072A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Rovigo    |
-|IT2231A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Treviso   |
+|Total          | 33|
 
 
 ## PA_BOLZANO : 1

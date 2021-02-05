@@ -1,4 +1,7 @@
-## PULVIRUS (Sparta release)
+---
+layout: post
+title: PULVIRUS (Sparta release)
+---
 
 
 |Inquinante | Sommario |   | | 

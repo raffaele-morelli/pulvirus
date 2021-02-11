@@ -1,127 +1,24 @@
 
+# VALIDE
 
-|station_eu_code |p16_19 |p20   |valida | pollutant_fk| region_id|regione  |provincia         |
-|:---------------|:------|:-----|:------|------------:|---------:|:--------|:-----------------|
-|IT1243A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Sassari           |
-|IT1243A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Sassari           |
-|IT1243A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Sassari           |
-|IT1243A         |TRUE   |TRUE  |TRUE   |           10|        20|SARDEGNA |Sassari           |
-|IT1243A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Sassari           |
-|IT1269A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Cagliari          |
-|IT1269A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Cagliari          |
-|IT1269A         |FALSE  |TRUE  |FALSE  |         6001|        20|SARDEGNA |Cagliari          |
-|IT1269A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Cagliari          |
-|IT1269A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Cagliari          |
-|IT1269A         |TRUE   |TRUE  |TRUE   |           20|        20|SARDEGNA |Cagliari          |
-|IT1269A         |TRUE   |TRUE  |TRUE   |           10|        20|SARDEGNA |Cagliari          |
-|IT1273A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1273A         |TRUE   |TRUE  |TRUE   |           10|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1273A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1273A         |FALSE  |TRUE  |FALSE  |            5|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1277A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Nuoro             |
-|IT1277A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Nuoro             |
-|IT1277A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Nuoro             |
-|IT1309A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Olbia-Tempio      |
-|IT1309A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Olbia-Tempio      |
-|IT1309A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Olbia-Tempio      |
-|IT1309A         |TRUE   |TRUE  |TRUE   |           10|        20|SARDEGNA |Olbia-Tempio      |
-|IT1347A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Sassari           |
-|IT1347A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Sassari           |
-|IT1347A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Sassari           |
-|IT1375A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Cagliari          |
-|IT1375A         |FALSE  |TRUE  |FALSE  |            8|        20|SARDEGNA |Cagliari          |
-|IT1375A         |FALSE  |TRUE  |FALSE  |            9|        20|SARDEGNA |Cagliari          |
-|IT1375A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Cagliari          |
-|IT1383A         |TRUE   |TRUE  |TRUE   |           20|        20|SARDEGNA |Sassari           |
-|IT1383A         |FALSE  |TRUE  |FALSE  |            9|        20|SARDEGNA |Sassari           |
-|IT1383A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Sassari           |
-|IT1383A         |FALSE  |TRUE  |FALSE  |            8|        20|SARDEGNA |Sassari           |
-|IT1397A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Cagliari          |
-|IT1397A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Cagliari          |
-|IT1397A         |TRUE   |TRUE  |TRUE   |           10|        20|SARDEGNA |Cagliari          |
-|IT1397A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Cagliari          |
-|IT1397A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Cagliari          |
-|IT1407A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Nuoro             |
-|IT1407A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Nuoro             |
-|IT1407A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Nuoro             |
-|IT1575A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1575A         |FALSE  |TRUE  |FALSE  |            5|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1575A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1575A         |TRUE   |TRUE  |TRUE   |         6001|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1576A         |TRUE   |TRUE  |TRUE   |         6001|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1576A         |TRUE   |TRUE  |TRUE   |           20|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1576A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1576A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1576A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1576A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1576A         |TRUE   |TRUE  |TRUE   |           10|        20|SARDEGNA |Carbonia-Iglesias |
-|IT1947A         |FALSE  |TRUE  |FALSE  |         6001|        20|SARDEGNA |Cagliari          |
-|IT1947A         |FALSE  |TRUE  |FALSE  |            8|        20|SARDEGNA |Cagliari          |
-|IT1947A         |FALSE  |TRUE  |FALSE  |           20|        20|SARDEGNA |Cagliari          |
-|IT1947A         |FALSE  |TRUE  |FALSE  |            9|        20|SARDEGNA |Cagliari          |
-|IT1947A         |FALSE  |TRUE  |FALSE  |            5|        20|SARDEGNA |Cagliari          |
-|IT1947A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Cagliari          |
-|IT1993A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Cagliari          |
-|IT1993A         |TRUE   |TRUE  |TRUE   |           10|        20|SARDEGNA |Cagliari          |
-|IT1993A         |TRUE   |TRUE  |TRUE   |         6001|        20|SARDEGNA |Cagliari          |
-|IT1993A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Cagliari          |
-|IT1993A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Cagliari          |
-|IT1993A         |TRUE   |TRUE  |TRUE   |           20|        20|SARDEGNA |Cagliari          |
-|IT1993A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Cagliari          |
-|IT1996A         |TRUE   |TRUE  |TRUE   |           20|        20|SARDEGNA |Nuoro             |
-|IT1996A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Nuoro             |
-|IT1996A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Nuoro             |
-|IT1996A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Nuoro             |
-|IT1996A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Nuoro             |
-|IT1996A         |TRUE   |TRUE  |TRUE   |         6001|        20|SARDEGNA |Nuoro             |
-|IT2005A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Olbia-Tempio      |
-|IT2005A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Olbia-Tempio      |
-|IT2005A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Olbia-Tempio      |
-|IT2005A         |TRUE   |TRUE  |TRUE   |           10|        20|SARDEGNA |Olbia-Tempio      |
-|IT2005A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Olbia-Tempio      |
-|IT2008A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Oristano          |
-|IT2008A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Oristano          |
-|IT2008A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Oristano          |
-|IT2008A         |FALSE  |TRUE  |FALSE  |           10|        20|SARDEGNA |Oristano          |
-|IT2009A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Sassari           |
-|IT2009A         |TRUE   |TRUE  |TRUE   |           20|        20|SARDEGNA |Sassari           |
-|IT2009A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Sassari           |
-|IT2009A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Sassari           |
-|IT2009A         |TRUE   |TRUE  |TRUE   |           10|        20|SARDEGNA |Sassari           |
-|IT2009A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Sassari           |
-|IT2009A         |TRUE   |TRUE  |TRUE   |         6001|        20|SARDEGNA |Sassari           |
-|IT2010A         |TRUE   |TRUE  |TRUE   |           10|        20|SARDEGNA |Sassari           |
-|IT2010A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Sassari           |
-|IT2010A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Sassari           |
-|IT2010A         |TRUE   |TRUE  |TRUE   |           20|        20|SARDEGNA |Sassari           |
-|IT2010A         |FALSE  |TRUE  |FALSE  |         6001|        20|SARDEGNA |Sassari           |
-|IT2010A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Sassari           |
-|IT2010A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Sassari           |
-|IT2011A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Cagliari          |
-|IT2011A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Cagliari          |
-|IT2011A         |TRUE   |TRUE  |TRUE   |           10|        20|SARDEGNA |Cagliari          |
-|IT2011A         |TRUE   |TRUE  |TRUE   |         6001|        20|SARDEGNA |Cagliari          |
-|IT2011A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Cagliari          |
-|IT2011A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Cagliari          |
-|IT2040A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Cagliari          |
-|IT2040A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Cagliari          |
-|IT2040A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Cagliari          |
-|IT2040A         |TRUE   |TRUE  |TRUE   |           20|        20|SARDEGNA |Cagliari          |
-|IT2040A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Cagliari          |
-|IT2049A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Cagliari          |
-|IT2049A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Cagliari          |
-|IT2049A         |FALSE  |TRUE  |FALSE  |            5|        20|SARDEGNA |Cagliari          |
-|IT2049A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Cagliari          |
-|IT2056A         |TRUE   |TRUE  |TRUE   |           20|        20|SARDEGNA |Cagliari          |
-|IT2056A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Cagliari          |
-|IT2056A         |TRUE   |TRUE  |TRUE   |            9|        20|SARDEGNA |Cagliari          |
-|IT2056A         |TRUE   |TRUE  |TRUE   |            8|        20|SARDEGNA |Cagliari          |
-|IT2056A         |TRUE   |TRUE  |TRUE   |           10|        20|SARDEGNA |Cagliari          |
-|IT2056A         |TRUE   |TRUE  |TRUE   |         6001|        20|SARDEGNA |Cagliari          |
-|IT2056A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Cagliari          |
-|IT2059A         |FALSE  |TRUE  |FALSE  |            9|        20|SARDEGNA |Sassari           |
-|IT2059A         |FALSE  |TRUE  |FALSE  |            8|        20|SARDEGNA |Sassari           |
-|IT2059A         |TRUE   |TRUE  |TRUE   |           20|        20|SARDEGNA |Sassari           |
-|IT2059A         |TRUE   |TRUE  |TRUE   |           10|        20|SARDEGNA |Sassari           |
-|IT2059A         |TRUE   |TRUE  |TRUE   |            5|        20|SARDEGNA |Sassari           |
-|IT2059A         |FALSE  |FALSE |FALSE  |            7|        20|SARDEGNA |Sassari           |
+|inquinante |  n|
+|:----------|--:|
+|c6h6       | 10|
+|co         | 13|
+|no2        | 20|
+|nox        | 20|
+|o3         | 16|
+|pm10       | 19|
+|PM25       |  7|
+
+# NON VALIDE
+
+|inquinante |  n|
+|:----------|--:|
+|c6h6       |  1|
+|co         |  1|
+|no2        |  4|
+|nox        |  4|
+|o3         |  1|
+|pm10       |  4|
+|PM25       |  3|

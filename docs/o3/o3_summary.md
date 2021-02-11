@@ -9,5 +9,5 @@
  252 
 
 ## Numero stazioni valide - dettaglio: 
-Valide: 0 
-Non valide: 252 
+Valide: 169 
+Non valide: 83 

@@ -2,47 +2,21 @@
 # NON VALIDE
 
 
-|regione               |   n|
-|:---------------------|---:|
-|BASILICATA            |   4|
-|CAMPANIA              |  25|
-|EMILIA_ROMAGNA        |  27|
-|FRIULI_VENEZIA_GIULIA |   3|
-|LAZIO                 |  11|
-|LOMBARDIA             |  39|
-|MOLISE                |   7|
-|PA_BOLZANO            |   1|
-|PIEMONTE              |  11|
-|PUGLIA                |   7|
-|SARDEGNA              |   4|
-|SICILIA               |  13|
-|TOSCANA               |   2|
-|VENETO                |  17|
-|Total                 | 171|
-
-
-## VENETO : 17
-
-
-|station_eu_code |p16_19 |p20   |Valida | region_id|regione |provincia |
-|:---------------|:------|:-----|:------|---------:|:-------|:---------|
-|IT0448A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Venezia   |
-|IT0663A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Vicenza   |
-|IT0963A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Venezia   |
-|IT1177A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Vicenza   |
-|IT1214A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Rovigo    |
-|IT1215A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Rovigo    |
-|IT1222A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Venezia   |
-|IT1453A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Padova    |
-|IT1590A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Treviso   |
-|IT1594A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Belluno   |
-|IT1596A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Treviso   |
-|IT1838A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Vicenza   |
-|IT1870A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Padova    |
-|IT1880A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Padova    |
-|IT2071A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Padova    |
-|IT2072A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Rovigo    |
-|IT2231A         |TRUE   |FALSE |FALSE  |         5|VENETO  |Treviso   |
+|regione        |   n|
+|:--------------|---:|
+|BASILICATA     |   4|
+|CAMPANIA       |  25|
+|EMILIA_ROMAGNA |  27|
+|LAZIO          |  11|
+|LOMBARDIA      |  39|
+|MOLISE         |   7|
+|PA_BOLZANO     |   1|
+|PIEMONTE       |  11|
+|PUGLIA         |   7|
+|SARDEGNA       |   4|
+|SICILIA        |  13|
+|TOSCANA        |   2|
+|Total          | 151|
 
 
 ## PIEMONTE : 11
@@ -219,16 +193,6 @@
 |IT2254A         |FALSE  |TRUE |FALSE  |        12|LAZIO   |Roma      |
 |IT2255A         |FALSE  |TRUE |FALSE  |        12|LAZIO   |Roma      |
 |IT2257A         |FALSE  |TRUE |FALSE  |        12|LAZIO   |Viterbo   |
-
-
-## FRIULI_VENEZIA_GIULIA : 3
-
-
-|station_eu_code |p16_19 |p20   |Valida | region_id|regione               |provincia |
-|:---------------|:------|:-----|:------|---------:|:---------------------|:---------|
-|IT0966A         |TRUE   |FALSE |FALSE  |         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2140A         |TRUE   |FALSE |FALSE  |         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2201A         |TRUE   |FALSE |FALSE  |         6|FRIULI_VENEZIA_GIULIA |Pordenone |
 
 
 ## BASILICATA : 4

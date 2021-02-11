@@ -1,56 +1,20 @@
 
+# VALIDE
 
-|station_eu_code |p16_19 |p20   |valida | pollutant_fk| region_id|regione               |provincia |
-|:---------------|:------|:-----|:------|------------:|---------:|:---------------------|:---------|
-|IT0966A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT0966A         |TRUE   |FALSE |FALSE  |            8|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT0966A         |TRUE   |TRUE  |TRUE   |           20|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT0966A         |TRUE   |TRUE  |TRUE   |         6001|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT0966A         |FALSE  |FALSE |FALSE  |            7|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT1090A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Trieste   |
-|IT1090A         |FALSE  |FALSE |FALSE  |            7|         6|FRIULI_VENEZIA_GIULIA |Trieste   |
-|IT1090A         |FALSE  |TRUE  |FALSE  |           10|         6|FRIULI_VENEZIA_GIULIA |Trieste   |
-|IT1112A         |FALSE  |FALSE |FALSE  |            7|         6|FRIULI_VENEZIA_GIULIA |Pordenone |
-|IT1112A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Pordenone |
-|IT1166A         |FALSE  |FALSE |FALSE  |            7|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT1166A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT1168A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT1168A         |FALSE  |FALSE |FALSE  |            7|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT1170A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT1170A         |FALSE  |FALSE |FALSE  |            7|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT1259A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT1475A         |FALSE  |TRUE  |FALSE  |           10|         6|FRIULI_VENEZIA_GIULIA |Trieste   |
-|IT1475A         |FALSE  |TRUE  |FALSE  |            5|         6|FRIULI_VENEZIA_GIULIA |Trieste   |
-|IT1538A         |FALSE  |TRUE  |FALSE  |            5|         6|FRIULI_VENEZIA_GIULIA |Gorizia   |
-|IT1587A         |FALSE  |TRUE  |FALSE  |            5|         6|FRIULI_VENEZIA_GIULIA |Gorizia   |
-|IT1587A         |FALSE  |TRUE  |FALSE  |         6001|         6|FRIULI_VENEZIA_GIULIA |Gorizia   |
-|IT2115A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Pordenone |
-|IT2115A         |FALSE  |FALSE |FALSE  |            7|         6|FRIULI_VENEZIA_GIULIA |Pordenone |
-|IT2129A         |FALSE  |TRUE  |FALSE  |            5|         6|FRIULI_VENEZIA_GIULIA |Gorizia   |
-|IT2129A         |FALSE  |FALSE |FALSE  |            7|         6|FRIULI_VENEZIA_GIULIA |Gorizia   |
-|IT2129A         |FALSE  |TRUE  |FALSE  |         6001|         6|FRIULI_VENEZIA_GIULIA |Gorizia   |
-|IT2130A         |FALSE  |FALSE |FALSE  |            7|         6|FRIULI_VENEZIA_GIULIA |Gorizia   |
-|IT2130A         |FALSE  |TRUE  |FALSE  |            5|         6|FRIULI_VENEZIA_GIULIA |Gorizia   |
-|IT2131A         |FALSE  |TRUE  |FALSE  |            5|         6|FRIULI_VENEZIA_GIULIA |Gorizia   |
-|IT2131A         |FALSE  |TRUE  |FALSE  |         6001|         6|FRIULI_VENEZIA_GIULIA |Gorizia   |
-|IT2131A         |FALSE  |FALSE |FALSE  |            7|         6|FRIULI_VENEZIA_GIULIA |Gorizia   |
-|IT2132A         |FALSE  |TRUE  |FALSE  |            5|         6|FRIULI_VENEZIA_GIULIA |Gorizia   |
-|IT2132A         |FALSE  |FALSE |FALSE  |            7|         6|FRIULI_VENEZIA_GIULIA |Gorizia   |
-|IT2133A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2133A         |FALSE  |FALSE |FALSE  |            7|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2140A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2140A         |TRUE   |FALSE |FALSE  |            8|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2140A         |FALSE  |TRUE  |FALSE  |           20|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2152A         |TRUE   |TRUE  |TRUE   |           10|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2152A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2169A         |FALSE  |FALSE |FALSE  |            7|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2169A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2169A         |TRUE   |TRUE  |TRUE   |           10|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2170A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2170A         |FALSE  |TRUE  |FALSE  |           10|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2182A         |FALSE  |FALSE |FALSE  |            7|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2182A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Udine     |
-|IT2200A         |TRUE   |TRUE  |TRUE   |            5|         6|FRIULI_VENEZIA_GIULIA |Pordenone |
-|IT2201A         |FALSE  |TRUE  |FALSE  |         6001|         6|FRIULI_VENEZIA_GIULIA |Pordenone |
-|IT2201A         |FALSE  |TRUE  |FALSE  |            5|         6|FRIULI_VENEZIA_GIULIA |Pordenone |
-|IT2201A         |TRUE   |FALSE |FALSE  |            8|         6|FRIULI_VENEZIA_GIULIA |Pordenone |
+|inquinante |  n|
+|:----------|--:|
+|c6h6       |  1|
+|co         |  2|
+|o3         |  8|
+|pm10       | 15|
+|PM25       |  1|
+
+# NON VALIDE
+
+|inquinante |  n|
+|:----------|--:|
+|c6h6       |  1|
+|co         |  3|
+|o3         |  6|
+|pm10       |  8|
+|PM25       |  4|

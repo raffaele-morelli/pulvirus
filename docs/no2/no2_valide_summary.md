@@ -19,8 +19,8 @@
 |TOSCANA        |  34|
 |UMBRIA         |  15|
 |VALLE_AOSTA    |   3|
-|VENETO         |  15|
-|Total          | 243|
+|VENETO         |  32|
+|Total          | 260|
 
 ## TOSCANA : 34
 
@@ -139,6 +139,45 @@
 |IT2007A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Como      |
 |IT2230A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Mantova   |
 |IT2232A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Milano    |
+
+
+## VENETO : 32
+
+
+|station_eu_code |p16_19 |p20  |Valida | region_id|regione |provincia |
+|:---------------|:------|:----|:------|---------:|:-------|:---------|
+|IT0448A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Venezia   |
+|IT0663A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Vicenza   |
+|IT0963A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Venezia   |
+|IT1065A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Vicenza   |
+|IT1172A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Vicenza   |
+|IT1177A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Vicenza   |
+|IT1213A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Rovigo    |
+|IT1214A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Rovigo    |
+|IT1215A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Rovigo    |
+|IT1222A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Venezia   |
+|IT1328A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Treviso   |
+|IT1336A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Verona    |
+|IT1340A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Verona    |
+|IT1453A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Padova    |
+|IT1535A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Verona    |
+|IT1590A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Treviso   |
+|IT1594A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Belluno   |
+|IT1596A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Treviso   |
+|IT1619A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Belluno   |
+|IT1790A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Belluno   |
+|IT1791A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Vicenza   |
+|IT1833A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Vicenza   |
+|IT1838A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Vicenza   |
+|IT1848A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Verona    |
+|IT1870A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Padova    |
+|IT1871A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Padova    |
+|IT1880A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Padova    |
+|IT1936A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Venezia   |
+|IT2071A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Padova    |
+|IT2072A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Rovigo    |
+|IT2231A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Treviso   |
+|IT2243A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Verona    |
 
 
 ## PA_BOLZANO : 5
@@ -291,28 +330,6 @@
 |IT1496A         |TRUE   |TRUE |TRUE   |        15|CAMPANIA |Napoli    |
 |IT1497A         |TRUE   |TRUE |TRUE   |        15|CAMPANIA |Napoli    |
 |IT2214A         |TRUE   |TRUE |TRUE   |        15|CAMPANIA |Salerno   |
-
-
-## VENETO : 15
-
-
-|station_eu_code |p16_19 |p20  |Valida | region_id|regione |provincia |
-|:---------------|:------|:----|:------|---------:|:-------|:---------|
-|IT1065A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Vicenza   |
-|IT1172A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Vicenza   |
-|IT1213A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Rovigo    |
-|IT1328A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Treviso   |
-|IT1336A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Verona    |
-|IT1340A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Verona    |
-|IT1535A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Verona    |
-|IT1619A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Belluno   |
-|IT1790A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Belluno   |
-|IT1791A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Vicenza   |
-|IT1833A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Vicenza   |
-|IT1848A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Verona    |
-|IT1871A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Padova    |
-|IT1936A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Venezia   |
-|IT2243A         |TRUE   |TRUE |TRUE   |         5|VENETO  |Verona    |
 
 
 ## PA_TRENTO : 1

@@ -1,139 +1,18 @@
 
+# VALIDE
 
-|station_eu_code |p16_19 |p20   |valida | pollutant_fk| region_id|regione |provincia |
-|:---------------|:------|:-----|:------|------------:|---------:|:-------|:---------|
-|IT0448A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Venezia   |
-|IT0448A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Venezia   |
-|IT0448A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Venezia   |
-|IT0448A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Venezia   |
-|IT0663A         |FALSE  |FALSE |FALSE  |           20|         5|VENETO  |Vicenza   |
-|IT0663A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Vicenza   |
-|IT0663A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Vicenza   |
-|IT0663A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Vicenza   |
-|IT0663A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Vicenza   |
-|IT0963A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Venezia   |
-|IT0963A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Venezia   |
-|IT0963A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Venezia   |
-|IT0963A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Venezia   |
-|IT1065A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Vicenza   |
-|IT1065A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Vicenza   |
-|IT1065A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Vicenza   |
-|IT1065A         |TRUE   |TRUE  |TRUE   |         6001|         5|VENETO  |Vicenza   |
-|IT1172A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Vicenza   |
-|IT1172A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Vicenza   |
-|IT1177A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Vicenza   |
-|IT1177A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Vicenza   |
-|IT1177A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Vicenza   |
-|IT1177A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Vicenza   |
-|IT1213A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Rovigo    |
-|IT1213A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Rovigo    |
-|IT1213A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Rovigo    |
-|IT1213A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Rovigo    |
-|IT1214A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Rovigo    |
-|IT1214A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Rovigo    |
-|IT1214A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Rovigo    |
-|IT1215A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Rovigo    |
-|IT1215A         |TRUE   |TRUE  |TRUE   |           10|         5|VENETO  |Rovigo    |
-|IT1215A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Rovigo    |
-|IT1215A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Rovigo    |
-|IT1222A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Venezia   |
-|IT1222A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Venezia   |
-|IT1222A         |TRUE   |TRUE  |TRUE   |         6001|         5|VENETO  |Venezia   |
-|IT1222A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Venezia   |
-|IT1328A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Treviso   |
-|IT1328A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Treviso   |
-|IT1328A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Treviso   |
-|IT1328A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Treviso   |
-|IT1336A         |FALSE  |FALSE |FALSE  |           20|         5|VENETO  |Verona    |
-|IT1336A         |TRUE   |TRUE  |TRUE   |           10|         5|VENETO  |Verona    |
-|IT1336A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Verona    |
-|IT1336A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Verona    |
-|IT1336A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Verona    |
-|IT1340A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Verona    |
-|IT1340A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Verona    |
-|IT1340A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Verona    |
-|IT1340A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Verona    |
-|IT1453A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Padova    |
-|IT1453A         |TRUE   |TRUE  |TRUE   |         6001|         5|VENETO  |Padova    |
-|IT1453A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Padova    |
-|IT1453A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Padova    |
-|IT1453A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Padova    |
-|IT1535A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Verona    |
-|IT1535A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Verona    |
-|IT1535A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Verona    |
-|IT1535A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Verona    |
-|IT1590A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Treviso   |
-|IT1590A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Treviso   |
-|IT1590A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Treviso   |
-|IT1590A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Treviso   |
-|IT1590A         |TRUE   |TRUE  |TRUE   |         6001|         5|VENETO  |Treviso   |
-|IT1594A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Belluno   |
-|IT1594A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Belluno   |
-|IT1594A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Belluno   |
-|IT1594A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Belluno   |
-|IT1596A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Treviso   |
-|IT1596A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Treviso   |
-|IT1596A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Treviso   |
-|IT1596A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Treviso   |
-|IT1619A         |TRUE   |TRUE  |TRUE   |         6001|         5|VENETO  |Belluno   |
-|IT1619A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Belluno   |
-|IT1619A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Belluno   |
-|IT1619A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Belluno   |
-|IT1619A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Belluno   |
-|IT1790A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Belluno   |
-|IT1790A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Belluno   |
-|IT1790A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Belluno   |
-|IT1790A         |FALSE  |FALSE |FALSE  |           20|         5|VENETO  |Belluno   |
-|IT1790A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Belluno   |
-|IT1791A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Vicenza   |
-|IT1791A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Vicenza   |
-|IT1791A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Vicenza   |
-|IT1833A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Vicenza   |
-|IT1833A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Vicenza   |
-|IT1838A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Vicenza   |
-|IT1838A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Vicenza   |
-|IT1838A         |TRUE   |TRUE  |TRUE   |           10|         5|VENETO  |Vicenza   |
-|IT1838A         |FALSE  |TRUE  |FALSE  |            5|         5|VENETO  |Vicenza   |
-|IT1848A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Verona    |
-|IT1848A         |TRUE   |TRUE  |TRUE   |           10|         5|VENETO  |Verona    |
-|IT1848A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Verona    |
-|IT1848A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Verona    |
-|IT1848A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Verona    |
-|IT1862A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Venezia   |
-|IT1870A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Padova    |
-|IT1870A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Padova    |
-|IT1870A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Padova    |
-|IT1870A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Padova    |
-|IT1871A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Padova    |
-|IT1871A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Padova    |
-|IT1871A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Padova    |
-|IT1871A         |TRUE   |TRUE  |TRUE   |         6001|         5|VENETO  |Padova    |
-|IT1871A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Padova    |
-|IT1880A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Padova    |
-|IT1880A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Padova    |
-|IT1880A         |TRUE   |TRUE  |TRUE   |           10|         5|VENETO  |Padova    |
-|IT1880A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Padova    |
-|IT1936A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Venezia   |
-|IT1936A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Venezia   |
-|IT1936A         |TRUE   |TRUE  |TRUE   |         6001|         5|VENETO  |Venezia   |
-|IT1936A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Venezia   |
-|IT2070A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Padova    |
-|IT2071A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Padova    |
-|IT2071A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Padova    |
-|IT2071A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Padova    |
-|IT2071A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Padova    |
-|IT2071A         |TRUE   |TRUE  |TRUE   |           10|         5|VENETO  |Padova    |
-|IT2072A         |TRUE   |TRUE  |TRUE   |           10|         5|VENETO  |Rovigo    |
-|IT2072A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Rovigo    |
-|IT2072A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Rovigo    |
-|IT2072A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Rovigo    |
-|IT2072A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Rovigo    |
-|IT2231A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Treviso   |
-|IT2231A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Treviso   |
-|IT2231A         |TRUE   |FALSE |FALSE  |            8|         5|VENETO  |Treviso   |
-|IT2231A         |TRUE   |TRUE  |TRUE   |           10|         5|VENETO  |Treviso   |
-|IT2243A         |TRUE   |TRUE  |TRUE   |            8|         5|VENETO  |Verona    |
-|IT2243A         |FALSE  |FALSE |FALSE  |            7|         5|VENETO  |Verona    |
-|IT2243A         |TRUE   |TRUE  |TRUE   |            9|         5|VENETO  |Verona    |
-|IT2243A         |FALSE  |TRUE  |FALSE  |         6001|         5|VENETO  |Verona    |
-|IT2243A         |TRUE   |TRUE  |TRUE   |            5|         5|VENETO  |Verona    |
+|inquinante |  n|
+|:----------|--:|
+|co         |  8|
+|no2        | 32|
+|nox        | 33|
+|o3         | 22|
+|pm10       | 26|
+|PM25       |  7|
+
+# NON VALIDE
+
+|inquinante |  n|
+|:----------|--:|
+|o3         |  2|
+|PM25       |  1|

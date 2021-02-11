@@ -1,70 +1,23 @@
 
+# VALIDE
 
-|station_eu_code |p16_19 |p20   |valida | pollutant_fk| region_id|regione |provincia             |
-|:---------------|:------|:-----|:------|------------:|---------:|:-------|:---------------------|
-|IT1601A         |FALSE  |FALSE |FALSE  |            7|        16|PUGLIA  |Foggia                |
-|IT1607A         |FALSE  |TRUE  |FALSE  |            5|        16|PUGLIA  |Taranto               |
-|IT1607A         |FALSE  |TRUE  |FALSE  |            8|        16|PUGLIA  |Taranto               |
-|IT1608A         |TRUE   |FALSE |FALSE  |            5|        16|PUGLIA  |Taranto               |
-|IT1608A         |TRUE   |FALSE |FALSE  |            8|        16|PUGLIA  |Taranto               |
-|IT1609A         |TRUE   |TRUE  |TRUE   |           20|        16|PUGLIA  |Taranto               |
-|IT1609A         |TRUE   |TRUE  |TRUE   |            5|        16|PUGLIA  |Taranto               |
-|IT1609A         |TRUE   |TRUE  |TRUE   |         6001|        16|PUGLIA  |Taranto               |
-|IT1609A         |TRUE   |TRUE  |TRUE   |            8|        16|PUGLIA  |Taranto               |
-|IT1611A         |TRUE   |TRUE  |TRUE   |         6001|        16|PUGLIA  |Taranto               |
-|IT1611A         |TRUE   |TRUE  |TRUE   |           10|        16|PUGLIA  |Taranto               |
-|IT1611A         |TRUE   |TRUE  |TRUE   |            8|        16|PUGLIA  |Taranto               |
-|IT1611A         |TRUE   |TRUE  |TRUE   |           20|        16|PUGLIA  |Taranto               |
-|IT1611A         |TRUE   |TRUE  |TRUE   |            5|        16|PUGLIA  |Taranto               |
-|IT1613A         |TRUE   |TRUE  |TRUE   |           20|        16|PUGLIA  |Taranto               |
-|IT1613A         |TRUE   |TRUE  |TRUE   |         6001|        16|PUGLIA  |Taranto               |
-|IT1613A         |TRUE   |TRUE  |TRUE   |            5|        16|PUGLIA  |Taranto               |
-|IT1613A         |TRUE   |TRUE  |TRUE   |            8|        16|PUGLIA  |Taranto               |
-|IT1614A         |TRUE   |TRUE  |TRUE   |            8|        16|PUGLIA  |Taranto               |
-|IT1614A         |TRUE   |TRUE  |TRUE   |            9|        16|PUGLIA  |Taranto               |
-|IT1614A         |FALSE  |FALSE |FALSE  |            7|        16|PUGLIA  |Taranto               |
-|IT1614A         |TRUE   |TRUE  |TRUE   |            5|        16|PUGLIA  |Taranto               |
-|IT1624A         |FALSE  |FALSE |FALSE  |            7|        16|PUGLIA  |Bari                  |
-|IT1658A         |TRUE   |TRUE  |TRUE   |         6001|        16|PUGLIA  |Brindisi              |
-|IT1658A         |TRUE   |TRUE  |TRUE   |            5|        16|PUGLIA  |Brindisi              |
-|IT1658A         |TRUE   |TRUE  |TRUE   |            8|        16|PUGLIA  |Brindisi              |
-|IT1658A         |FALSE  |TRUE  |FALSE  |           20|        16|PUGLIA  |Brindisi              |
-|IT1658A         |TRUE   |TRUE  |TRUE   |           10|        16|PUGLIA  |Brindisi              |
-|IT1660A         |FALSE  |TRUE  |FALSE  |         6001|        16|PUGLIA  |Taranto               |
-|IT1660A         |FALSE  |TRUE  |FALSE  |           10|        16|PUGLIA  |Taranto               |
-|IT1660A         |FALSE  |TRUE  |FALSE  |            8|        16|PUGLIA  |Taranto               |
-|IT1660A         |FALSE  |TRUE  |FALSE  |            5|        16|PUGLIA  |Taranto               |
-|IT1665A         |FALSE  |FALSE |FALSE  |            7|        16|PUGLIA  |Lecce                 |
-|IT1679A         |FALSE  |FALSE |FALSE  |            7|        16|PUGLIA  |Taranto               |
-|IT1704A         |TRUE   |TRUE  |TRUE   |           10|        16|PUGLIA  |Brindisi              |
-|IT1704A         |TRUE   |TRUE  |TRUE   |            5|        16|PUGLIA  |Brindisi              |
-|IT1704A         |FALSE  |TRUE  |FALSE  |            8|        16|PUGLIA  |Brindisi              |
-|IT1704A         |FALSE  |TRUE  |FALSE  |           20|        16|PUGLIA  |Brindisi              |
-|IT1818A         |FALSE  |FALSE |FALSE  |            7|        16|PUGLIA  |Bari                  |
-|IT1823A         |FALSE  |FALSE |FALSE  |            7|        16|PUGLIA  |Bari                  |
-|IT1953A         |FALSE  |FALSE |FALSE  |            7|        16|PUGLIA  |Lecce                 |
-|IT2003A         |FALSE  |FALSE |FALSE  |            7|        16|PUGLIA  |Barletta-Andria-Trani |
-|IT2021A         |TRUE   |TRUE  |TRUE   |            8|        16|PUGLIA  |Taranto               |
-|IT2021A         |TRUE   |TRUE  |TRUE   |           20|        16|PUGLIA  |Taranto               |
-|IT2058A         |FALSE  |FALSE |FALSE  |            7|        16|PUGLIA  |Bari                  |
-|IT2139A         |FALSE  |TRUE  |FALSE  |            5|        16|PUGLIA  |Brindisi              |
-|IT2139A         |FALSE  |TRUE  |FALSE  |         6001|        16|PUGLIA  |Brindisi              |
-|IT2139A         |TRUE   |TRUE  |TRUE   |           10|        16|PUGLIA  |Brindisi              |
-|IT2139A         |TRUE   |TRUE  |TRUE   |            8|        16|PUGLIA  |Brindisi              |
-|IT2139A         |FALSE  |FALSE |FALSE  |            7|        16|PUGLIA  |Brindisi              |
-|IT2139A         |FALSE  |TRUE  |FALSE  |           20|        16|PUGLIA  |Brindisi              |
-|IT2142A         |FALSE  |FALSE |FALSE  |            7|        16|PUGLIA  |Foggia                |
-|IT2144A         |FALSE  |FALSE |FALSE  |            7|        16|PUGLIA  |Bari                  |
-|IT2148A         |TRUE   |TRUE  |TRUE   |         6001|        16|PUGLIA  |Brindisi              |
-|IT2148A         |FALSE  |TRUE  |FALSE  |           20|        16|PUGLIA  |Brindisi              |
-|IT2148A         |FALSE  |TRUE  |FALSE  |           10|        16|PUGLIA  |Brindisi              |
-|IT2148A         |TRUE   |TRUE  |TRUE   |            8|        16|PUGLIA  |Brindisi              |
-|IT2148A         |TRUE   |TRUE  |TRUE   |            5|        16|PUGLIA  |Brindisi              |
-|IT2149A         |FALSE  |FALSE |FALSE  |            7|        16|PUGLIA  |Brindisi              |
-|IT2149A         |TRUE   |TRUE  |TRUE   |            5|        16|PUGLIA  |Brindisi              |
-|IT2149A         |FALSE  |TRUE  |FALSE  |            8|        16|PUGLIA  |Brindisi              |
-|IT2150A         |TRUE   |TRUE  |TRUE   |            5|        16|PUGLIA  |Lecce                 |
-|IT2150A         |FALSE  |TRUE  |FALSE  |            8|        16|PUGLIA  |Lecce                 |
-|IT2151A         |TRUE   |TRUE  |TRUE   |            5|        16|PUGLIA  |Brindisi              |
-|IT2151A         |TRUE   |TRUE  |TRUE   |         6001|        16|PUGLIA  |Brindisi              |
-|IT2151A         |FALSE  |TRUE  |FALSE  |            8|        16|PUGLIA  |Brindisi              |
+|inquinante |  n|
+|:----------|--:|
+|c6h6       |  4|
+|co         |  4|
+|no2        |  8|
+|nox        |  1|
+|o3         |  6|
+|pm10       | 10|
+|PM25       |  6|
+
+# NON VALIDE
+
+|inquinante |  n|
+|:----------|--:|
+|c6h6       |  4|
+|co         |  2|
+|no2        |  7|
+|o3         |  8|
+|pm10       |  4|
+|PM25       |  2|

@@ -16,8 +16,7 @@
 |SICILIA               | 10|
 |TOSCANA               |  1|
 |UMBRIA                |  5|
-|VENETO                |  3|
-|Total                 | 81|
+|Total                 | 78|
 
 
 ## EMILIA_ROMAGNA : 10
@@ -91,16 +90,6 @@
 |IT1898A         |FALSE  |TRUE  |FALSE  |        19|SICILIA |Trapani       |
 |IT1997A         |FALSE  |TRUE  |FALSE  |        19|SICILIA |Messina       |
 |IT2274A         |FALSE  |TRUE  |FALSE  |        19|SICILIA |Agrigento     |
-
-
-## VENETO : 3
-
-
-|station_eu_code |p16_19 |p20   |Valida | region_id|regione |provincia |
-|:---------------|:------|:-----|:------|---------:|:-------|:---------|
-|IT0663A         |FALSE  |FALSE |FALSE  |         5|VENETO  |Vicenza   |
-|IT1336A         |FALSE  |FALSE |FALSE  |         5|VENETO  |Verona    |
-|IT1790A         |FALSE  |FALSE |FALSE  |         5|VENETO  |Belluno   |
 
 
 ## CAMPANIA : 18

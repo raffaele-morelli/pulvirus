@@ -18,8 +18,7 @@
 |SICILIA               | 12|
 |TOSCANA               |  2|
 |UMBRIA                |  3|
-|VENETO                |  1|
-|Total                 | 82|
+|Total                 | 81|
 
 
 ## PIEMONTE : 13
@@ -167,14 +166,6 @@
 |:---------------|:------|:----|:------|---------:|:-------|:-------------|
 |IT1819A         |FALSE  |TRUE |FALSE  |         9|TOSCANA |Massa Carrara |
 |IT2242A         |FALSE  |TRUE |FALSE  |         9|TOSCANA |Firenze       |
-
-
-## VENETO : 1
-
-
-|station_eu_code |p16_19 |p20  |Valida | region_id|regione |provincia |
-|:---------------|:------|:----|:------|---------:|:-------|:---------|
-|IT1838A         |FALSE  |TRUE |FALSE  |         5|VENETO  |Vicenza   |
 
 
 ## UMBRIA : 3

@@ -1,106 +1,20 @@
 
+# VALIDE
 
-|station_eu_code |p16_19 |p20   |valida | pollutant_fk| region_id|regione  |provincia            |
-|:---------------|:------|:-----|:------|------------:|---------:|:--------|:--------------------|
-|IT0469A         |TRUE   |FALSE |FALSE  |            8|         1|PIEMONTE |Torino               |
-|IT0469A         |TRUE   |FALSE |FALSE  |           20|         1|PIEMONTE |Torino               |
-|IT0469A         |TRUE   |FALSE |FALSE  |            5|         1|PIEMONTE |Torino               |
-|IT0470A         |FALSE  |FALSE |FALSE  |         6001|         1|PIEMONTE |Torino               |
-|IT0470A         |TRUE   |FALSE |FALSE  |            5|         1|PIEMONTE |Torino               |
-|IT0470A         |FALSE  |TRUE  |FALSE  |           20|         1|PIEMONTE |Torino               |
-|IT0470A         |FALSE  |TRUE  |FALSE  |            8|         1|PIEMONTE |Torino               |
-|IT0643A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Alessandria          |
-|IT0643A         |TRUE   |TRUE  |TRUE   |            5|         1|PIEMONTE |Alessandria          |
-|IT1114A         |TRUE   |TRUE  |TRUE   |            5|         1|PIEMONTE |Torino               |
-|IT1114A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Torino               |
-|IT1114A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Torino               |
-|IT1120A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Torino               |
-|IT1120A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Torino               |
-|IT1121A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Torino               |
-|IT1121A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Torino               |
-|IT1121A         |TRUE   |FALSE |FALSE  |            5|         1|PIEMONTE |Torino               |
-|IT1125A         |FALSE  |FALSE |FALSE  |            8|         1|PIEMONTE |Torino               |
-|IT1125A         |TRUE   |TRUE  |TRUE   |           20|         1|PIEMONTE |Torino               |
-|IT1125A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Torino               |
-|IT1128A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Torino               |
-|IT1128A         |TRUE   |FALSE |FALSE  |            8|         1|PIEMONTE |Torino               |
-|IT1128A         |TRUE   |FALSE |FALSE  |           20|         1|PIEMONTE |Torino               |
-|IT1128A         |TRUE   |FALSE |FALSE  |         6001|         1|PIEMONTE |Torino               |
-|IT1128A         |TRUE   |FALSE |FALSE  |            5|         1|PIEMONTE |Torino               |
-|IT1130A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Torino               |
-|IT1130A         |FALSE  |TRUE  |FALSE  |           20|         1|PIEMONTE |Torino               |
-|IT1130A         |FALSE  |TRUE  |FALSE  |            5|         1|PIEMONTE |Torino               |
-|IT1130A         |TRUE   |TRUE  |TRUE   |         6001|         1|PIEMONTE |Torino               |
-|IT1246A         |FALSE  |TRUE  |FALSE  |            5|         1|PIEMONTE |Biella               |
-|IT1246A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Biella               |
-|IT1246A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Biella               |
-|IT1246A         |FALSE  |FALSE |FALSE  |           20|         1|PIEMONTE |Biella               |
-|IT1247A         |TRUE   |FALSE |FALSE  |           20|         1|PIEMONTE |Biella               |
-|IT1247A         |TRUE   |TRUE  |TRUE   |            5|         1|PIEMONTE |Biella               |
-|IT1247A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Biella               |
-|IT1247A         |TRUE   |TRUE  |TRUE   |         6001|         1|PIEMONTE |Biella               |
-|IT1247A         |FALSE  |TRUE  |FALSE  |            8|         1|PIEMONTE |Biella               |
-|IT1509A         |TRUE   |TRUE  |TRUE   |            5|         1|PIEMONTE |Novara               |
-|IT1509A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Novara               |
-|IT1509A         |TRUE   |TRUE  |TRUE   |           20|         1|PIEMONTE |Novara               |
-|IT1510A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Verbano-Cusio-Ossola |
-|IT1510A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Verbano-Cusio-Ossola |
-|IT1510A         |TRUE   |TRUE  |TRUE   |         6001|         1|PIEMONTE |Verbano-Cusio-Ossola |
-|IT1510A         |TRUE   |TRUE  |TRUE   |            5|         1|PIEMONTE |Verbano-Cusio-Ossola |
-|IT1510A         |TRUE   |TRUE  |TRUE   |           20|         1|PIEMONTE |Verbano-Cusio-Ossola |
-|IT1519A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Cuneo                |
-|IT1519A         |TRUE   |TRUE  |TRUE   |            5|         1|PIEMONTE |Cuneo                |
-|IT1519A         |FALSE  |TRUE  |FALSE  |            8|         1|PIEMONTE |Cuneo                |
-|IT1523A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Asti                 |
-|IT1523A         |FALSE  |FALSE |FALSE  |            8|         1|PIEMONTE |Asti                 |
-|IT1523A         |FALSE  |FALSE |FALSE  |            5|         1|PIEMONTE |Asti                 |
-|IT1524A         |TRUE   |TRUE  |TRUE   |           20|         1|PIEMONTE |Cuneo                |
-|IT1524A         |TRUE   |TRUE  |TRUE   |            5|         1|PIEMONTE |Cuneo                |
-|IT1524A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Cuneo                |
-|IT1524A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Cuneo                |
-|IT1529A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Cuneo                |
-|IT1529A         |TRUE   |TRUE  |TRUE   |            5|         1|PIEMONTE |Cuneo                |
-|IT1529A         |TRUE   |TRUE  |TRUE   |         6001|         1|PIEMONTE |Cuneo                |
-|IT1529A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Cuneo                |
-|IT1529A         |TRUE   |TRUE  |TRUE   |           20|         1|PIEMONTE |Cuneo                |
-|IT1532A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Vercelli             |
-|IT1532A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Vercelli             |
-|IT1532A         |TRUE   |FALSE |FALSE  |            5|         1|PIEMONTE |Vercelli             |
-|IT1532A         |TRUE   |TRUE  |TRUE   |         6001|         1|PIEMONTE |Vercelli             |
-|IT1533A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Vercelli             |
-|IT1533A         |TRUE   |FALSE |FALSE  |            5|         1|PIEMONTE |Vercelli             |
-|IT1582A         |FALSE  |FALSE |FALSE  |            5|         1|PIEMONTE |Alessandria          |
-|IT1582A         |FALSE  |FALSE |FALSE  |           20|         1|PIEMONTE |Alessandria          |
-|IT1676A         |FALSE  |TRUE  |FALSE  |            8|         1|PIEMONTE |Novara               |
-|IT1676A         |TRUE   |TRUE  |TRUE   |            5|         1|PIEMONTE |Novara               |
-|IT1676A         |TRUE   |TRUE  |TRUE   |           20|         1|PIEMONTE |Novara               |
-|IT1788A         |TRUE   |TRUE  |TRUE   |         6001|         1|PIEMONTE |Torino               |
-|IT1788A         |FALSE  |TRUE  |FALSE  |            5|         1|PIEMONTE |Torino               |
-|IT1788A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Torino               |
-|IT1788A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Torino               |
-|IT1830A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Alessandria          |
-|IT1830A         |TRUE   |TRUE  |TRUE   |            5|         1|PIEMONTE |Alessandria          |
-|IT1830A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Alessandria          |
-|IT1830A         |TRUE   |TRUE  |TRUE   |         6001|         1|PIEMONTE |Alessandria          |
-|IT1847A         |TRUE   |TRUE  |TRUE   |            5|         1|PIEMONTE |Torino               |
-|IT1847A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Torino               |
-|IT1877A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Torino               |
-|IT1877A         |FALSE  |TRUE  |FALSE  |            5|         1|PIEMONTE |Torino               |
-|IT1877A         |FALSE  |FALSE |FALSE  |         6001|         1|PIEMONTE |Torino               |
-|IT1877A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Torino               |
-|IT1877A         |TRUE   |TRUE  |TRUE   |           20|         1|PIEMONTE |Torino               |
-|IT1878A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Vercelli             |
-|IT1878A         |TRUE   |FALSE |FALSE  |            8|         1|PIEMONTE |Vercelli             |
-|IT1878A         |TRUE   |TRUE  |TRUE   |         6001|         1|PIEMONTE |Vercelli             |
-|IT1878A         |FALSE  |TRUE  |FALSE  |            5|         1|PIEMONTE |Vercelli             |
-|IT1903A         |TRUE   |FALSE |FALSE  |            8|         1|PIEMONTE |Asti                 |
-|IT1903A         |TRUE   |TRUE  |TRUE   |            5|         1|PIEMONTE |Asti                 |
-|IT1903A         |FALSE  |TRUE  |FALSE  |           20|         1|PIEMONTE |Asti                 |
-|IT1904A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Alessandria          |
-|IT1904A         |TRUE   |FALSE |FALSE  |         6001|         1|PIEMONTE |Alessandria          |
-|IT1904A         |TRUE   |TRUE  |TRUE   |            5|         1|PIEMONTE |Alessandria          |
-|IT1904A         |TRUE   |TRUE  |TRUE   |            8|         1|PIEMONTE |Alessandria          |
-|IT1948A         |TRUE   |TRUE  |TRUE   |            5|         1|PIEMONTE |Asti                 |
-|IT1948A         |FALSE  |FALSE |FALSE  |            8|         1|PIEMONTE |Asti                 |
-|IT1948A         |FALSE  |FALSE |FALSE  |            7|         1|PIEMONTE |Asti                 |
-|IT1948A         |TRUE   |TRUE  |TRUE   |         6001|         1|PIEMONTE |Asti                 |
+|inquinante |  n|
+|:----------|--:|
+|c6h6       |  7|
+|no2        | 17|
+|o3         |  1|
+|pm10       | 14|
+|PM25       |  9|
+
+# NON VALIDE
+
+|inquinante |  n|
+|:----------|--:|
+|c6h6       |  8|
+|no2        | 11|
+|o3         | 18|
+|pm10       | 13|
+|PM25       |  4|

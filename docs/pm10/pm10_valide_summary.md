@@ -9,7 +9,7 @@
 |EMILIA_ROMAGNA        |  42|
 |FRIULI_VENEZIA_GIULIA |  15|
 |LAZIO                 |  37|
-|LOMBARDIA             |  50|
+|LOMBARDIA             |  49|
 |PA_BOLZANO            |   5|
 |PA_TRENTO             |   5|
 |PIEMONTE              |  14|
@@ -20,7 +20,7 @@
 |UMBRIA                |  13|
 |VALLE_AOSTA           |   3|
 |VENETO                |  26|
-|Total                 | 280|
+|Total                 | 279|
 
 ## TOSCANA : 32
 
@@ -167,7 +167,7 @@
 |IT1859A         |TRUE   |TRUE |TRUE   |        42|PA_TRENTO |Trento    |
 
 
-## LOMBARDIA : 50
+## LOMBARDIA : 49
 
 
 |station_eu_code |p16_19 |p20  |Valida | region_id|regione   |provincia             |
@@ -219,7 +219,6 @@
 |IT1876A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Bergamo               |
 |IT1964A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Lodi                  |
 |IT1965A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Lodi                  |
-|IT1967A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Sondrio               |
 |IT2007A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Como                  |
 |IT2062A         |TRUE   |TRUE |TRUE   |         3|LOMBARDIA |Bergamo               |
 

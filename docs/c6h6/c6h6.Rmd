@@ -1,0 +1,45 @@
+---
+title: Stazioni valide 2016-2020
+---
+
+* Non valide (num insufficiente di anni): 145 
+* Valide: 128 
+
+# Valide secondo i criteri di completezza
+
+
+|regione               |  n|
+|:---------------------|--:|
+|CAMPANIA              |  1|
+|EMILIA_ROMAGNA        |  1|
+|FRIULI_VENEZIA_GIULIA |  1|
+|LAZIO                 |  8|
+|LOMBARDIA             |  5|
+|PA_BOLZANO            |  1|
+|PA_TRENTO             |  1|
+|PIEMONTE              |  7|
+|PUGLIA                |  4|
+|SARDEGNA              | 10|
+|SICILIA               |  3|
+|TOSCANA               |  5|
+|UMBRIA                |  3|
+|Total                 | 50|
+
+# Non valide
+
+
+|regione               |  n|
+|:---------------------|--:|
+|BASILICATA            |  1|
+|CAMPANIA              | 18|
+|EMILIA_ROMAGNA        | 10|
+|FRIULI_VENEZIA_GIULIA |  1|
+|LOMBARDIA             | 17|
+|MOLISE                |  2|
+|PIEMONTE              |  8|
+|PUGLIA                |  4|
+|SARDEGNA              |  1|
+|SICILIA               | 10|
+|TOSCANA               |  1|
+|UMBRIA                |  5|
+|Total                 | 78|

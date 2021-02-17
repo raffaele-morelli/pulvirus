@@ -2478,13 +2478,19 @@ C6H6
 <span id="cb1-7"><a href="#cb1-7"></a>    )</span></code></pre></div>
 <p>Chi utilizza pgAdmin non avrà difficoltà a navigare tabelle e viste. Per R invece occorre utilizzare una query ad hoc al fine di elencare le viste (ecco qualche riga utile allo scopo):</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(RPostgreSQL)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">PostgreSQL</span>(), <span class="dt">host =</span> <span class="st">&quot;10.158.102.164&quot;</span>, <span class="dt">user =</span> <span class="st">&quot;srv-pulvirus&quot;</span>, <span class="dt">password =</span> <span class="st">&quot;pulvirus#20&quot;</span>, <span class="dt">dbname =</span> <span class="st">&quot;pulvirus&quot;</span>, <span class="dt">port =</span> <span class="dv">5432</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># elenco delle viste</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;SELECT viewname FROM pg_views WHERE schemaname=&#39;public&#39; AND viewowner=&#39;rmorelli&#39; ORDER BY viewname&quot;</span>)</span>
-<span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># elenco delle tabelle</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="kw">dbListTables</span>(con)</span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2"></a>con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">PostgreSQL</span>(), </span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="dt">host =</span> <span class="st">&quot;10.158.102.164&quot;</span>, </span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="dt">user =</span> <span class="st">&quot;srv-pulvirus&quot;</span>, </span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="dt">password =</span> <span class="st">&quot;pulvirus#20&quot;</span>, </span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="dt">dbname =</span> <span class="st">&quot;pulvirus&quot;</span>, </span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="dt">port =</span> <span class="dv">5432</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>    )</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># elenco delle viste</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;SELECT viewname FROM pg_views WHERE schemaname=&#39;public&#39; AND viewowner=&#39;rmorelli&#39; ORDER BY viewname&quot;</span>)</span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co"># elenco delle tabelle</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="kw">dbListTables</span>(con)</span></code></pre></div>
 <p>Tutte le tabelle degli inquinanti hanno lo stesso tracciato record:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1"></a>  reporting_year <span class="op">=&gt;</span> (anno della rilevazione)</span>
 <span id="cb3-2"><a href="#cb3-2"></a>  pollutant_fk <span class="op">=&gt;</span> (il codice inquinante)</span>

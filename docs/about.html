@@ -50,39 +50,38 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  background-color: #f8f8f8; }
 @media screen {
 code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ad0000; } /* Alert */
-code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
-code span.bn { color: #ad0000; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
-code span.ch { color: #20794d; } /* Char */
-code span.cn { color: #8f5902; } /* Constant */
-code span.co { color: #5e5e5e; } /* Comment */
-code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-code span.dt { color: #ad0000; } /* DataType */
-code span.dv { color: #ad0000; } /* DecVal */
-code span.er { color: #ad0000; } /* Error */
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
-code span.fl { color: #ad0000; } /* Float */
-code span.fu { color: #4758ab; } /* Function */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
 code span.im { } /* Import */
-code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
-code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
-code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
-code span.ss { color: #20794d; } /* SpecialString */
-code span.st { color: #20794d; } /* String */
-code span.va { color: #111111; } /* Variable */
-code span.vs { color: #20794d; } /* VerbatimString */
-code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
@@ -2471,21 +2470,21 @@ C6H6
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#accesso-ai-dati-con-postgresql">Accesso ai dati con PostgreSQL</a><ul>
+<li><a href="#accesso-ai-dati">Accesso ai dati</a><ul>
 <li><a href="#struttura-tabelle">Struttura tabelle</a></li>
 <li><a href="#serie-complete-per-periodo">Serie complete per periodo</a></li>
 </ul></li>
 <li><a href="#serie-valide">Serie valide</a><ul>
 <li><a href="#anagrafiche">Anagrafiche</a></li>
+</ul></li>
 <li><a href="#dati-meteo">Dati meteo</a></li>
 <li><a href="#pacchetti-installabili">Pacchetti installabili</a></li>
-</ul></li>
 </ul>
 </nav>
 </div>
 <p>Ad oggi disponiamo delle serie complete per i seguenti inquinanti: C6H6, PM10, PM2.5, CO, NOx, NO2 , O3</p>
 <p>I dati sono accessibili soltanto dalla LAN/VPN ISPRA nel solito db <strong>PostgreSQL</strong> la cui stringa di connessione R è invariata (segue).</p>
-<h1 id="accesso-ai-dati-con-postgresql">Accesso ai dati con PostgreSQL</h1>
+<h1 id="accesso-ai-dati">Accesso ai dati</h1>
 <p>Chi utilizza <strong>pgAdmin</strong> non avrà difficoltà a navigare tabelle e viste. Per <strong>R</strong> invece occorre utilizzare una query <em>ad hoc</em> al fine di elencare le viste. Ecco qualche riga utile allo scopo:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(RPostgreSQL)</span>
 <span id="cb1-2"><a href="#cb1-2"></a>con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">PostgreSQL</span>(), </span>
@@ -2533,13 +2532,13 @@ C6H6
 <p>Nello schema sono inoltre presenti anche tre viste di riepilogo per regione.</p>
 <h2 id="anagrafiche">Anagrafiche</h2>
 <p>Le anagrafiche sono le seguenti:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1"></a>stazioni_aria <span class="op">=&gt;</span> (l<span class="st">&#39;anagrafica delle stazioni di rilevamento qa)</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="st">stazioni_meteo =&gt; (l&#39;</span>anagrafica delle <span class="op">**</span>stazioni<span class="op">**</span> meteo, la posizione del dato stimato ERA5)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1"></a>stazioni_aria <span class="op">=&gt;</span> (anagrafica delle stazioni di rilevamento qa)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>stazioni_meteo <span class="op">=&gt;</span> (la posizione del dato stimato ERA5)</span></code></pre></div>
 <p>la vista delle delle stazioni valide con le informazioni a corredo ed il campo geom (EPSG:4326)</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1"></a>v_stazioni_pulvirus <span class="op">=&gt;</span> (le stazioni VALIDE con tutte le informazioni ed il campo <span class="op">*</span>geom<span class="op">*</span>)</span></code></pre></div>
-<h2 id="dati-meteo">Dati meteo</h2>
+<h1 id="dati-meteo">Dati meteo</h1>
 <div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1"></a>v_dati_meteo <span class="op">=&gt;</span> (i dati meteo)</span></code></pre></div>
-<h2 id="pacchetti-installabili">Pacchetti installabili</h2>
+<h1 id="pacchetti-installabili">Pacchetti installabili</h1>
 <p>Per quanto riguarda il mio pacchetto con tutti gli inquinanti ricordo che è installabile con:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;raffaele-morelli/datiInquinanti&quot;</span>)</span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="kw">library</span>(datiInquinanti)</span></code></pre></div>

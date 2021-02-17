@@ -2482,7 +2482,16 @@ C6H6
 </ul>
 </nav>
 </div>
-<p>Ad oggi disponiamo delle serie complete per i seguenti inquinanti: C6H6, PM10, PM2.5, CO, NOx, NO2 , O3</p>
+<p>Ad oggi disponiamo delle serie complete per i seguenti inquinanti:</p>
+<ul>
+<li>C6H6</li>
+<li>PM10</li>
+<li>PM2.5</li>
+<li>CO</li>
+<li>NOx</li>
+<li>NO2</li>
+<li>O3</li>
+</ul>
 <p>I dati sono accessibili soltanto dalla LAN/VPN ISPRA nel solito db <strong>PostgreSQL</strong> la cui stringa di connessione R è invariata (segue).</p>
 <h1 id="accesso-ai-dati">Accesso ai dati</h1>
 <p>Chi utilizza <strong>pgAdmin</strong> non avrà difficoltà a navigare tabelle e viste. Per <strong>R</strong> invece occorre utilizzare una query <em>ad hoc</em> al fine di elencare le viste. Ecco qualche riga utile allo scopo:</p>
@@ -2516,36 +2525,54 @@ C6H6
 <ul>
 <li><p>Le serie 2013-2020 degli inquinanti sono nelle VISTE (il cui nome ha la forma <code>v_{formula_inquinante}</code>) quindi, per il benzene avremo la vista <code>v_c6h6</code>.</p></li>
 <li><p>Le serie 2013-2019 sono nelle TABELLE (il cui nome è <code>{formula_inquinante}</code>) quindi, per l’ozono avremo la tabella <code>o3</code>.</p></li>
-<li><p>Le serie per il 2020 di TUTTI gli inquinanti sono tenuti a parte nella tabella <code>pltnt2020</code>. Per estrarre un singolo inquinante occorre utilizzare il campo <code>pollutant_fk</code> per filtrare.</p></li>
+<li><p>Le serie per il 2020 di TUTTI gli inquinanti sono tenuti a parte nella tabella</p></li>
 </ul>
+<pre class="pltnt2020```."><code>Per estrarre un singolo inquinante occorre utilizzare il campo ```pollutant_fk``` per filtrare in base al codice inquinante.
+
+```sql
+inquinante,pollutant_fk
+&quot;c6h6&quot;, 20
+&quot;co&quot;, 10
+&quot;nox&quot;,9
+&quot;o3&quot;,7
+&quot;pm10&quot;,5
+&quot;s02&quot;,1
+&quot;no2&quot;,8
+&quot;pm25&quot;,6001</code></pre>
 <h1 id="serie-valide">Serie valide</h1>
-<p>Le stazioni risultate valide secondo i criteri di completezza stabiliti sono elencate nella tabella <code>stazioni_pulvirus</code> con il seguente tracciato</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1"></a>  station_eu_code <span class="op">=&gt;</span> (codice stazione)</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  p16_19 <span class="op">=&gt;</span> (flag di validità <span class="dv">2016</span><span class="op">-</span><span class="dv">2019</span>)</span>
-<span id="cb4-3"><a href="#cb4-3"></a>  p20 <span class="op">=&gt;</span> (flag di validità <span class="dv">2020</span>)</span>
-<span id="cb4-4"><a href="#cb4-4"></a>  valida <span class="op">=&gt;</span> (flag di validità <span class="dv">2016</span><span class="op">-</span><span class="dv">2020</span>)</span>
-<span id="cb4-5"><a href="#cb4-5"></a>  pollutant_fk <span class="op">=&gt;</span> (codice inquinante)</span>
-<span id="cb4-6"><a href="#cb4-6"></a>  region_id <span class="op">=&gt;</span> (codice regione)</span>
-<span id="cb4-7"><a href="#cb4-7"></a>  regione <span class="op">=&gt;</span> (regione)</span>
-<span id="cb4-8"><a href="#cb4-8"></a>  provincia <span class="op">=&gt;</span> (provincia)</span></code></pre></div>
+<p>Criteri di completezza:</p>
+<ul>
+<li><p>un mese e’ valido se contiene almeno il 75% di dati validi (senza ulteriori sulla continuità dei blocchi dei dati mancanti all’interno del mese)</p></li>
+<li><p>un anno e’ valido se contiene tutte le stagioni valide (almeno due mesi validi per stagione) calcolo stagioni valide</p></li>
+<li><p>la serie è valida se contiene i primi 6 mesi del 2020</p></li>
+</ul>
+<p>Le stazioni risultate valide sono elencate nella tabella <code>stazioni_pulvirus</code> con il seguente tracciato</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1"></a>  station_eu_code <span class="op">=&gt;</span> (codice stazione)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  p16_19 <span class="op">=&gt;</span> (flag di validità <span class="dv">2016</span><span class="op">-</span><span class="dv">2019</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  p20 <span class="op">=&gt;</span> (flag di validità <span class="dv">2020</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  valida <span class="op">=&gt;</span> (flag di validità <span class="dv">2016</span><span class="op">-</span><span class="dv">2020</span>)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>  pollutant_fk <span class="op">=&gt;</span> (codice inquinante)</span>
+<span id="cb5-6"><a href="#cb5-6"></a>  region_id <span class="op">=&gt;</span> (codice regione)</span>
+<span id="cb5-7"><a href="#cb5-7"></a>  regione <span class="op">=&gt;</span> (regione)</span>
+<span id="cb5-8"><a href="#cb5-8"></a>  provincia <span class="op">=&gt;</span> (provincia)</span></code></pre></div>
 <p>Le serie VALIDE (2016-2020) secondo i criteri di completezza sono nelle rispettive viste con il suffisso <code>_valide</code>. Ad es. <code>v_pm10_valide</code></p>
 <p>Nello schema sono inoltre presenti anche tre viste di riepilogo per regione.</p>
 <h2 id="anagrafiche">Anagrafiche</h2>
 <p>Le anagrafiche sono le seguenti:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1"></a>stazioni_aria <span class="op">=&gt;</span> (anagrafica delle stazioni di rilevamento qa)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>stazioni_meteo <span class="op">=&gt;</span> (la posizione del dato stimato ERA5)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1"></a>stazioni_aria <span class="op">=&gt;</span> (anagrafica delle stazioni di rilevamento qa)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>stazioni_meteo <span class="op">=&gt;</span> (la posizione del dato stimato ERA5)</span></code></pre></div>
 <p>la vista delle delle stazioni valide con le informazioni a corredo ed il campo geom (EPSG:4326)</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1"></a>v_stazioni_pulvirus <span class="op">=&gt;</span> (le stazioni VALIDE con tutte le informazioni ed il campo <span class="op">*</span>geom<span class="op">*</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1"></a>v_stazioni_pulvirus <span class="op">=&gt;</span> (le stazioni VALIDE con tutte le informazioni ed il campo <span class="op">*</span>geom<span class="op">*</span>)</span></code></pre></div>
 <h1 id="dati-meteo">Dati meteo</h1>
-<div class="sourceCode" id="cb7"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1"></a>v_dati_meteo <span class="op">=&gt;</span> (i dati meteo)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1"></a>v_dati_meteo <span class="op">=&gt;</span> (i dati meteo)</span></code></pre></div>
 <h1 id="pacchetti-installabili">Pacchetti installabili</h1>
 <p>Per quanto riguarda il mio pacchetto con tutti gli inquinanti ricordo che è installabile con:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;raffaele-morelli/datiInquinanti&quot;</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">library</span>(datiInquinanti)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;raffaele-morelli/datiInquinanti&quot;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">library</span>(datiInquinanti)</span></code></pre></div>
 <p>Le relative info sui contenuti sono accessibili attraverso:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>?datiInquinanti</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">data</span>(<span class="dt">package=</span><span class="st">&quot;datiInquinanti&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>?datiInquinanti</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">data</span>(<span class="dt">package=</span><span class="st">&quot;datiInquinanti&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

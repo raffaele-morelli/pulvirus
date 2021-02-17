@@ -2523,27 +2523,24 @@ C6H6
 <span id="cb3-2"><a href="#cb3-2"></a>  o3_max_mm8h_d <span class="op">=&gt;</span> (media mobile sulle <span class="dv">8</span> ore precedenti)</span></code></pre></div>
 <h2 id="serie-complete-per-periodo">Serie complete per periodo</h2>
 <ul>
-<li><p>Le serie 2013-2020 degli inquinanti sono nelle VISTE (il cui nome ha la forma <code>v_{formula_inquinante}</code>) quindi, per il benzene avremo la vista <code>v_c6h6</code>.</p></li>
-<li><p>Le serie 2013-2019 sono nelle TABELLE (il cui nome è <code>{formula_inquinante}</code>) quindi, per l’ozono avremo la tabella <code>o3</code>.</p></li>
-<li><p>Le serie per il 2020 di TUTTI gli inquinanti sono tenuti a parte nella tabella</p></li>
+<li><p>Le serie 2013-2020 degli inquinanti sono nelle VISTE (il cui nome ha la forma <code>v_{formula_inquinante}</code>) quindi, per il benzene avremo la vista <code>v_c6h6</code></p></li>
+<li><p>Le serie 2013-2019 sono nelle TABELLE (il cui nome è <code>{formula_inquinante}</code>) quindi, per l’ozono avremo la tabella <code>o3</code></p></li>
+<li><p>Le serie per il 2020 di TUTTI gli inquinanti sono tenuti a parte nella tabella <code>pltnt2020</code></p></li>
 </ul>
-<pre class="pltnt2020```."><code>Per estrarre un singolo inquinante occorre utilizzare il campo ```pollutant_fk``` per filtrare in base al codice inquinante.
-
-```sql
-inquinante,pollutant_fk
-&quot;c6h6&quot;, 20
-&quot;co&quot;, 10
-&quot;nox&quot;,9
-&quot;o3&quot;,7
-&quot;pm10&quot;,5
-&quot;s02&quot;,1
-&quot;no2&quot;,8
-&quot;pm25&quot;,6001</code></pre>
+<p>Per estrarre un singolo inquinante occorre utilizzare il campo pollutant_fk per filtrare in base al codice inquinante.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1"></a>  c6h6 <span class="op">=&gt;</span> <span class="dv">20</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  co <span class="op">=&gt;</span> <span class="dv">10</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  nox <span class="op">=&gt;</span> <span class="dv">9</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  o3 <span class="op">=&gt;</span> <span class="dv">7</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  pm10 <span class="op">=&gt;</span> <span class="dv">5</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  s02 <span class="op">=&gt;</span> <span class="dv">1</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  no2 <span class="op">=&gt;</span> <span class="dv">8</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>  pm25 <span class="op">=&gt;</span> <span class="dv">6001</span></span></code></pre></div>
 <h1 id="serie-valide">Serie valide</h1>
 <p>Criteri di completezza:</p>
 <ul>
-<li><p>un mese e’ valido se contiene almeno il 75% di dati validi (senza ulteriori sulla continuità dei blocchi dei dati mancanti all’interno del mese)</p></li>
-<li><p>un anno e’ valido se contiene tutte le stagioni valide (almeno due mesi validi per stagione) calcolo stagioni valide</p></li>
+<li><p>un mese è valido se contiene almeno il 75% di dati validi (senza ulteriori sulla continuità dei blocchi dei dati mancanti all’interno del mese)</p></li>
+<li><p>un anno è valido se contiene tutte le stagioni valide (almeno due mesi validi per stagione) calcolo stagioni valide</p></li>
 <li><p>la serie è valida se contiene i primi 6 mesi del 2020</p></li>
 </ul>
 <p>Le stazioni risultate valide sono elencate nella tabella <code>stazioni_pulvirus</code> con il seguente tracciato</p>

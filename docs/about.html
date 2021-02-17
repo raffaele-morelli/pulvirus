@@ -2468,62 +2468,57 @@ C6H6
 
 <div class="d-article">
 <p>Ad oggi disponiamo delle serie complete per i seguenti inquinanti: C6H6, PM10, PM2.5, CO, NOx, NO2 , O3</p>
-<p>I dati sono accessibili soltanto dalla LAN/VPN ISPRA nel solito db PostgreSQL la cui stringa di connessione R è invariata, ovvero:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">dbConnect</span>(<span class="kw">PostgreSQL</span>(), </span>
-<span id="cb1-2"><a href="#cb1-2"></a>    <span class="dt">host =</span> <span class="st">&quot;10.158.102.164&quot;</span>, </span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="dt">user =</span> <span class="st">&quot;srv-pulvirus&quot;</span>, </span>
-<span id="cb1-4"><a href="#cb1-4"></a>    <span class="dt">password =</span> <span class="st">&quot;pulvirus#20&quot;</span>, </span>
-<span id="cb1-5"><a href="#cb1-5"></a>    <span class="dt">dbname =</span> <span class="st">&quot;pulvirus&quot;</span>, </span>
-<span id="cb1-6"><a href="#cb1-6"></a>    <span class="dt">port =</span> <span class="dv">5432</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>    )</span></code></pre></div>
+<p>I dati sono accessibili soltanto dalla LAN/VPN ISPRA nel solito db PostgreSQL la cui stringa di connessione R è invariata (segue).</p>
 <p>Chi utilizza pgAdmin non avrà difficoltà a navigare tabelle e viste. Per R invece occorre utilizzare una query ad hoc al fine di elencare le viste (ecco qualche riga utile allo scopo):</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(RPostgreSQL)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">PostgreSQL</span>(), </span>
-<span id="cb2-3"><a href="#cb2-3"></a>    <span class="dt">host =</span> <span class="st">&quot;10.158.102.164&quot;</span>, </span>
-<span id="cb2-4"><a href="#cb2-4"></a>    <span class="dt">user =</span> <span class="st">&quot;srv-pulvirus&quot;</span>, </span>
-<span id="cb2-5"><a href="#cb2-5"></a>    <span class="dt">password =</span> <span class="st">&quot;pulvirus#20&quot;</span>, </span>
-<span id="cb2-6"><a href="#cb2-6"></a>    <span class="dt">dbname =</span> <span class="st">&quot;pulvirus&quot;</span>, </span>
-<span id="cb2-7"><a href="#cb2-7"></a>    <span class="dt">port =</span> <span class="dv">5432</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>    )</span>
-<span id="cb2-9"><a href="#cb2-9"></a></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># elenco delle viste</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;SELECT viewname FROM pg_views WHERE schemaname=&#39;public&#39; AND viewowner=&#39;rmorelli&#39; ORDER BY viewname&quot;</span>)</span>
-<span id="cb2-12"><a href="#cb2-12"></a></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co"># elenco delle tabelle</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="kw">dbListTables</span>(con)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(RPostgreSQL)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">PostgreSQL</span>(), </span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="dt">host =</span> <span class="st">&quot;10.158.102.164&quot;</span>, </span>
+<span id="cb1-4"><a href="#cb1-4"></a>    <span class="dt">user =</span> <span class="st">&quot;srv-pulvirus&quot;</span>, </span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="dt">password =</span> <span class="st">&quot;pulvirus#20&quot;</span>, </span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="dt">dbname =</span> <span class="st">&quot;pulvirus&quot;</span>, </span>
+<span id="cb1-7"><a href="#cb1-7"></a>    <span class="dt">port =</span> <span class="dv">5432</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>    )</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># elenco delle viste</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="kw">dbGetQuery</span>(con, </span>
+<span id="cb1-12"><a href="#cb1-12"></a>  <span class="st">&quot;SELECT viewname FROM pg_views WHERE schemaname=&#39;public&#39; AND viewowner=&#39;rmorelli&#39; ORDER BY viewname&quot;</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>  )</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co"># elenco delle tabelle</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="kw">dbListTables</span>(con)</span></code></pre></div>
 <p>Tutte le tabelle degli inquinanti hanno lo stesso tracciato record:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1"></a>  reporting_year <span class="op">=&gt;</span> (anno della rilevazione)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>  pollutant_fk <span class="op">=&gt;</span> (il codice inquinante)</span>
-<span id="cb3-3"><a href="#cb3-3"></a>  station_eu_code <span class="op">=&gt;</span> (codice stazione)</span>
-<span id="cb3-4"><a href="#cb3-4"></a>  <span class="dt">date</span>  <span class="op">=&gt;</span> (<span class="kw">data</span> rilevazione)</span>
-<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">value</span> <span class="op">=&gt;</span> (media giornaliera)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1"></a>  reporting_year <span class="op">=&gt;</span> (anno della rilevazione)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  pollutant_fk <span class="op">=&gt;</span> (il codice inquinante)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  station_eu_code <span class="op">=&gt;</span> (codice stazione)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="dt">date</span>  <span class="op">=&gt;</span> (<span class="kw">data</span> rilevazione)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">value</span> <span class="op">=&gt;</span> (media giornaliera)</span></code></pre></div>
 <p>fatta eccezione per l’O3 che anziché la media giornaliera =&gt; (value) ha i due campi</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1"></a>  o3_max_h_d <span class="op">=&gt;</span> (massimo orario)</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  o3_max_mm8h_d <span class="op">=&gt;</span> (media mobile sulle <span class="dv">8</span> ore precedenti)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1"></a>  o3_max_h_d <span class="op">=&gt;</span> (massimo orario)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  o3_max_mm8h_d <span class="op">=&gt;</span> (media mobile sulle <span class="dv">8</span> ore precedenti)</span></code></pre></div>
 <ul>
 <li><p>Le serie 2013-2020 degli inquinanti sono nelle VISTE (il cui nome ha la forma <code>v_{formula_inquinante}</code>) quindi, per il benzene avremo la vista <code>v_c6h6</code>.</p></li>
 <li><p>Le serie 2013-2019 sono nelle TABELLE (il cui nome è <code>{formula_inquinante}</code>) quindi, per l’ozono avremo la tabella <code>o3</code>.</p></li>
 <li><p>Le serie per il 2020 di TUTTI gli inquinanti sono tenuti a parte nella tabella <code>pltnt2020</code>. Per estrarre un singolo inquinante occorre utilizzare il campo <code>pollutant_fk</code> per filtrare.</p></li>
 </ul>
 <p>Le stazioni risultate valide secondo i criteri di completezza stabiliti sono elencate nella tabella <code>stazioni_pulvirus</code> con il seguente tracciato</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1"></a>  station_eu_code <span class="op">=&gt;</span> (codice stazione)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>  p16_19 <span class="op">=&gt;</span> (flag di validità <span class="dv">2016</span><span class="op">-</span><span class="dv">2019</span>)</span>
-<span id="cb5-3"><a href="#cb5-3"></a>  p20 <span class="op">=&gt;</span> (flag di validità <span class="dv">2020</span>)</span>
-<span id="cb5-4"><a href="#cb5-4"></a>  valida <span class="op">=&gt;</span> (flag di validità <span class="dv">2016</span><span class="op">-</span><span class="dv">2020</span>)</span>
-<span id="cb5-5"><a href="#cb5-5"></a>  pollutant_fk <span class="op">=&gt;</span> (codice inquinante)</span>
-<span id="cb5-6"><a href="#cb5-6"></a>  region_id <span class="op">=&gt;</span> (codice regione)</span>
-<span id="cb5-7"><a href="#cb5-7"></a>  regione <span class="op">=&gt;</span> (regione)</span>
-<span id="cb5-8"><a href="#cb5-8"></a>  provincia <span class="op">=&gt;</span> (provincia)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1"></a>  station_eu_code <span class="op">=&gt;</span> (codice stazione)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  p16_19 <span class="op">=&gt;</span> (flag di validità <span class="dv">2016</span><span class="op">-</span><span class="dv">2019</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>  p20 <span class="op">=&gt;</span> (flag di validità <span class="dv">2020</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>  valida <span class="op">=&gt;</span> (flag di validità <span class="dv">2016</span><span class="op">-</span><span class="dv">2020</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>  pollutant_fk <span class="op">=&gt;</span> (codice inquinante)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>  region_id <span class="op">=&gt;</span> (codice regione)</span>
+<span id="cb4-7"><a href="#cb4-7"></a>  regione <span class="op">=&gt;</span> (regione)</span>
+<span id="cb4-8"><a href="#cb4-8"></a>  provincia <span class="op">=&gt;</span> (provincia)</span></code></pre></div>
 <p>Le serie VALIDE (2016-2020) secondo i criteri di completezza sono nelle rispettive viste con il suffisso <code>_valide</code>. Ad es. <code>v_pm10_valide</code></p>
 <p>Nello schema sono inoltre presenti anche tre viste di riepilogo per regione.</p>
 <p>Sono stato prolisso ma ci tenevo a chiudere il discorso db dando tutte le informazioni del caso, fermo restando che tutto il “malloppo” dei dati contenenti le sole stazioni VALIDE secondo i criteri è disponibile anche nei rispettivi github, il mio e quello di Guido, già oggetto delle mail trascorse.</p>
 <p>Per quanto riguarda il mio pacchetto con tutti gli inquinanti ricordo che è installabile con:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;raffaele-morelli/datiInquinanti&quot;</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">library</span>(datiInquinanti)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;raffaele-morelli/datiInquinanti&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">library</span>(datiInquinanti)</span></code></pre></div>
 <p>Le relative info sui contenuti sono accessibili attraverso:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>?datiInquinanti</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">data</span>(<span class="dt">package=</span><span class="st">&quot;datiInquinanti&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>?datiInquinanti</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">data</span>(<span class="dt">package=</span><span class="st">&quot;datiInquinanti&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

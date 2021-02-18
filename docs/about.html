@@ -2568,7 +2568,10 @@ C6H6
 <h1 id="pacchetti-installabili">Pacchetti installabili</h1>
 <p>Per quanto riguarda il mio pacchetto con tutti gli inquinanti ricordo che è installabile con:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;raffaele-morelli/datiInquinanti&quot;</span>)</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">library</span>(datiInquinanti)</span></code></pre></div>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co"># nel caso di reinstallazione usare il flag `force = TRUE`</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;raffaele-morelli/datiInquinanti&quot;</span>, <span class="dt">force =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="kw">library</span>(datiInquinanti)</span></code></pre></div>
 <p>Le relative info sui contenuti sono accessibili attraverso:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>?datiInquinanti</span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="kw">data</span>(<span class="dt">package=</span><span class="st">&quot;datiInquinanti&quot;</span>)</span></code></pre></div>

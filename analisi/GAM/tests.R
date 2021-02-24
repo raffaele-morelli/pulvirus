@@ -1,6 +1,7 @@
 library(datiInquinanti)
 library(datiMeteo)
 
+# preparazione dei dati, potremmo usare il nome regione anziché il region_id, questione di gusti :-)
 df <- inner_join(pm10, dati_meteo, by = c("station_eu_code", "date") ) %>% 
   inner_join(
     stazioniAria %>% filter(region_id == 6) %>% select(c("station_eu_code")), by = c("station_eu_code")

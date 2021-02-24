@@ -11,15 +11,18 @@ df <- inner_join(pm10, dati_meteo, by = c("station_eu_code", "date") ) %>%
 dfSub <- df %>% #filter(!is.na(value)) %>% 
   select(-c(date, pollutant_fk, station_code, coordx, coordy, altitude, altitudedem))
 
-# eseguo la standardizzazione di dfSub e aggiungo di nuovo la conc di PM10 non standardizzata ####
+# le variabili di interesse ####
+
 vars <- c("value", "t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m", "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", "wspeed", "pwspeed")
 
+# eseguo la standardizzazione di dfSub e aggiungo di nuovo la conc di PM10 non standardizzata ####
 dfSubStand <- as.data.frame(scale(dfSub[,vars])) # standardizzazione
 dfSubStand$v <- dfSub$value
 dfSubStand$station_eu_code <- dfSub$station_eu_code
 
-start_time <- Sys.time()
+start_time <- Sys.time() 
 
+# calcolo dei modelli per tutte le stazioni
 models <- dfSubStand %>% 
   split(.$station_eu_code) %>%  
   map(~gam((v) ~ s(ptp) + s(pwspeed) + s(tmin2m) + s(tp) + s(u10m, v10m) + s(pblmax, wspeed) + s(sp) + s(rh) + s(pblmin), 
@@ -27,6 +30,8 @@ models <- dfSubStand %>%
 
 end_time <- Sys.time()
 
-end_time - start_time
+end_time - start_time # tempo di esecuzione
 
-# models %>% map(summary.gam) %>% map_dbl(~.$s.pv[2])
+# Estraiamo gli R-sq.(adj) per tutti i modelli 
+models %>% 
+  map(summary.gam) %>% map_dbl(~.$r.sq)

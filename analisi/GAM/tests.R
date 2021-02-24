@@ -13,8 +13,8 @@ dfSub <- df %>% #filter(!is.na(value)) %>%
   select(-c(date, pollutant_fk, station_code, coordx, coordy, altitude, altitudedem))
 
 # le variabili di interesse ####
-
-vars <- c("value", "t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m", "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", "wspeed", "pwspeed")
+vars <- c("value", "t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
+          "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", "wspeed", "pwspeed")
 
 # eseguo la standardizzazione di dfSub e aggiungo di nuovo la conc di PM10 non standardizzata ####
 dfSubStand <- as.data.frame(scale(dfSub[,vars])) # standardizzazione
@@ -35,4 +35,5 @@ end_time - start_time # tempo di esecuzione
 
 # Estraiamo gli R-sq.(adj) per tutti i modelli 
 models %>% 
-  map(summary.gam) %>% map_dbl(~.$r.sq)
+  map(summary.gam) %>% map_dbl(~.$r.sq) %>% 
+  round(3)

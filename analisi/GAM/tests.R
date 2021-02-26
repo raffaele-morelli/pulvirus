@@ -2,6 +2,7 @@ library(lubridate)
 library(purrr)
 library(mgcv)
 library(dplyr)
+library(knitr)
 
 library(datiInquinanti)
 library(datiMeteo)

@@ -17,3 +17,19 @@ prepareDF <- function(code) {
   return(dfSubStand)
 }
 
+# estrazione parametri GAM check ####
+estrai <- function(Out) {
+  gam_obj <- capture.output( mgcv:::anova.gam(Out) )
+  gam_tbl <- gam_obj[11:length(gam_obj)]
+  
+  str_spl = function(x){
+    x <- gsub("<", "", x)    # il simbolo '<' ci rompe le scatole per lo split successivo
+    strsplit(x, "\\s+")[[1]] # splittiamo per spazi multipli
+  }
+  
+  tmp.df <- do.call(rbind, lapply(gam_tbl, str_spl)) %>% as.data.frame()
+  
+  names(tmp.df) <- c("Vs", "edf", "Ref.df", "F", "p-value") 
+  return( tmp.df )
+}
+

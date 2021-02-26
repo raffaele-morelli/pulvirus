@@ -1,6 +1,7 @@
 library(lubridate)
 library(purrr)
 library(mgcv)
+library(dplyr)
 
 library(datiInquinanti)
 library(datiMeteo)
@@ -10,7 +11,7 @@ library(datiMeteo)
 df <- inner_join(pm10, dati_meteo, by = c("station_eu_code", "date") ) %>% 
   inner_join(
     stazioniAria %>% 
-      filter(region_id == 12) %>% select(c("station_eu_code")), by = c("station_eu_code")
+      filter(region_id == 20) %>% select(c("station_eu_code")), by = c("station_eu_code")
     ) %>% 
   mutate(jd = as.numeric( date - ymd(20130101) ), value = ifelse(value <= 0, 0.2, value) ) 
 
@@ -25,6 +26,10 @@ vars <- c("value", "t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
 
 # eseguo la standardizzazione di dfSub e aggiungo di nuovo la conc di PM10 non standardizzata ####
 dfSubStand <- as.data.frame(scale(dfSub[,vars])) # standardizzazione
+
+dfSub.cor1 <- cor(dfSubStand, use = "pairwise.complete.obs")
+corrplot(dfSub.cor1)
+corrplot(dfSub.cor1, method = "number")
 
 # aggiungo codice stazione e valore originale ####
 dfSubStand$v <- dfSub$value
@@ -42,20 +47,33 @@ end_time <- Sys.time()
 
 end_time - start_time # tempo di esecuzione
 
-# Estraiamo gli R-sq.(adj) per tutti i modelli 
+# Estraiamo gli R-sq.(adj) ed AIC per tutti i modelli ####
+sink("esempio.md")
 models %>% 
   map(summary.gam) %>% map_dbl(~.$r.sq) %>% 
-  round(3) %>% print()
+  round(3) %>% kable() %>% print()
 
+models %>% map(AIC) 
+
+sink()
+
+sink("esempio.md", append = TRUE)
+
+my_list <- list()
 for (i in vars) {
   # print(i)
   j <- match(i, colnames(dfSubStand))
-  out <- gam((v) ~ s(dfSubStand[, j]), data = dfSubStand )
+  out <- gam(log(v) ~ s(dfSubStand[, j]), data = dfSubStand )
   # summary(out) %>% grep("R-sq.(adj)") %>%  print()
   summary(out) %>% capture.output() -> sommario
   grep("adj", sommario, value =  TRUE) -> radj
-  print( paste(i, " ::: AIC =>", round(AIC(out),2 ), " :::", radj ))
+
+  my_list[[i]] <- c(i, round(AIC(out),2 ), radj)
 }
+my_mat <- do.call(rbind, my_list)
+
+my_df %>% kable() %>%  print()
+sink()
 
 # for (i in colnames(dfSubStand)) { 
 # mod1 <- dfSubStand %>%

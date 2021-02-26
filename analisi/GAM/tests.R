@@ -27,10 +27,6 @@ vars <- c("value", "t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
 # eseguo la standardizzazione di dfSub e aggiungo di nuovo la conc di PM10 non standardizzata ####
 dfSubStand <- as.data.frame(scale(dfSub[,vars])) # standardizzazione
 
-dfSub.cor1 <- cor(dfSubStand, use = "pairwise.complete.obs")
-corrplot(dfSub.cor1)
-corrplot(dfSub.cor1, method = "number")
-
 # aggiungo codice stazione e valore originale ####
 dfSubStand$v <- dfSub$value
 dfSubStand$station_eu_code <- dfSub$station_eu_code

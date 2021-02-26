@@ -1,9 +1,10 @@
-prepareDF <- function(code) {
+# preparazione dataframe per stazione/inquinante
+prepareDF <- function(code, pltnt) {
   # importazione dati ####
   dm <- datiMeteo::dati_meteo %>% 
     filter(station_eu_code == code)
   
-  df <- filter(no2, station_eu_code == code) %>% 
+  df <- filter(get(pltnt), station_eu_code == code) %>% 
     inner_join(dm, by = c("station_eu_code", "date") ) 
   
   # subset con covariate e concentrazione ####

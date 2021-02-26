@@ -13,7 +13,9 @@ library(datiMeteo)
 setwd("/home/rmorelli/R/pulvirus/analisi/GAM")
 
 dm <- datiMeteo::dati_meteo %>% filter(station_eu_code == "IT0953A")
-df <- filter(pm10, station_eu_code == "IT0953A") %>% inner_join(dm, by = c("station_eu_code", "date") )
+
+df <- filter(pm10, station_eu_code == "IT0953A") %>% 
+  inner_join(dm, by = c("station_eu_code", "date") ) 
   
 #Per vedere formato e nomi variabili
 # str(df)

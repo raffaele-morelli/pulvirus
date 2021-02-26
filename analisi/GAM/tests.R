@@ -10,7 +10,7 @@ library(datiMeteo)
 df <- inner_join(pm10, dati_meteo, by = c("station_eu_code", "date") ) %>% 
   inner_join(
     stazioniAria %>% 
-      filter(region_id == 3) %>% select(c("station_eu_code")), by = c("station_eu_code")
+      filter(region_id == 12) %>% select(c("station_eu_code")), by = c("station_eu_code")
     ) %>% 
   mutate(jd = as.numeric( date - ymd(20130101) ), value = ifelse(value <= 0, 0.2, value) ) 
 
@@ -18,22 +18,24 @@ df <- inner_join(pm10, dati_meteo, by = c("station_eu_code", "date") ) %>%
 dfSub <- df %>% 
   select(-c(date, pollutant_fk, station_code, coordx, coordy, altitude, altitudedem))
 
+
 # le variabili di interesse ####
 vars <- c("value", "t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
           "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", "wspeed", "pwspeed", "jd")
 
 # eseguo la standardizzazione di dfSub e aggiungo di nuovo la conc di PM10 non standardizzata ####
 dfSubStand <- as.data.frame(scale(dfSub[,vars])) # standardizzazione
+
+# aggiungo codice stazione e valore originale ####
 dfSubStand$v <- dfSub$value
 dfSubStand$station_eu_code <- dfSub$station_eu_code
-# dfSubStand$region_id <- dfSub$region_id
 
 start_time <- Sys.time() 
 
 # calcolo dei modelli per tutte le stazioni
 models <- dfSubStand %>%
   split(.$station_eu_code) %>%
-  map(~gam(log(v) ~ s(jd) + s(wdir) + s(pwspeed) + s(wspeed) + s(tp) + s(sp) + s(ptp)  + s(nirradiance) + s(rh) , 
+  map(~gam(log(v) ~ s(jd) + s(pwspeed) + s(wspeed) + s(tp) + s(sp) + s(ptp) + s(nirradiance) + s(rh) , 
            data = .) )
 
 end_time <- Sys.time()
@@ -50,9 +52,9 @@ for (i in vars) {
   j <- match(i, colnames(dfSubStand))
   out <- gam((v) ~ s(dfSubStand[, j]), data = dfSubStand )
   # summary(out) %>% grep("R-sq.(adj)") %>%  print()
-  summary(out) %>% capture.output() -> pippo
-  grep("adj", pippo, value =  TRUE) -> radj
-  print( paste(i, ":", round(AIC(out),2 ), "R ", radj ))
+  summary(out) %>% capture.output() -> sommario
+  grep("adj", sommario, value =  TRUE) -> radj
+  print( paste(i, " ::: AIC =>", round(AIC(out),2 ), " :::", radj ))
 }
 
 # for (i in colnames(dfSubStand)) { 

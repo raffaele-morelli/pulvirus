@@ -69,7 +69,7 @@ for (i in vars) {
 }
 my_mat <- do.call(rbind, my_list)
 
-my_df %>% kable() %>%  print()
+my_list %>% kable() %>%  print()
 sink()
 
 # for (i in colnames(dfSubStand)) { 

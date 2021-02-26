@@ -11,7 +11,8 @@ df <- inner_join(pm10, dati_meteo, by = c("station_eu_code", "date") ) %>%
   inner_join(
     stazioniAria %>% 
       filter(region_id == 3) %>% select(c("station_eu_code")), by = c("station_eu_code")
-    ) %>% mutate(jd = as.numeric( date - ymd(20130101) ), value = ifelse(value <= 0, 0.2, value) ) 
+    ) %>% 
+  mutate(jd = as.numeric( date - ymd(20130101) ), value = ifelse(value <= 0, 0.2, value) ) 
 
 # subset con covariate e concentrazione ####
 dfSub <- df %>% 

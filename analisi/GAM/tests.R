@@ -10,7 +10,7 @@ library(datiMeteo)
 df <- inner_join(pm10, dati_meteo, by = c("station_eu_code", "date") ) %>% 
   inner_join(
     stazioniAria %>% 
-      filter(region_id == 2) %>% select(c("station_eu_code")), by = c("station_eu_code")
+      filter(region_id == 3) %>% select(c("station_eu_code")), by = c("station_eu_code")
     ) %>% mutate(jd = as.numeric( date - ymd(20130101) ), value = ifelse(value <= 0, 0.2, value) ) 
 
 # subset con covariate e concentrazione ####
@@ -44,9 +44,25 @@ models %>%
   map(summary.gam) %>% map_dbl(~.$r.sq) %>% 
   round(3) %>% print()
 
-for (i in vars) { 
+for (i in vars) {
+  # print(i)
   j <- match(i, colnames(dfSubStand))
   out <- gam((v) ~ s(dfSubStand[, j]), data = dfSubStand )
-  summary(out) %>% print()
-  # print( paste(i, ":", round(AIC(out),2 )))
+  # summary(out) %>% grep("R-sq.(adj)") %>%  print()
+  summary(out) %>% capture.output() -> pippo
+  grep("adj", pippo, value =  TRUE) -> radj
+  print( paste(i, ":", round(AIC(out),2 ), "R ", radj ))
 }
+
+# for (i in colnames(dfSubStand)) { 
+# mod1 <- dfSubStand %>%
+#   split(.$station_eu_code) %>%
+#   map(~gam(log(v) ~ s(get(i)) , data = .) )
+# }
+# 
+# mod1 %>% 
+#   map(summary.gam) %>% 
+#   map_dbl(~.$r.sq) %>% 
+#   round(3) %>% print()
+
+

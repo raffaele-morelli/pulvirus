@@ -3,55 +3,85 @@
 
 sceltaVar <- function(df, varsel, mod, minimoaic, mat_corr) {
   for (i in vars ) {
-    
-    if (colnames(df[, i])	!= 'value') {
-      out1[i] <- gam(log(df[, 1]) ~ mod + s(df[, i]), data = df)
-      AIC1 <- AIC(out[i])
-      minimoaic1 <- min(AIC1)
-    }
-    
+    out1[i] <- gam(log(df[, 1]) ~ mod + s(df[, i]), data = df)
+    AIC1 <- AIC(out[i])
+    minimoaic1 <- min(AIC1)
   }
   return(models)
   
-  if (minimoaic1 < minimoaic) {
-    variabilescelta1 <- colnames(df[, i]) #varscelta  corrisponde all'indice del minimo di df[,i]
-    varsel1 <- c(varsel, variabilescelta1) #vettore delle variabile scelte (verifca inseirmento variabile in coda la vettor)      if (length(varsel)>1) { #evita di fare test backward in caso ci sia solo una variabile selezionata
-    #var2<-varsel[length(varsel)-1]
-    #varsel2 <- varsel[-(length(varsel)-1)] #tolgo la variabile selezionata prima di variabile scelta
-    mod1 < -creaMod_vettore(varsel1) #funzione che a partire dalle variabili selezionate crea la stringa iniziale per il modello...s(x1)+s(x2)....)
-    df1 <- df[-variabilescelta1]
-    for (j in seq_along(df2[, j])) {
-      if (colnames(df2[, j])	!= 'value') {
-        out2[j] <- gam(log(df[, 1]) ~ mod1 + s(df1[, j]), data = df1)
-        AIC2 <- AIC(out[j])
-        minimoaic2 <- min (AIC1)
-      }
+  {
+  # 
+  # if (minimoaic1 < minimoaic) {
+  #   variabilescelta1 <- colnames(df[, i]) #varscelta  corrisponde all'indice del minimo di df[,i]
+  #   varsel1 <- c(varsel, variabilescelta1) #vettore delle variabile scelte (verifca inseirmento variabile in coda la vettor)      if (length(varsel)>1) { #evita di fare test backward in caso ci sia solo una variabile selezionata
+  #   #var2<-varsel[length(varsel)-1]
+  #   #varsel2 <- varsel[-(length(varsel)-1)] #tolgo la variabile selezionata prima di variabile scelta
+  #   mod1 < -creaMod_vettore(varsel1) #funzione che a partire dalle variabili selezionate crea la stringa iniziale per il modello...s(x1)+s(x2)....)
+  #   df1 <- df[-variabilescelta1]
+  #   for (j in seq_along(df2[, j])) {
+  #     if (colnames(df2[, j])	!= 'value') {
+  #       out2[j] <- gam(log(df[, 1]) ~ mod1 + s(df1[, j]), data = df1)
+  #       AIC2 <- AIC(out[j])
+  #       minimoaic2 <- min (AIC1)
+  #     }
+  #   }
+  #   
+  #   if (minimoaic2 < minimoaic1) {
+  #     variabilescelta2 <- colnames(df[, i])#varscelta2  corrisponde all'indice del minimo di df[,j]
+  #     varsel2 <- c(varsel, variabilescelta2) #vettore delle variabile scelte
+  #     mod2 < -creaMod_vettore(varsel2)
+  #     minimoaic <- minimoaic2
+  #     df2 <- df1[-variabilescelta2]
+  #     
+  #     if (mat_corr(varsel) < 0.7) {
+  #       # verificare se la variabile selezionata per prima è sempre la più significativa
+  #       # fisso la seconda e verifico che sia ancora la più signficativa
+  #       sceltaVar(df2, varsel2, mod2, minimoaic2, mat_corr)
+  #     }else{
+  #       df <- df1[-variabilescelta2]
+  #       sceltaVar(df1, varsel1, mod1, minimoaic1, mat_corr)
+  #     }
+  #   }
+  # }
+  # if (minimoaic1 <= minimoaic2) {
+  #   mod <-  mod1
+  #   out <- out1[i]
+  # } else{
+  #   if (minimoaic1 > minimoaic) {
+  #     # mod <- mod
+  #     # out <-  ?  ?  ?  ?
+  #   }
+  # }
     }
-    
-    if (minimoaic2 < minimoaic1) {
-      variabilescelta2 <-
-        colnames(df[, i])#varscelta2  corrisponde all'indice del minimo di df[,j]
-      varsel2 <-
-        C(varsel, variabilescelta2) #vettore delle variabile scelte
-      mod2 < -creaMod_vettore(varsel2)
-      minimoaic <- minimoaic2
-      df2 <- df1[-variabilescelta2]
-      if (mat_corr(varsel) < 0.7) {
-        sceltaVar(df2, varsel2, mod2, minimoaic2, mat_corr)
-      }
-      else {
-        df <- df1[-variabilescelta2]
-        sceltaVar(df1, varsel1, mod1, minimoaic1, mat_corr)
-      }
-    }
-  }
-  if (minimoaic1 <= minimoaic2) {
-    mod <-  mod1
-    out <- out1[i]
-  } else{
-    if (minimoaic1 > minimoaic) {
-      # mod <- mod
-      # out <-  ?  ?  ?  ?
-    }
-  }
 }
+
+# le combinazioni di classe N
+c1 <- combn(vars, 1) %>% data.frame()
+
+# sistemiamo le "spline"
+y <- lapply(c1, function(x) paste0("s(", x, ")"))
+x <- do.call(rbind, y)
+z <- cbind(x, mod = apply(x, 1, paste0, collapse = " + "))
+
+# w conterrà le stringhe dei modelli
+w <- lapply(z[,  ncol(z)], function(x) paste0("gam(log(v) ~ ", x, ", data = .)"))
+
+models <- list()
+for(i in w) {
+  # print(i)
+  models[[i]] <- dfSubStand %>%
+    split(.$station_eu_code) %>%
+    map(~eval(parse(text = i))) 
+  # map(map_dbl, AIC)
+}
+
+models %>% map(map_dbl, AIC) %>% .[[2]]
+
+models %>% map(~ .x %>% map_dbl(AIC))
+# or, equivalently:
+models %>% map(~ map_dbl(.x, AIC))
+
+# estraggo gli AIC
+models[[2]] %>%
+  map_dbl(AIC) %>%
+  round(3) %>%  min()

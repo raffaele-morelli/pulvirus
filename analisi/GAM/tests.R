@@ -12,14 +12,28 @@ setwd("~/R/pulvirus/analisi/GAM")
 # fegatelli ####
 # station_eu_code == "IT0953A" | station_eu_code == "IT0888A"
 
+# argomenti ####
+args <- commandArgs(trailingOnly = TRUE)
+
+cat(args[1], args[2], "\n", sep = " ---- ")
+
+pltnt <- args[1]
+region_id <- args[2]
+
+if(is.na(args[1])) {
+  pltnt <- "pm10"
+  cod_reg <- 2  
+}
+
+
 # preparazione dei dati ####
-df <- inner_join(pm10 %>% filter( reporting_year == 2019), dati_meteo, by = c("station_eu_code", "date") ) %>% 
+df <- inner_join(get(pltnt) %>% filter( reporting_year >= 2016), dati_meteo, by = c("station_eu_code", "date") ) %>% 
   inner_join(
     stazioniAria %>% 
-      filter(region_id == 2) %>% 
+      filter(region_id == cod_reg) %>% 
       select(c("station_eu_code")), by = c("station_eu_code")
     ) %>% 
-  mutate(jd = as.numeric( date - ymd(20130101) ), value = ifelse(value <= 0, 0.2, value) )
+  mutate(value = ifelse(value <= 0, 0.2, value) )
 
 # subset con covariate e concentrazione
 dfSub <- df %>% 
@@ -28,7 +42,7 @@ dfSub <- df %>%
 
 # le variabili di interesse
 vars <- c("value", "t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
-          "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", "wspeed", "pwspeed", "jd")
+          "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", "wspeed", "pwspeed")
 
 # standardizzazione
 dfSubStand <- as.data.frame(scale(dfSub[,vars]))
@@ -36,6 +50,7 @@ dfSubStand <- as.data.frame(scale(dfSub[,vars]))
 # aggiungo codice stazione e valore originale 
 dfSubStand$v <- dfSub$value
 dfSubStand$station_eu_code <- dfSub$station_eu_code
+dfSubStand$jd = as.numeric( df$date - ymd(20130101) )
 
 # sperimentazioni modello ####
 
@@ -123,16 +138,14 @@ z <- cbind(x, mod = apply(x, 1, paste0, collapse = " + "))
 w <- lapply(z[,  ncol(z)], function(x) paste0("gam(log(v) ~ ", x, ", data = .)"))
 
 # tutte le combinazioni per più stazioni
-models_1 <- list()
+models <- list()
 
 for(i in w) {
   print(i)
-  models_1[[i]] <- dfSubStand %>%
+  models[[i]] <- dfSubStand %>%
     split(.$station_eu_code) %>%
     map(~eval(parse(text = i))) 
   # map(map_dbl, AIC)
 }
 
- # estraggo gli AIC
-models_1 %>% map(map_dbl, AIC)
-
+save(models, file = glue::glue("~/R/pulvirus/analisi/GAM/{pltnt}_{cod_reg}.RData"), models)

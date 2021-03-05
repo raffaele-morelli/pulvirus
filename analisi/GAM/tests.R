@@ -1,3 +1,4 @@
+# pacchetti ####
 library(lubridate)
 library(purrr)
 library(mgcv)
@@ -6,81 +7,132 @@ library(knitr)
 
 library(datiInquinanti)
 library(datiMeteo)
+setwd("~/R/pulvirus/analisi/GAM")
 
+# fegatelli ####
+# station_eu_code == "IT0953A" | station_eu_code == "IT0888A"
 
-# preparazione dei dati, potremmo usare il nome regione anziché il region_id, questione di gusti :-)
-df <- inner_join(pm10, dati_meteo, by = c("station_eu_code", "date") ) %>% 
+# preparazione dei dati ####
+df <- inner_join(pm10 %>% filter( reporting_year == 2019), dati_meteo, by = c("station_eu_code", "date") ) %>% 
   inner_join(
     stazioniAria %>% 
-      filter(region_id == 20) %>% select(c("station_eu_code")), by = c("station_eu_code")
+      filter(region_id == 2) %>% 
+      select(c("station_eu_code")), by = c("station_eu_code")
     ) %>% 
-  mutate(jd = as.numeric( date - ymd(20130101) ), value = ifelse(value <= 0, 0.2, value) ) 
+  mutate(jd = as.numeric( date - ymd(20130101) ), value = ifelse(value <= 0, 0.2, value) )
 
-# subset con covariate e concentrazione ####
+# subset con covariate e concentrazione
 dfSub <- df %>% 
   select(-c(date, pollutant_fk, station_code, coordx, coordy, altitude, altitudedem))
 
 
-# le variabili di interesse ####
+# le variabili di interesse
 vars <- c("value", "t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
           "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", "wspeed", "pwspeed", "jd")
 
-# eseguo la standardizzazione di dfSub e aggiungo di nuovo la conc di PM10 non standardizzata ####
-dfSubStand <- as.data.frame(scale(dfSub[,vars])) # standardizzazione
+# standardizzazione
+dfSubStand <- as.data.frame(scale(dfSub[,vars]))
 
-# aggiungo codice stazione e valore originale ####
+# aggiungo codice stazione e valore originale 
 dfSubStand$v <- dfSub$value
 dfSubStand$station_eu_code <- dfSub$station_eu_code
 
-start_time <- Sys.time() 
+# sperimentazioni modello ####
 
-# calcolo dei modelli per tutte le stazioni
-models <- dfSubStand %>%
-  split(.$station_eu_code) %>%
-  map(~gam(log(v) ~ s(jd) + s(pwspeed) + s(wspeed) + s(tp) + s(sp) + s(ptp) + s(nirradiance) + s(rh) , 
-           data = .) )
-
-end_time <- Sys.time()
-
-end_time - start_time # tempo di esecuzione
-
-# Estraiamo gli R-sq.(adj) ed AIC per tutti i modelli ####
-sink("esempio.md")
-models %>% 
-  map(summary.gam) %>% map_dbl(~.$r.sq) %>% 
-  round(3) %>% kable() %>% print()
-
-models %>% map(AIC) 
-
-sink()
-
-sink("esempio.md", append = TRUE)
-
-my_list <- list()
-for (i in vars) {
-  # print(i)
-  j <- match(i, colnames(dfSubStand))
-  out <- gam(log(v) ~ s(dfSubStand[, j]), data = dfSubStand )
-  # summary(out) %>% grep("R-sq.(adj)") %>%  print()
-  summary(out) %>% capture.output() -> sommario
-  grep("adj", sommario, value =  TRUE) -> radj
-
-  my_list[[i]] <- c(i, round(AIC(out),2 ), radj)
-}
-my_mat <- do.call(rbind, my_list)
-
-my_list %>% kable() %>%  print()
-sink()
-
-# for (i in colnames(dfSubStand)) { 
-# mod1 <- dfSubStand %>%
+# start_time <- Sys.time() 
+# calcolo del modello per tutte le stazioni
+# models <- dfSubStand %>%
 #   split(.$station_eu_code) %>%
-#   map(~gam(log(v) ~ s(get(i)) , data = .) )
-# }
-# 
-# mod1 %>% 
+#   map(~gam(log(v) ~ s(jd) + s(pwspeed) + s(wspeed) + s(tp) + s(sp) + s(ptp) + s(nirradiance) + s(rh) , 
+#            data = .) )
+# end_time <- Sys.time()
+# end_time - start_time # tempo di esecuzione
+
+# Estraiamo gli R-sq.(adj) ed AIC per tutti i modelli
+# models %>% 
 #   map(summary.gam) %>% 
 #   map_dbl(~.$r.sq) %>% 
-#   round(3) %>% print()
+#   round(3) -> rsq
 
+# models %>% map_dbl(AIC) -> aics
+
+# sink("esempio.md")
+# inner_join(
+#   data.frame(attributes(aics), aics, row.names = NULL),
+#   data.frame(attributes(rsq), rsq, row.names = NULL),
+#   by = "names"
+# ) %>% kable(format = "pipe", padding = 6) %>% print()
+# sink()
+
+# sink("esempio.md", append = TRUE)
+# my_list %>% kable(format = "pipe", padding = 6) %>%  print()
+# sink()
+
+
+# eval(parse(text = "gam(log(v) ~ s(jd) + s(pwspeed), data = dfSubStand)"))
+
+# ESEMPIO 1 ####
+# vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
+#           "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", "wspeed", "pwspeed", "jd")
+# 
+# # le combinazioni di classe 4
+# c1 <- combn(vars, 17) %>% 
+#   data.frame()
+# 
+# # sistemiamo le "spline"
+# y <- lapply(c1, function(x) paste0("s(", x, ")"))
+# x <- do.call(rbind, y)
+# z <- cbind(x, mod = apply(x, 1, paste0, collapse = " + "))
+# 
+# # w conterrà le stringhe dei modelli
+# w <- lapply(z[,  ncol(z)], function(x) paste0("gam(log(v) ~ ", x, ", data = dfSubStand)"))
+# 
+# 
+# gam_list <- list()
+# 
+# start_time <- Sys.time() 
+# for(i in w) {
+#   # gam_list[[i]] <-  eval(parse(text = i))
+# }
+# end_time <- Sys.time() 
+# end_time - start_time # tempo di esecuzione
+# 
+# # estraggo gli AIC
+# gam_list %>% 
+#   map_dbl(AIC) %>%
+#   round(3) -> aics
+# 
+# # estraggo gli R²
+# gam_list %>% 
+#   map(summary.gam) %>%
+#   map_dbl(~.$r.sq) %>%
+#   round(3) -> rsqs
+
+# ESEMPIO 2 tutte le combinaizioni per più stazioni ####
+vars <- c("t2m", "tp", "ptp", "rh", "u10m", "v10m",
+          "sp", "nirradiance", "pblmin", "pblmax", "wdir", "wspeed", "pwspeed", "jd")
+# le combinazioni di classe N
+c1 <- combn(vars, 13) %>% data.frame()
+
+# sistemiamo le "spline"
+y <- lapply(c1, function(x) paste0("s(", x, ")"))
+x <- do.call(rbind, y)
+z <- cbind(x, mod = apply(x, 1, paste0, collapse = " + "))
+
+# w conterrà le stringhe dei modelli
+w <- lapply(z[,  ncol(z)], function(x) paste0("gam(log(v) ~ ", x, ", data = .)"))
+
+# tutte le combinazioni per più stazioni
+models_1 <- list()
+
+for(i in w) {
+  print(i)
+  models_1[[i]] <- dfSubStand %>%
+    split(.$station_eu_code) %>%
+    map(~eval(parse(text = i))) 
+  # map(map_dbl, AIC)
+}
+
+ # estraggo gli AIC
+models_1 %>% map(map_dbl, AIC)
 

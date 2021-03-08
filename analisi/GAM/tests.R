@@ -22,7 +22,7 @@ region_id <- args[2]
 
 if(is.na(args[1])) {
   pltnt <- "pm10"
-  cod_reg <- 2  
+  cod_reg <- 1  
 }
 
 
@@ -52,7 +52,10 @@ dfSubStand$v <- dfSub$value
 dfSubStand$station_eu_code <- dfSub$station_eu_code
 dfSubStand$jd = as.numeric( df$date - ymd(20130101) )
 
+
+
 # sperimentazioni modello ####
+
 
 # start_time <- Sys.time() 
 # calcolo del modello per tutte le stazioni

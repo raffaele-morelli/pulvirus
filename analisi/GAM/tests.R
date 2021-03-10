@@ -22,7 +22,7 @@ region_id <- args[2]
 
 if(is.na(args[1])) {
   pltnt <- "pm10"
-  cod_reg <- 1  
+  cod_reg <- 2  
 }
 
 
@@ -51,6 +51,7 @@ dfSubStand <- as.data.frame(scale(dfSub[,vars]))
 dfSubStand$v <- dfSub$value
 dfSubStand$station_eu_code <- dfSub$station_eu_code
 dfSubStand$jd = as.numeric( df$date - ymd(20130101) )
+dfSub$jd = as.numeric( df$date - ymd(20130101) )
 
 
 
@@ -91,7 +92,7 @@ dfSubStand$jd = as.numeric( df$date - ymd(20130101) )
 
 # ESEMPIO 1 ####
 # vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
-#           "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", "wspeed", "pwspeed", "jd")
+          # "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", "wspeed", "pwspeed", "jd")
 # 
 # # le combinazioni di classe 4
 # c1 <- combn(vars, 17) %>% 

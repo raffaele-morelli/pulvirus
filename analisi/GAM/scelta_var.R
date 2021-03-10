@@ -114,10 +114,22 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
       }
       
       bestMod(models) -> aicBack # AICs ####
+      q <- cor(dfSub %>% select(c(names(AICS), aicBack[-c(1)][1])), use = "pairwise.complete.obs") %>% data.frame()
+      
       if( as.numeric( aicBack[1]) < as.numeric( AICS[[n]][1]) ) {
-        return("Controllo la correlazione del backward")
+        
+        if( q[aicBack[-c(1)][1], aicBack[-c(1)][2]] < 0.7 ) {
+          return("Scelgo il backward")
+        }else{
+          if(q[AICS[[n]][-c(1)][[1]], AICS[[n]][-c(1)][[2]]] < 0.7) {
+            return("Scelgo il modello N")
+          }
+        }
+        
       }else{
-        return("Controllo la correlazione del modello n")
+        cor(dfSub %>% select(names(AICS)), use = "pairwise.complete.obs")
+        
+        return("Controllo la correlazione del modello N")
       }
     }    
   }

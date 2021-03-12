@@ -207,22 +207,6 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
   }else{
     sceltaVar()
   }
-
-  v_fixed <- get("v_fixed", envir = .GlobalEnv)
-  
-  y0 <- lapply(v_fixed, function(x) paste0("s(", x, ")"))
-  y1 <- do.call(cbind, y0)
-  z <- data.frame(mod = apply(y1, 1, paste0, collapse = " + "))
-  
-  # w conterrà le stringhe dei modelli
-  w <- lapply(z[,  ncol(z)], function(x) paste0("gam(log(value) ~ ", x, ", data = .)"))
-  models <- list()
-  for(i in w) {
-    # print(i)
-    models[[i]] <- dfSub %>% split(.$station_eu_code) %>% 
-      map(~eval(parse(text = i)))
-  }
-  save(models, file = glue::glue("{out_dir}/{pltnt}_{cod_reg}.RData"))
   
   
   log_print("Fine per scelta MODELLO", hide_notes = TRUE)
@@ -249,3 +233,21 @@ log_print(sprintf("Esecuzione %s", end_time - start_time), hide_notes = TRUE)
 
 # writeLines(readLines(lf))
 log_close()
+
+
+
+v_fixed <- get("v_fixed", envir = .GlobalEnv)
+
+y0 <- lapply(v_fixed, function(x) paste0("s(", x, ")"))
+y1 <- do.call(cbind, y0)
+z <- data.frame(mod = apply(y1, 1, paste0, collapse = " + "))
+
+# w conterrà le stringhe dei modelli
+w <- lapply(z[,  ncol(z)], function(x) paste0("gam(log(value) ~ ", x, ", data = .)"))
+models <- list()
+for(i in w) {
+  # print(i)
+  models[[i]] <- dfSub %>% split(.$station_eu_code) %>% 
+    map(~eval(parse(text = i)))
+}
+save(models, file = glue::glue("{out_dir}/{pltnt}_{cod_reg}.RData"))

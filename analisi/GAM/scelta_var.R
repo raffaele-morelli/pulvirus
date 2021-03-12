@@ -19,8 +19,8 @@ args <- commandArgs(trailingOnly = TRUE)
 cat(args[1], args[2], "\n", sep = " ---- ")
 
 if(is.na(args[1])) {
-  pltnt <- "pm10"
-  cod_reg <- 16  
+  pltnt <- "no2"
+  cod_reg <- 16
 }else{
   pltnt <- args[1]
   region_id <- args[2]
@@ -39,6 +39,8 @@ df <- inner_join(get(pltnt) %>% filter( reporting_year >= 2016), dati_meteo, by 
 # subset con covariate e concentrazione
 dfSub <- df %>% 
   select(-c(date, pollutant_fk, station_code, coordx, coordy, altitude, altitudedem))
+
+dfSub$jd = as.numeric( df$date - ymd(20130101) )
 
 
 # FUNZIONI ####
@@ -238,7 +240,7 @@ lf <- log_open(f_log)
 
 vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
           "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", 
-          "wspeed", "pwspeed")
+          "wspeed", "pwspeed", "jd")
 
 start_time <- Sys.time()
 sceltaVar()

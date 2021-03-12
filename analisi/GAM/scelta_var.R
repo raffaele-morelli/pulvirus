@@ -7,19 +7,19 @@ library(knitr)
 
 library(datiInquinanti)
 library(datiMeteo)
-setwd("~/R/pulvirus/analisi/GAM")
+# setwd("~/R/pulvirus/analisi/GAM")
 
 # fegatelli ####
 # station_eu_code == "IT0953A" | station_eu_code == "IT0888A"
 
-# argomenti ####
+# ARGOMENTI ####
 args <- commandArgs(trailingOnly = TRUE)
 
 cat(args[1], args[2], "\n", sep = " ---- ")
 
 if(is.na(args[1])) {
   pltnt <- "pm10"
-  cod_reg <- 3  
+  cod_reg <- 12  
 }else{
   pltnt <- args[1]
   region_id <- args[2]
@@ -202,8 +202,9 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
     sceltaVar()
   }
   
-  log_print("Fine per scelta MODELLO?")
-  log_print(get("v_alive"))
+  log_print("Fine per scelta MODELLO", hide_notes = TRUE)
+  log_print(get("v_alive"), hide_notes = TRUE)
+  log_print("----------------------")
   return(" ")
 }
 
@@ -218,7 +219,10 @@ lf <- log_open(f_log)
 vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
           "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", 
           "wspeed", "pwspeed")
+start_time <- Sys.time()
 sceltaVar()
+end_time <- Sys.time()
+log_print(sprintf("Esecuzione %s", end_time - start_time), hide_notes = TRUE)
 
 # writeLines(readLines(lf))
 log_close()

@@ -118,7 +118,7 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
   v_alive <- get("v_alive", envir = .GlobalEnv)
   v_dead <- get("v_dead", envir = .GlobalEnv)
   
-  # costruisce le stringhe dei modelli ####
+  # costruisce le stringhe dei modelli
   log_print("START", hide_notes = TRUE)
   models <- list()
   
@@ -128,7 +128,7 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
       map(~eval(parse(text = i)))
   }
   
-  bestMod(models) -> aicVar # AICs del modello migliore ####
+  bestMod(models) -> aicVar # AICs del modello migliore
   
   tmp <- list()
   tmp[[aicVar[2]]] <- c(tmp, aicVar)
@@ -157,8 +157,8 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
           map(~eval(parse(text = i)))
       }
       
-      bestMod(models) -> aicBack # AICs ####
-      log_print(paste("Dati backward: ",  sprintf(" %s", aicBack) ), hide_notes = TRUE)
+      bestMod(models) -> aicBack # AIC del backward
+      log_print(sprintf("Dati backward:  %s", aicBack), hide_notes = TRUE)
       
       q <- cor(dfSub %>% select(c(names(AICS), aicBack[-c(1)])), use = "pairwise.complete.obs") %>% 
         data.frame()

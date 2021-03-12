@@ -152,4 +152,4 @@ for(i in w) {
   # map(map_dbl, AIC)
 }
 
-save(models, file = glue::glue("~/R/pulvirus/analisi/GAM/{pltnt}_{cod_reg}.RData"), models)
+save(models, file = glue::glue("~/R/pulvirus/analisi/GAM/{pltnt}_{cod_reg}.RData"))

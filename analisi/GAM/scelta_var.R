@@ -4,6 +4,7 @@ library(purrr)
 library(mgcv)
 library(dplyr)
 library(knitr)
+library(logr)
 
 library(datiInquinanti)
 library(datiMeteo)
@@ -19,7 +20,7 @@ cat(args[1], args[2], "\n", sep = " ---- ")
 
 if(is.na(args[1])) {
   pltnt <- "pm10"
-  cod_reg <- 12  
+  cod_reg <- 16  
 }else{
   pltnt <- args[1]
   region_id <- args[2]
@@ -172,7 +173,8 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
           assign("v_fixed", c(names(AICS[-c(length(AICS)-1)]), envir = .GlobalEnv) )
 
           log_print("Scelgo il backward ", hide_notes = TRUE)
-          return()
+          sceltaVar()
+          # return()
         }
       }
       
@@ -194,7 +196,6 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
         sceltaVar()
         # return()
       }
-
     }else{
       return("Fine per scelta MODELLO iniziale")
     }
@@ -202,9 +203,27 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
   }else{
     sceltaVar()
   }
+
+  v_fixed <- get("v_fixed", envir = .GlobalEnv)
+  
+  y0 <- lapply(v_fixed, function(x) paste0("s(", x, ")"))
+  y1 <- do.call(cbind, y0)
+  z <- data.frame(mod = apply(y1, 1, paste0, collapse = " + "))
+  
+  # w conterrà le stringhe dei modelli
+  w <- lapply(z[,  ncol(z)], function(x) paste0("gam(log(value) ~ ", x, ", data = .)"))
+  models <- list()
+  for(i in w) {
+    # print(i)
+    models[[i]] <- dfSub %>% split(.$station_eu_code) %>% 
+      map(~eval(parse(text = i)))
+  }
+  temp_dir <- tempdir()
+  save(models, file = glue::glue("{temp_dir}/{pltnt}_{cod_reg}.RData"))
+  
   
   log_print("Fine per scelta MODELLO", hide_notes = TRUE)
-  log_print(get("v_fixed"), hide_notes = TRUE)
+  log_print(paste(get("v_fixed", envir = .GlobalEnv), collapse = " + "), hide_notes = TRUE)
   log_print("----------------------")
   return(" ")
 }
@@ -220,6 +239,7 @@ lf <- log_open(f_log)
 vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
           "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", 
           "wspeed", "pwspeed")
+
 start_time <- Sys.time()
 sceltaVar()
 end_time <- Sys.time()

@@ -51,12 +51,12 @@ buildMods <- function(backward = FALSE) {
   l <- length(AICS)
   
   vars <- get("vars", envir = .GlobalEnv)
-  v_alive <- get("v_alive", envir = .GlobalEnv)
+  v_fixed <- get("v_fixed", envir = .GlobalEnv)
   v_dead <- get("v_dead", envir = .GlobalEnv)
   
   if( l > 1 & backward == TRUE) {
     # le combinazioni di classe N senza la penultima variabile
-    c1 <- combn(vars[!vars %in% c("value", names(AICS[-c(length(AICS)-1)]), names(v_alive), v_dead ) ], 1) %>% 
+    c1 <- combn(vars[!vars %in% c("value", names(AICS[-c(length(AICS)-1)]), names(v_fixed), v_dead ) ], 1) %>% 
       data.frame()
     
     # sistemiamo le "spline" testuali
@@ -68,8 +68,8 @@ buildMods <- function(backward = FALSE) {
     y1 <- do.call(cbind, y1)
     
   }else{
-    # le combinazioni di classe N senza le variabili già in v_alive
-    c1 <- combn(vars[!vars %in% c("value", names(v_alive), v_dead)], 1) %>% 
+    # le combinazioni di classe N senza le variabili già in v_fixed
+    c1 <- combn(vars[!vars %in% c("value", names(v_fixed), v_dead)], 1) %>% 
       data.frame()
     
     y0 <- lapply(c1, function(x) paste0("s(", x, ")"))
@@ -92,7 +92,8 @@ buildMods <- function(backward = FALSE) {
 # @models : lista con i modelli per tutte le stazioni
 bestMod <- function(models) {
   # estrazione AIC
-  models %>% map(~ map_dbl(.x, AIC)) %>% do.call(rbind, .) %>% as.data.frame() -> aics
+  models %>% map(~ map_dbl(.x, AIC)) %>% do.call(rbind, .) %>% 
+    as.data.frame() -> aics
   
   # modello più performante
   rownames(aics[-c(1),])[ apply(aics[-c(1),], 2, FUN = which.min)] %>%
@@ -104,7 +105,7 @@ bestMod <- function(models) {
   apply(aics[-c(1),], 2, FUN = min) %>% 
     data.frame("aic" = .) %>% summarise(min(aic)) %>% as.numeric() -> minaic
   
-  # estrazioni variabili  
+  # estrazioni variabili: prendo tutto ciò che è tra parentesi tonde
   nvar <- gsub("[\\(\\)]", "", regmatches(tab$mod, gregexpr("\\(.*?\\)", tab$mod) )[[1]])
   log_print(sprintf("%s", nvar %>% unlist()) , hide_notes = TRUE)
   
@@ -115,7 +116,7 @@ bestMod <- function(models) {
 sceltaVar <- function(varsel = c(), check = FALSE) {
   AICS <- get("AICS", envir = .GlobalEnv)
   vars <- get("vars", envir = .GlobalEnv)
-  v_alive <- get("v_alive", envir = .GlobalEnv)
+  v_fixed <- get("v_fixed", envir = .GlobalEnv)
   v_dead <- get("v_dead", envir = .GlobalEnv)
   
   # costruisce le stringhe dei modelli
@@ -168,7 +169,7 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
         if( all(abs(q[, aicBack[-c(1)][1] ]) < 0.7) ) {
 
           assign("vars", vars[!vars %in% names(AICS[-c(length(AICS)-1)])], envir = .GlobalEnv)
-          assign("v_alive", c(names(AICS[-c(length(AICS)-1)]), envir = .GlobalEnv) )
+          assign("v_fixed", c(names(AICS[-c(length(AICS)-1)]), envir = .GlobalEnv) )
 
           log_print("Scelgo il backward ", hide_notes = TRUE)
           return()
@@ -181,7 +182,7 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
         
         assign("vars", vars[!vars %in% names(AICS)], envir = .GlobalEnv)
         
-        assign("v_alive", c(names(AICS)[!names(AICS) %in% v_dead]),  envir = .GlobalEnv )
+        assign("v_fixed", c(names(AICS)[!names(AICS) %in% v_dead]),  envir = .GlobalEnv )
         log_print("Scelgo il modello N", hide_notes = TRUE)
         sceltaVar()
         # return()
@@ -203,7 +204,7 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
   }
   
   log_print("Fine per scelta MODELLO", hide_notes = TRUE)
-  log_print(get("v_alive"), hide_notes = TRUE)
+  log_print(get("v_fixed"), hide_notes = TRUE)
   log_print("----------------------")
   return(" ")
 }
@@ -211,7 +212,7 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
 # RUN ####
 AICS <- list()
 v_dead <- list()
-v_alive <- list()
+v_fixed <- list()
 
 f_log <- file.path(tempdir(), glue::glue("pulvirus_{pltnt}_{cod_reg}.log"))
 lf <- log_open(f_log)

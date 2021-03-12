@@ -15,15 +15,16 @@ library(datiMeteo)
 
 # ARGOMENTI ####
 args <- commandArgs(trailingOnly = TRUE)
+out_dir <- "~/R/pulvirus/analisi/GAM/output/"
 
-cat(args[1], args[2], "\n", sep = " ---- ")
+# cat(args[1], args[2], "\n", sep = " ---- ")
 
 if(is.na(args[1])) {
-  pltnt <- "no2"
-  cod_reg <- 16
+  pltnt <- "pm25"
+  cod_reg <- 2
 }else{
   pltnt <- args[1]
-  region_id <- args[2]
+  cod_reg <- args[2]
 }
 
 
@@ -110,7 +111,8 @@ bestMod <- function(models) {
   
   # estrazioni variabili: prendo tutto ciò che è tra parentesi tonde
   nvar <- gsub("[\\(\\)]", "", regmatches(tab$mod, gregexpr("\\(.*?\\)", tab$mod) )[[1]])
-  log_print(sprintf("%s", nvar %>% unlist()) , hide_notes = TRUE)
+
+  log_print(sprintf("Modello migliore: %s", paste(nvar[!nvar %in% c("logvalue")], collapse = " - ") ) , hide_notes = TRUE)
   
   return(c(as.numeric(minaic), nvar[!nvar %in% c("logvalue")]))
 }
@@ -123,7 +125,7 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
   v_dead <- get("v_dead", envir = .GlobalEnv)
   
   # costruisce le stringhe dei modelli
-  log_print("START", hide_notes = TRUE)
+  log_print("---------- START ----------", hide_notes = TRUE)
   models <- list()
   
   w <- buildMods()
@@ -137,11 +139,11 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
   tmp <- list()
   tmp[[aicVar[2]]] <- c(tmp, aicVar)
   
-  log_print(sprintf("AICS: %s", AICS ) , hide_notes = TRUE)
-  log_print(sprintf("Ultima variabile: %s", tmp ) , hide_notes = TRUE)
+  log_print(sprintf("AICS: %s", ifelse(length(AICS) > 0, AICS, ""  )) , hide_notes = TRUE)
+  log_print(sprintf("Variabile scelta %s con AIC %s ", aicVar[2], aicVar[1]), hide_notes = TRUE )
+  log_print(sprintf("Ultima variabile: %s", paste(tmp, collapse = " -- ") ) , hide_notes = TRUE)
   assign("AICS", c(AICS, tmp), envir = .GlobalEnv)
   
-  log_print(sprintf("Variabile scelta %s con AIC %s ", aicVar[2], aicVar[1]), hide_notes = TRUE )
   
   AICS <- get("AICS", envir = .GlobalEnv)
   # log_print(AICS, hide_notes = TRUE)
@@ -162,7 +164,7 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
       }
       
       bestMod(models) -> aicBack # AIC del backward
-      log_print(sprintf("Dati backward:  %s", aicBack), hide_notes = TRUE)
+      log_print(sprintf("Dati backward:  %s", paste(aicBack, collapse = "::")), hide_notes = TRUE)
       
       q <- cor(dfSub %>% select(c(names(AICS), aicBack[-c(1)])), use = "pairwise.complete.obs") %>% 
         data.frame()
@@ -220,14 +222,12 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
     models[[i]] <- dfSub %>% split(.$station_eu_code) %>% 
       map(~eval(parse(text = i)))
   }
-  temp_dir <- tempdir()
-  save(models, file = glue::glue("{temp_dir}/{pltnt}_{cod_reg}.RData"))
+  save(models, file = glue::glue("{out_dir}/{pltnt}_{cod_reg}.RData"))
   
   
   log_print("Fine per scelta MODELLO", hide_notes = TRUE)
   log_print(paste(get("v_fixed", envir = .GlobalEnv), collapse = " + "), hide_notes = TRUE)
   log_print("----------------------")
-  return(" ")
 }
 
 # RUN ####
@@ -235,7 +235,7 @@ AICS <- list()
 v_dead <- list()
 v_fixed <- list()
 
-f_log <- file.path(tempdir(), glue::glue("pulvirus_{pltnt}_{cod_reg}.log"))
+f_log <- file.path(out_dir, glue::glue("pulvirus_{pltnt}_{cod_reg}.log"))
 lf <- log_open(f_log)
 
 vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",

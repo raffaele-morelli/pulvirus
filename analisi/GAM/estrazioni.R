@@ -7,4 +7,6 @@ models[[1]] %>%
   map(summary.gam) %>%
   map_dbl(~.$r.sq) 
 
-gam.check( models[[1]]$IT2148A )
+# %>% split(.$station_eu_code) 
+
+gam.check( models[[1]]$IT0983A )

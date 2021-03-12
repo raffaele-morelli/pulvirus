@@ -22,7 +22,7 @@ if(is.na(args[1])) {
   cod_reg <- 2  
 }else{
   pltnt <- args[1]
-  region_id <- args[2]
+  cod_reg <- as.numeric(args[2])
 }
 
 

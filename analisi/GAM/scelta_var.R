@@ -1,9 +1,46 @@
-library(dplyr)
+# pacchetti ####
+library(lubridate)
 library(purrr)
 library(mgcv)
-library(logr)
+library(dplyr)
+library(knitr)
+
+library(datiInquinanti)
+library(datiMeteo)
+setwd("~/R/pulvirus/analisi/GAM")
+
+# fegatelli ####
+# station_eu_code == "IT0953A" | station_eu_code == "IT0888A"
+
+# argomenti ####
+args <- commandArgs(trailingOnly = TRUE)
+
+cat(args[1], args[2], "\n", sep = " ---- ")
+
+if(is.na(args[1])) {
+  pltnt <- "pm10"
+  cod_reg <- 3  
+}else{
+  pltnt <- args[1]
+  region_id <- args[2]
+}
 
 
+# preparazione dei dati ####
+df <- inner_join(get(pltnt) %>% filter( reporting_year >= 2016), dati_meteo, by = c("station_eu_code", "date") ) %>% 
+  inner_join(
+    stazioniAria %>% 
+      filter(region_id == cod_reg) %>% 
+      select(c("station_eu_code")), by = c("station_eu_code")
+  ) %>% 
+  mutate(value = ifelse(value <= 0, 0.2, value) )
+
+# subset con covariate e concentrazione
+dfSub <- df %>% 
+  select(-c(date, pollutant_fk, station_code, coordx, coordy, altitude, altitudedem))
+
+
+# FUNZIONI ####
 # Costruisce le stringhe dei modelli a partire dal vettore iniziale ma 
 # eliminando le variabili già presenti in AICS e la n-1 per cui costruire
 # le stringhe dei modelli
@@ -14,12 +51,12 @@ buildMods <- function(backward = FALSE) {
   l <- length(AICS)
   
   vars <- get("vars", envir = .GlobalEnv)
-  v_fixed <- get("v_fixed", envir = .GlobalEnv)
+  v_alive <- get("v_alive", envir = .GlobalEnv)
   v_dead <- get("v_dead", envir = .GlobalEnv)
   
   if( l > 1 & backward == TRUE) {
     # le combinazioni di classe N senza la penultima variabile
-    c1 <- combn(vars[!vars %in% c("value", names(AICS[-c(length(AICS)-1)]), names(v_fixed), v_dead ) ], 1) %>% 
+    c1 <- combn(vars[!vars %in% c("value", names(AICS[-c(length(AICS)-1)]), names(v_alive), v_dead ) ], 1) %>% 
       data.frame()
     
     # sistemiamo le "spline" testuali
@@ -31,8 +68,8 @@ buildMods <- function(backward = FALSE) {
     y1 <- do.call(cbind, y1)
     
   }else{
-    # le combinazioni di classe N senza le variabili già in v_fixed
-    c1 <- combn(vars[!vars %in% c("value", names(v_fixed), v_dead)], 1) %>% 
+    # le combinazioni di classe N senza le variabili già in v_alive
+    c1 <- combn(vars[!vars %in% c("value", names(v_alive), v_dead)], 1) %>% 
       data.frame()
     
     y0 <- lapply(c1, function(x) paste0("s(", x, ")"))
@@ -69,7 +106,7 @@ bestMod <- function(models) {
   
   # estrazioni variabili  
   nvar <- gsub("[\\(\\)]", "", regmatches(tab$mod, gregexpr("\\(.*?\\)", tab$mod) )[[1]])
-  log_print(sprintf("Miglior modello: %s", nvar %>% unlist()), hide_notes = TRUE)
+  log_print(sprintf("%s", nvar %>% unlist()) , hide_notes = TRUE)
   
   return(c(as.numeric(minaic), nvar[!nvar %in% c("logvalue")]))
 }
@@ -78,11 +115,11 @@ bestMod <- function(models) {
 sceltaVar <- function(varsel = c(), check = FALSE) {
   AICS <- get("AICS", envir = .GlobalEnv)
   vars <- get("vars", envir = .GlobalEnv)
-  v_fixed <- get("v_fixed", envir = .GlobalEnv)
+  v_alive <- get("v_alive", envir = .GlobalEnv)
   v_dead <- get("v_dead", envir = .GlobalEnv)
   
   # costruisce le stringhe dei modelli ####
-  log_print("MODELLI")
+  log_print("START", hide_notes = TRUE)
   models <- list()
   
   w <- buildMods()
@@ -95,27 +132,24 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
   
   tmp <- list()
   tmp[[aicVar[2]]] <- c(tmp, aicVar)
-
+  
+  log_print(sprintf("AICS: %s", AICS ) , hide_notes = TRUE)
   log_print(sprintf("Ultima variabile: %s", tmp ) , hide_notes = TRUE)
-  log_print(sprintf("AICS: %s", c(AICS, tmp) ) , hide_notes = TRUE)
   assign("AICS", c(AICS, tmp), envir = .GlobalEnv)
   
   log_print(sprintf("Variabile scelta %s con AIC %s ", aicVar[2], aicVar[1]), hide_notes = TRUE )
   
   AICS <- get("AICS", envir = .GlobalEnv)
-  log_print(AICS, hide_notes = TRUE)
-  n <- length(AICS)
+  # log_print(AICS, hide_notes = TRUE)
   
+  n <- length(AICS)
   log_print(sprintf("length(AICS): %s ", n), hide_notes = TRUE )
   
   if( n > 1) {
-
     if( as.numeric( AICS[[n]][1]) < as.numeric( AICS[[n-1]][1] ) ) {
-      # log_print("controllo AIC n n-1 ", hide_notes = TRUE)
-      
       # seleziono il modello BACKWARD con AIC minimo
       w <- buildMods(backward = TRUE)
-      log_print("Calcolo modelli backward", hide_notes = TRUE)
+      log_print("Calcolo BACKWARD", hide_notes = TRUE)
       models <- list()
       for(i in w) {
         # print(i)
@@ -124,7 +158,7 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
       }
       
       bestMod(models) -> aicBack # AICs ####
-      log_print(sprintf("backward %s", aicBack) )
+      log_print(paste("Dati backward: ",  sprintf(" %s", aicBack) ), hide_notes = TRUE)
       
       q <- cor(dfSub %>% select(c(names(AICS), aicBack[-c(1)])), use = "pairwise.complete.obs") %>% 
         data.frame()
@@ -134,80 +168,57 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
         if( all(abs(q[, aicBack[-c(1)][1] ]) < 0.7) ) {
 
           assign("vars", vars[!vars %in% names(AICS[-c(length(AICS)-1)])], envir = .GlobalEnv)
-          assign("v_fixed", c(names(AICS[-c(length(AICS)-1)]), envir = .GlobalEnv) )
+          assign("v_alive", c(names(AICS[-c(length(AICS)-1)]), envir = .GlobalEnv) )
 
-          log_print("Scelgo il backward ")
+          log_print("Scelgo il backward ", hide_notes = TRUE)
           return()
         }
       }
       
       q <- cor(dfSub %>% select(names(AICS)), use = "pairwise.complete.obs") %>% data.frame()
       
-      if(all(q[ -c(length(AICS)), names(AICS[length(AICS)])] < 0.7)) {
+      if( all(q[ -c(length(AICS)), names(AICS[length(AICS)])] < 0.7) ) {
         
         assign("vars", vars[!vars %in% names(AICS)], envir = .GlobalEnv)
         
-        assign("v_fixed", c(names(AICS)[!names(AICS) %in% v_dead]),  envir = .GlobalEnv )
-        log_print("Scelgo il modello N")
-        return()
+        assign("v_alive", c(names(AICS)[!names(AICS) %in% v_dead]),  envir = .GlobalEnv )
+        log_print("Scelgo il modello N", hide_notes = TRUE)
+        sceltaVar()
+        # return()
       }else{
         # devo eliminare la variabile perché troppo correlata
         assign("vars", vars[!vars %in% names(AICS[length(AICS)]) ], envir = .GlobalEnv)
         assign("v_dead", c(v_dead, names(AICS[length(AICS)])), envir = .GlobalEnv )
-        log_print("Scelgo il modello N-1")
-        return()
+        log_print("Scelgo il modello N-1", hide_notes = TRUE)
+        sceltaVar()
+        # return()
       }
 
+    }else{
+      return("Fine per scelta MODELLO iniziale")
     }
-    log_print("Fine per scelta MODELLO")
     
+  }else{
+    sceltaVar()
   }
-  log_print("Fine")
+  
+  log_print("Fine per scelta MODELLO?")
+  log_print(get("v_alive"))
+  return(" ")
 }
 
-f_log <- file.path("~/R/pulvirus/analisi/GAM/", glue::glue("logfile.log"))
-lf <- log_open(f_log)
-
-rm(AICS, v_dead, v_fixed)
-
+# RUN ####
 AICS <- list()
-v_dead <- c()
-v_fixed <- c()
-aicBack <- c()
+v_dead <- list()
+v_alive <- list()
+
+f_log <- file.path(tempdir(), glue::glue("pulvirus_{pltnt}_{cod_reg}.log"))
+lf <- log_open(f_log)
 
 vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
           "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", 
           "wspeed", "pwspeed")
 sceltaVar()
-sceltaVar()
-sceltaVar()
-sceltaVar()
-sceltaVar()
-sceltaVar()
-sceltaVar()
-sceltaVar()
-sceltaVar()
-sceltaVar()
 
 # writeLines(readLines(lf))
-# log_close()
-
-
-# caso singolo
-# models %>% map(map_dbl, AIC) %>% .[[2]]
-
-# generalizziamo 
-# models %>% map(~ .x %>% map_dbl(AIC))
-# oppure:
-
-# for(i in names(aics)) {
-#   min(aics[-c(1), i]) %>% print()
-# }
-
-# apply(aics[-c(1),], 2, FUN = which.min)
-# rownames(aics[-c(1),])[ apply(aics[-c(1),], 2, FUN = which.min)] %>% View()
-
-
-
-# regmatches(tab$mod, gregexpr("(?<=\\().*?(?=\\))", tab$mod, perl=T) )[[1]]
-# rownames(as.data.frame( vars[-c(1),])) [ apply(aics[-c(1),], 2, FUN = which.min)]
+log_close()

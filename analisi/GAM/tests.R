@@ -17,12 +17,12 @@ args <- commandArgs(trailingOnly = TRUE)
 
 cat(args[1], args[2], "\n", sep = " ---- ")
 
-pltnt <- args[1]
-region_id <- args[2]
-
 if(is.na(args[1])) {
   pltnt <- "pm10"
   cod_reg <- 2  
+}else{
+  pltnt <- args[1]
+  region_id <- args[2]
 }
 
 

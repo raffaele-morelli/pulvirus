@@ -28,9 +28,10 @@ estrai <- function(Out) {
     strsplit(x, "\\s+")[[1]] # splittiamo per spazi multipli
   }
   
-  tmp.df <- do.call(rbind, lapply(gam_tbl, str_spl)) %>% as.data.frame()
+  tmp.df <- do.call(rbind, lapply(gam_tbl, str_spl)) %>% 
+    as.data.frame()
   
   names(tmp.df) <- c("Vs", "edf", "Ref.df", "F", "p-value") 
-  return( tmp.df )
+  return( tmp.df[-c(1),] )
 }
-
+# estrai(i)

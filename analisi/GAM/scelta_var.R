@@ -237,6 +237,9 @@ log_close()
 
 
 v_fixed <- get("v_fixed", envir = .GlobalEnv)
+v_dead <- get("v_dead", envir = .GlobalEnv)
+AICS <- get("AICS", envir = .GlobalEnv)
+
 
 y0 <- lapply(v_fixed, function(x) paste0("s(", x, ")"))
 y1 <- do.call(cbind, y0)
@@ -250,4 +253,4 @@ for(i in w) {
   models[[i]] <- dfSub %>% split(.$station_eu_code) %>% 
     map(~eval(parse(text = i)))
 }
-save(models, file = glue::glue("{out_dir}/{pltnt}_{cod_reg}.RData"))
+save(models, v_dead, AICS, file = glue::glue("{out_dir}/{pltnt}_{cod_reg}.RData"))

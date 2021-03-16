@@ -253,4 +253,4 @@ for(i in w) {
   models[[i]] <- dfSub %>% split(.$station_eu_code) %>% 
     map(~eval(parse(text = i)))
 }
-save(models, v_dead, AICS, file = glue::glue("{out_dir}/{pltnt}_{cod_reg}.RData"))
+save(models, v_dead, AICS, cod_reg, pltnt, file = glue::glue("{out_dir}/{pltnt}_{cod_reg}.RData"))

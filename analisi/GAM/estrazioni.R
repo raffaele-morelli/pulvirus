@@ -35,19 +35,14 @@ rdatas <- list.files(path = "/home/rmorelli/R/pulvirus/analisi/GAM/output",
 
 
 reportTheFn <- function(f) {
-  # 
   load(f)
   out_dir <- "/home/rmorelli/R/pulvirus/analisi/GAM/report"
-  out.file <- glue::glue("{out_dir}/pulvirus_estrazioni{pltnt}_{cod_reg}.Rmd")
-  
+  out.file <- glue::glue("{out_dir}/pulvirus_estrazioni_{pltnt}_{cod_reg}.Rmd")
+  regione <- stazioniAria %>% filter(region_id == cod_reg) %>% select(regione) %>% unique()
 
   sink(out.file)
   
-  header <- r"(---
-title: Report modelli
-author: GAM
----
-)"
+  header <- glue::glue("---\n", "title: 'Report modelli: {regione} - {pltnt}'\n", "author: Pluto\n", "---\n")
   
   cat(header, sep = "\n\n")
   
@@ -57,14 +52,6 @@ author: GAM
   
   cat("# AICS \n")
   
-  # models %>% 
-  #   map(~ map_dbl(.x, AIC)) %>% 
-  #   do.call(cbind, .) %>% 
-  #   as.data.frame() %>%  
-  #   kable(format = "markdown", col.names = c("")) %>% 
-  #   kable_styling() %>%  
-  #   print()
-
   tabella1 <- r"(```{r, echo=FALSE}
   library(DT)
   library(purrr)
@@ -75,28 +62,22 @@ author: GAM
 ```
 )"
   
-  cat(tabella1, "\n")
- 
-  
-  cat("")
-
+  cat(tabella1, "\n\n")
   
   cat("\n# R squared \n")
   
-tabella2 <- r"(```{r, echo=FALSE}
+  tabella2 <- r"(```{r, echo=FALSE}
   library(DT)
   library(purrr)
   datatable(
     models[[1]] %>%
     map(summary.gam) %>%
     map_dbl(~.$r.sq) %>% as.data.frame()
-
   )
 ```
 )"
-cat(tabella2, "\n")
-
-  cat("\n\n")
+  cat(tabella2, "\n\n")
+  
   cat("# P-values\n")
   
   j <- 1
@@ -118,8 +99,7 @@ cat(tabella2, "\n")
 
 for(i in rdatas) {
   rm(list = setdiff(ls(), c("rdatas", "i", "reportTheFn", "estrai", "str_spl") ) )
-  # load(i)
-  # print(i)
+  
   reportTheFn(i)
 }
 

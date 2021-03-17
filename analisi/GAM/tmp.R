@@ -26,9 +26,9 @@ for(pltnt in names(df[-c(1,2, ncol(df))])) {
   }
 }
 
-
+basedir <- "~/R/pulvirus"
 # snip per generare i report ####
-rmarkdown::render("analisi/GAM/pulvirus_estrazioni_template.Rmd",
+rmarkdown::render("~/R/pulvirus/analisi/GAM/pulvirus_estrazioni_template.Rmd",
                   params = list(rdatafile = glue("{basedir}/analisi/GAM/output/no2_2.RData"), titolo = "VDA"),
                   output_dir = glue("{basedir}/analisi/GAM/report"),
                   output_file = "no2_2"

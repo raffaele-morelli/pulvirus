@@ -1,4 +1,4 @@
-# pacchetti ####
+# Pacchetti ####
 library(lubridate)
 library(purrr)
 library(mgcv)
@@ -6,30 +6,34 @@ library(dplyr)
 library(knitr)
 library(logr)
 
-# remotes::install_github("raffaele-morelli/datiInquinanti", force =TRUE)
-# remotes::install_github("raffaele-morelli/datiMeteo", force =TRUE)
 
 library(datiInquinanti)
 library(datiMeteo)
+# Se i pacchetti non sono presenti occorre installarli con questi due comandi
+# remotes::install_github("raffaele-morelli/datiInquinanti", force = TRUE)
+# remotes::install_github("raffaele-morelli/datiMeteo", force = TRUE)
+
 setwd("~/R/pulvirus/analisi/GAM")
 
 # "fegatelli" ####
 # station_eu_code == "IT0953A" | station_eu_code == "IT0888A"
 
-# ARGOMENTI ####
+# ARGOMENTI per l'esecuzione da riga di comando o da RStudio ####
 args <- commandArgs(trailingOnly = TRUE)
 out_dir <- "~/R/pulvirus/analisi/GAM/output/"
 
+# se non stiamo eseguendo da riga di comando allora devo impostare
+# i due parametri a mano 
 if(is.na(args[1])) {
-  pltnt <- "pm10"
-  cod_reg <- 2
+  pltnt <- "no2"
+  cod_reg <- 12
 }else{
   pltnt <- args[1]
   cod_reg <- args[2]
 }
 
 
-# preparazione dei dati ####
+# Preparazione del dataframe ####
 df <- inner_join(get(pltnt) %>% 
                    filter( reporting_year >= 2016), dati_meteo, by = c("station_eu_code", "date") ) %>% 
   inner_join(
@@ -39,10 +43,12 @@ df <- inner_join(get(pltnt) %>%
   ) %>% 
   mutate(value = ifelse(value <= 0.2, 0.2, value) )
 
-# subset con covariate e concentrazione
+# subset solo con covariate e concentrazione, tolgo le variabili che non mi servono
+# con una select
 dfSub <- df %>% 
   select(-c(date, pollutant_fk, station_code, coordx, coordy, altitude, altitudedem))
 
+# aggiunta del Julian day
 dfSub$jd = as.numeric( df$date - ymd(20130101) )
 
 
@@ -107,7 +113,8 @@ bestMod <- function(models) {
     group_by(mod) %>% 
     tally(sort = TRUE) -> tab
   
-  log_print(sprintf("Modello migliore: %s", tab ) , hide_notes = TRUE)
+  log_print("Modelli migliori" , hide_notes = TRUE)
+  log_print(tab %>% as.data.frame() %>%  print() , hide_notes = TRUE)
   
   
   # il minimo AIC
@@ -122,42 +129,46 @@ bestMod <- function(models) {
   return(c(as.numeric(minaic), nvar[!nvar %in% c("logvalue")]))
 }
 
-# Funzione chiave ####
+# Funzione chiave che rappresenta il diagramma di flusso ####
 sceltaVar <- function(varsel = c(), check = FALSE) {
   AICS <- get("AICS", envir = .GlobalEnv)
   vars <- get("vars", envir = .GlobalEnv)
   v_fixed <- get("v_fixed", envir = .GlobalEnv)
   v_dead <- get("v_dead", envir = .GlobalEnv)
   
-  # costruisce le stringhe dei modelli
   log_print("---------- START ----------", hide_notes = TRUE)
+  
+  # conterrà gli oggetti GAM calcolati sulle stazioni
   models <- list()
   
-  w <- buildMods()
+  w <- buildMods() # costruisce le stringhe dei modelli
   for(i in w) {
+    # calcoliamo il GAM stazione per stazione con le stringhe in "w"
     models[[i]] <- dfSub %>% split(.$station_eu_code) %>%
       map(~eval(parse(text = i)))
   }
   
-  bestMod(models) -> aicVar # AICs del modello migliore
+  bestMod(models) -> aicVar # AIC del modello migliore
   
+  # una lista di appoggio da concatenare in AICS
   tmp <- list()
   tmp[[aicVar[2]]] <- c(tmp, aicVar)
   
-  log_print(sprintf("AICS: %s", ifelse(length(AICS) > 0, AICS, ""  )) , hide_notes = TRUE)
+  # Log delle risultanze
   log_print(sprintf("Variabile scelta %s con AIC %s ", aicVar[2], aicVar[1]), hide_notes = TRUE )
   log_print(sprintf("Ultima variabile: %s", paste(tmp, collapse = " -- ") ) , hide_notes = TRUE)
+  
+  # Salvataggio lista con gli AIC dei modelli elaborati finora
   assign("AICS", c(AICS, tmp), envir = .GlobalEnv)
-  
-  
+
+  # Carico gli AIC attuali e loggo
   AICS <- get("AICS", envir = .GlobalEnv)
-  # log_print(AICS, hide_notes = TRUE)
+  log_print(sprintf("AICS: %s", ifelse(length(AICS) > 0, AICS, ""  )) , hide_notes = TRUE)
   
-  n <- length(AICS)
-  log_print(sprintf("length(AICS): %s ", n), hide_notes = TRUE )
-  
+  n <- length(AICS) # quanti AIC ho finora
   if( n > 1) {
     if( as.numeric( AICS[[n]][1]) < as.numeric( AICS[[n-1]][1] ) ) {
+      
       # seleziono il modello BACKWARD con AIC minimo
       w <- buildMods(backward = TRUE)
       log_print("Calcolo BACKWARD", hide_notes = TRUE)
@@ -220,43 +231,49 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
 }
 
 # Fase di RUN ####
+
+# inizializzo le liste che popolerà la funzione "sceltaVar"
 AICS <- list()
 v_dead <- list()
 v_fixed <- list()
 
+# apro il file di log
 f_log <- file.path(out_dir, glue::glue("pulvirus_{pltnt}_{cod_reg}.log"))
 lf <- log_open(f_log)
 
+# il set di variabili iniziali che voglio includere
 vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
           "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", 
           "wspeed", "pwspeed", "jd")
 
-start_time <- Sys.time()
 sceltaVar()
-end_time <- Sys.time()
-log_print(sprintf("Esecuzione %s", end_time - start_time), hide_notes = TRUE)
 
 # writeLines(readLines(lf))
 log_close()
 
+# Fase di preparazione per la scrittura del file RData ####
 
-
+# carico le liste che ho popolato nella routine "sceltaVar"
 v_fixed <- get("v_fixed", envir = .GlobalEnv)
 v_dead <- get("v_dead", envir = .GlobalEnv)
 AICS <- get("AICS", envir = .GlobalEnv)
 
-
+# costruisco la stringa del modello a partire dalle variabili scelte
 y0 <- lapply(v_fixed, function(x) paste0("s(", x, ")"))
 y1 <- do.call(cbind, y0)
 z <- data.frame(mod = apply(y1, 1, paste0, collapse = " + "))
 
 # w conterrà le stringhe dei modelli
-w <- lapply(z[,  ncol(z)], function(x) paste0("gam(log(value) ~ ", x, ", data = .)"))
+w <- lapply(z[, ncol(z)], function(x) paste0("gam(log(value) ~ ", x, ", data = .)"))
+
+# calcolo il modello finale per tutte le stazioni
 models <- list()
 for(i in w) {
-  # print(i)
-  models[[i]] <- dfSub %>% split(.$station_eu_code) %>% 
+  models[[i]] <- dfSub %>% 
+    split(.$station_eu_code) %>% 
     map(~eval(parse(text = i)))
 }
 
-save(models, v_dead, AICS, cod_reg, pltnt, file = glue::glue("{out_dir}/{pltnt}_{cod_reg}.RData"))
+# salvataggio del file RData con le liste e variabili di interesse
+save(models, v_fixed, v_dead, AICS, cod_reg, pltnt, 
+     file = glue::glue("{out_dir}/{pltnt}_{cod_reg}.RData"))

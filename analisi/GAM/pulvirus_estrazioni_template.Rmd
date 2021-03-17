@@ -1,0 +1,85 @@
+---
+author: 'GAM squad'
+params:
+  rdatafile: ""
+  titolo: ""
+---
+
+---
+title: `r params$titolo`
+---
+
+
+```{r, echo=FALSE}
+library(dplyr)
+library(purrr)
+library(magrittr)
+library(mgcv)
+library(logr)
+library(knitr)
+library(kableExtra)
+library(stringr)
+library(glue)
+library(DT)
+library(ggplot2)
+library(datiInquinanti)
+
+load(params$rdatafile)
+
+basedir <- "~/R/pulvirus"
+
+```
+
+
+# Modello
+
+```{r, echo=FALSE, results='asis'}
+cat(names(models))
+
+```
+
+
+# AICS 
+
+```{r, echo=FALSE}
+aics <- models %>% 
+  map(~ map_dbl(.x, AIC)) %>%  do.call(cbind, .) %>% 
+  as.data.frame() %>% set_colnames(c('AIC'))
+
+ggplot(aics) + 
+  geom_col(aes(x = rownames(aics), y = AIC), fill = 'dodgerblue')  +  
+  theme(axis.text.x = element_text(angle = 90))
+
+datatable(aics)
+```
+
+
+# R squared 
+```{r, echo=FALSE}
+rsquared <- models[[1]] %>%
+  map(summary.gam) %>%
+  map_dbl(~.$r.sq) %>% as.data.frame() %>% set_colnames(c('R'))
+
+ggplot(rsquared) + 
+  geom_col(aes(x = rownames(rsquared), y = R), fill = 'red')  +  
+  theme(axis.text.x = element_text(angle = 90))
+
+datatable(rsquared)
+```
+
+# P-values
+
+```{r, echo=FALSE, results='asis'}
+j <- 1
+for (i in 1:length( models[[1]] ) ) {
+  cat("##", names(models[[1]][j]), sep = "\n")
+  
+  t <- estrai(models[[1]][[j]])
+  t$s.table %>% kable(format = "pipe") %>% print()
+  
+  cat("------------------\n", sep = "\n")
+  j <- j + 1
+}
+```
+
+ 

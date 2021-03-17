@@ -1,5 +1,6 @@
 library(dplyr)
 library(purrr)
+library(magrittr)
 library(mgcv)
 library(logr)
 library(knitr)
@@ -10,6 +11,8 @@ library(DT)
 library(datiInquinanti)
 
 basedir <- "~/R/pulvirus"
+# basedir <- "~/R/pulvirus.github.io"
+
 
 # estrazione parametri GAM check ####
 estrai <- function(Out) {
@@ -31,6 +34,12 @@ str_spl = function(x){
   strsplit(x, "\\s+")[[1]]
 }
 
+# chiudi le connessioni a sink ####
+sink.reset <- function(){
+  for(i in seq_len(sink.number())){
+    sink(NULL)
+  }
+}
 
 # RUN ####
 rdatas <- list.files(path = glue("{basedir}/analisi/GAM/output"),
@@ -50,35 +59,44 @@ reportTheFn <- function(f) {
   
   cat(header, sep = "\n\n")
   
-  cat(sprintf("Modello: %s", names(models)), "\n")
+  cat(sprintf("\n\n## Modello:\n\n %s", names(models)), "\n")
   cat("\n\n")
   
   cat(sprintf("```{r, echo=FALSE}
 library(DT)
 library(purrr)
 library(mgcv)
-```\n\n"))
-  
+load('%s')
+```\n\n", f) )
 
-  cat(sprintf("```{r}\nload('%s')\n```\n\n", f))
   
   cat("# AICS \n")
   
   cat("\n
 ```{r, echo=FALSE}
-datatable(models %>% 
+aics <- models %>% 
   map(~ map_dbl(.x, AIC)) %>%  do.call(cbind, .) %>% 
-  as.data.frame())
+  as.data.frame() %>% set_colnames(c('AIC'))
+
+ggplot(aics) + 
+geom_col(aes(x = rownames(aics), y = AIC), fill = 'dodgerblue')  +  
+theme(axis.text.x = element_text(angle = 90))
+
+datatable(aics)
 ```\n\n")
   
   cat("\n# R squared \n")
   
   cat("```{r, echo=FALSE}
-datatable(
-    models[[1]] %>%
+rsquared <- models[[1]] %>%
     map(summary.gam) %>%
-    map_dbl(~.$r.sq) %>% as.data.frame()
-  )
+    map_dbl(~.$r.sq) %>% as.data.frame() %>% set_colnames(c('R'))
+
+ggplot(rsquared) + 
+geom_col(aes(x = rownames(rsquared), y = R), fill = 'red')  +  
+theme(axis.text.x = element_text(angle = 90))
+
+datatable(rsquared)
 ```\n\n")
   
   cat("# P-values\n")
@@ -99,9 +117,12 @@ datatable(
 }
 
 for(i in rdatas) {
-  rm(list = setdiff(ls(), c("rdatas", "i", "reportTheFn", "estrai", "str_spl", "basedir") ) )
+  rm(list = setdiff(ls(), c("rdatas", "i", "reportTheFn", "estrai", "str_spl", "basedir", "sink.reset") ) )
   # reportTheFn(i)
 }
 
 reportTheFn(glue("{basedir}/analisi/GAM/output/no2_12.RData"))
 
+
+
+sink.reset()

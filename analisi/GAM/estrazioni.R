@@ -6,17 +6,20 @@ library(knitr)
 library(kableExtra)
 library(stringr)
 library(DT)
+library(datiInquinanti)
 
 # estrazione parametri GAM check ####
 estrai <- function(Out) {
-  gam_obj <- capture.output( mgcv:::anova.gam(Out) )
-  gam_tbl <- gam_obj[11:length(gam_obj)]
-  
-  tmp.df <- do.call(rbind, lapply(gam_tbl, str_spl)) %>% 
-    as.data.frame()
-  
-  names(tmp.df) <- c("Vs", "edf", "Ref.df", "F", "p-value") 
-  return( tmp.df[-c(1),] )
+  gam_obj <-  mgcv:::anova.gam(Out) 
+  return(gam_obj)
+  # gam_tbl <- gam_obj[11:length(gam_obj)]
+  # 
+  # tmp.df <- do.call(rbind, lapply(gam_tbl, str_spl)) %>% 
+  #   as.data.frame()
+  # 
+  # names(tmp.df) <- c("Vs", "edf", "Ref.df", "F", "p-value") 
+  # return( tmp.df[-c(1),] )
+  # return(gam_obj$s.table)
 }
 
 # split per spazi multipli ####
@@ -27,9 +30,7 @@ str_spl = function(x){
 
 
 # RUN ####
-
-
-rdatas <- list.files(path = "/home/rmorelli/R/pulvirus/analisi/GAM/output", 
+rdatas <- list.files(path = "/home/rmorelli/R/pulvirus/analisi/GAM/output",
                      pattern = "*.RData", 
                      full.names = TRUE)
 
@@ -49,12 +50,21 @@ reportTheFn <- function(f) {
   cat("Modello: ", names(models), "\n")
   cat("\n\n")
   
+  librerie <- r"(```{r, echo=FALSE}
+  library(DT)
+  library(purrr)
+  library(mgcv)
+
+```
+)"
+  
+  cat(librerie, "\n\n")
+  
+  cat(sprintf("```{r}\nload('%s')\n```\n", f))
   
   cat("# AICS \n")
   
   tabella1 <- r"(```{r, echo=FALSE}
-  library(DT)
-  library(purrr)
   datatable(models %>% 
               map(~ map_dbl(.x, AIC)) %>% 
               do.call(cbind, .) %>% 
@@ -67,8 +77,6 @@ reportTheFn <- function(f) {
   cat("\n# R squared \n")
   
   tabella2 <- r"(```{r, echo=FALSE}
-  library(DT)
-  library(purrr)
   datatable(
     models[[1]] %>%
     map(summary.gam) %>%
@@ -81,12 +89,10 @@ reportTheFn <- function(f) {
   cat("# P-values\n")
   
   j <- 1
-  for (i in models[[1]]) {
+  for (i in 1:length( models[[1]] ) ) {
     cat("##", names(models[[1]][j]), sep = "\n")
-    estrai(i) %>% kable( format = "markdown", row.names = FALSE) %>%
-      kable_styling() %>%
-      print(row.names = FALSE)
-    # capture.output( gam.check( i ) ) %>% print()
+    t <- estrai(models[[1]][[j]])
+    t$s.table %>% kable( format = "markdown") %>% print()
     cat("------------------\n", sep = "\n")
     j <- j + 1
   }
@@ -99,9 +105,8 @@ reportTheFn <- function(f) {
 
 for(i in rdatas) {
   rm(list = setdiff(ls(), c("rdatas", "i", "reportTheFn", "estrai", "str_spl") ) )
-  
   reportTheFn(i)
 }
 
-# reportTheFn("/home/rmorelli/R/pulvirus/analisi/GAM/output/c6h6_3.RData")
+# reportTheFn("/home/rmorelli/R/pulvirus/analisi/GAM/output/no2_12.RData")
 

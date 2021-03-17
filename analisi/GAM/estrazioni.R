@@ -47,20 +47,17 @@ reportTheFn <- function(f) {
   
   cat(header, sep = "\n\n")
   
-  cat("Modello: ", names(models), "\n")
+  cat(sprintf("Modello: %", names(models)), "\n")
   cat("\n\n")
   
-  librerie <- r"(```{r, echo=FALSE}
-  library(DT)
-  library(purrr)
-  library(mgcv)
+  cat(sprintf("```{r, echo=FALSE}
+library(DT)
+library(purrr)
+library(mgcv)
+```\n\n"))
+  
 
-```
-)"
-  
-  cat(librerie, "\n\n")
-  
-  cat(sprintf("```{r}\nload('%s')\n```\n", f))
+  cat(sprintf("```{r}\nload('%s')\n```\n\n", f))
   
   cat("# AICS \n")
   
@@ -105,8 +102,8 @@ reportTheFn <- function(f) {
 
 for(i in rdatas) {
   rm(list = setdiff(ls(), c("rdatas", "i", "reportTheFn", "estrai", "str_spl") ) )
-  reportTheFn(i)
+  # reportTheFn(i)
 }
 
-# reportTheFn("/home/rmorelli/R/pulvirus/analisi/GAM/output/no2_12.RData")
+reportTheFn("/home/rmorelli/R/pulvirus/analisi/GAM/output/no2_12.RData")
 

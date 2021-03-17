@@ -6,6 +6,9 @@ library(dplyr)
 library(knitr)
 library(logr)
 
+# remotes::install_github("raffaele-morelli/datiInquinanti", force =TRUE)
+# remotes::install_github("raffaele-morelli/datiMeteo", force =TRUE)
+
 library(datiInquinanti)
 library(datiMeteo)
 setwd("~/R/pulvirus/analisi/GAM")
@@ -18,7 +21,7 @@ args <- commandArgs(trailingOnly = TRUE)
 out_dir <- "~/R/pulvirus/analisi/GAM/output/"
 
 if(is.na(args[1])) {
-  pltnt <- "no2"
+  pltnt <- "pm10"
   cod_reg <- 2
 }else{
   pltnt <- args[1]
@@ -27,13 +30,14 @@ if(is.na(args[1])) {
 
 
 # preparazione dei dati ####
-df <- inner_join(get(pltnt) %>% filter( reporting_year >= 2016), dati_meteo, by = c("station_eu_code", "date") ) %>% 
+df <- inner_join(get(pltnt) %>% 
+                   filter( reporting_year >= 2016), dati_meteo, by = c("station_eu_code", "date") ) %>% 
   inner_join(
     stazioniAria %>% 
       filter(region_id == cod_reg) %>% 
       select(c("station_eu_code")), by = c("station_eu_code")
   ) %>% 
-  mutate(value = ifelse(value <= 0, 0.2, value) )
+  mutate(value = ifelse(value <= 0.2, 0.2, value) )
 
 # subset con covariate e concentrazione
 dfSub <- df %>% 
@@ -102,6 +106,9 @@ bestMod <- function(models) {
     data.frame("mod" = .) %>% 
     group_by(mod) %>% 
     tally(sort = TRUE) -> tab
+  
+  log_print(sprintf("Modello migliore: %s", tab ) , hide_notes = TRUE)
+  
   
   # il minimo AIC
   apply(aics[-c(1),], 2, FUN = min) %>% 
@@ -251,4 +258,5 @@ for(i in w) {
   models[[i]] <- dfSub %>% split(.$station_eu_code) %>% 
     map(~eval(parse(text = i)))
 }
+
 save(models, v_dead, AICS, cod_reg, pltnt, file = glue::glue("{out_dir}/{pltnt}_{cod_reg}.RData"))

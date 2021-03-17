@@ -8,19 +8,17 @@ library(logr)
 
 library(datiInquinanti)
 library(datiMeteo)
-# setwd("~/R/pulvirus/analisi/GAM")
+setwd("~/R/pulvirus/analisi/GAM")
 
-# fegatelli ####
+# "fegatelli" ####
 # station_eu_code == "IT0953A" | station_eu_code == "IT0888A"
 
 # ARGOMENTI ####
 args <- commandArgs(trailingOnly = TRUE)
 out_dir <- "~/R/pulvirus/analisi/GAM/output/"
 
-# cat(args[1], args[2], "\n", sep = " ---- ")
-
 if(is.na(args[1])) {
-  pltnt <- "pm25"
+  pltnt <- "no2"
   cod_reg <- 2
 }else{
   pltnt <- args[1]
@@ -45,10 +43,10 @@ dfSub$jd = as.numeric( df$date - ymd(20130101) )
 
 
 # FUNZIONI ####
+
 # Costruisce le stringhe dei modelli a partire dal vettore iniziale ma 
 # eliminando le variabili già presenti in AICS e la n-1 per cui costruire
 # le stringhe dei modelli
-# 
 # @backward (bool) : se deve calcolare i modelli backward 
 buildMods <- function(backward = FALSE) {
   AICS <- get("AICS", envir = .GlobalEnv)
@@ -117,7 +115,7 @@ bestMod <- function(models) {
   return(c(as.numeric(minaic), nvar[!nvar %in% c("logvalue")]))
 }
 
-
+# Funzione chiave ####
 sceltaVar <- function(varsel = c(), check = FALSE) {
   AICS <- get("AICS", envir = .GlobalEnv)
   vars <- get("vars", envir = .GlobalEnv)
@@ -214,7 +212,7 @@ sceltaVar <- function(varsel = c(), check = FALSE) {
   log_print("----------------------")
 }
 
-# RUN ####
+# Fase di RUN ####
 AICS <- list()
 v_dead <- list()
 v_fixed <- list()

@@ -44,11 +44,11 @@ cat(names(models))
 ```{r, echo=FALSE}
 aics <- models %>% 
   map(~ map_dbl(.x, AIC)) %>%  do.call(cbind, .) %>% 
-  as.data.frame() %>% set_colnames(c('AIC'))
+  as.data.frame() %>% set_colnames(c('AIC')) 
 
 ggplot(aics) + 
   geom_col(aes(x = rownames(aics), y = AIC), fill = 'dodgerblue')  +  
-  theme(axis.text.x = element_text(angle = 90))
+  theme(axis.text.x = element_text(angle = 90)) + xlab("")
 
 datatable(aics)
 ```
@@ -62,7 +62,7 @@ rsquared <- models[[1]] %>%
 
 ggplot(rsquared) + 
   geom_col(aes(x = rownames(rsquared), y = R), fill = 'red')  +  
-  theme(axis.text.x = element_text(angle = 90))
+  theme(axis.text.x = element_text(angle = 90)) + xlab("")
 
 datatable(rsquared)
 ```

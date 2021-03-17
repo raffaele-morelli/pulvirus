@@ -5,8 +5,11 @@ library(logr)
 library(knitr)
 library(kableExtra)
 library(stringr)
+library(glue)
 library(DT)
 library(datiInquinanti)
+
+basedir <- "~/R/pulvirus"
 
 # estrazione parametri GAM check ####
 estrai <- function(Out) {
@@ -30,14 +33,14 @@ str_spl = function(x){
 
 
 # RUN ####
-rdatas <- list.files(path = "/home/rmorelli/R/pulvirus/analisi/GAM/output",
+rdatas <- list.files(path = glue("{basedir}/analisi/GAM/output"),
                      pattern = "*.RData", 
                      full.names = TRUE)
 
 
 reportTheFn <- function(f) {
   load(f)
-  out_dir <- "/home/rmorelli/R/pulvirus/analisi/GAM/report"
+  out_dir <- glue("{basedir}/analisi/GAM/report")
   out.file <- glue::glue("{out_dir}/pulvirus_estrazioni_{pltnt}_{cod_reg}.Rmd")
   regione <- stazioniAria %>% filter(region_id == cod_reg) %>% select(regione) %>% unique()
 
@@ -47,7 +50,7 @@ reportTheFn <- function(f) {
   
   cat(header, sep = "\n\n")
   
-  cat(sprintf("Modello: %", names(models)), "\n")
+  cat(sprintf("Modello: %s", names(models)), "\n")
   cat("\n\n")
   
   cat(sprintf("```{r, echo=FALSE}
@@ -105,5 +108,5 @@ for(i in rdatas) {
   # reportTheFn(i)
 }
 
-reportTheFn("/home/rmorelli/R/pulvirus/analisi/GAM/output/no2_12.RData")
+reportTheFn(glue("{basedir}/analisi/GAM/output/no2_12.RData"))
 

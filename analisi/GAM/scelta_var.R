@@ -20,13 +20,15 @@ setwd("~/R/pulvirus/analisi/GAM")
 
 # ARGOMENTI per l'esecuzione da riga di comando o da RStudio ####
 args <- commandArgs(trailingOnly = TRUE)
-out_dir <- "~/R/pulvirus/analisi/GAM/output/"
+setwd("~/R/pulvirus/analisi/GAM")
+
+out_dir <- "output/"
 
 # se non stiamo eseguendo da riga di comando allora devo impostare
 # i due parametri a mano 
 if(is.na(args[1])) {
   pltnt <- "no2"
-  cod_reg <- 12
+  cod_reg <- 2
 }else{
   pltnt <- args[1]
   cod_reg <- args[2]

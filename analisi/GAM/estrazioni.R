@@ -104,7 +104,7 @@ library(mgcv)
 }
 
 for(i in rdatas) {
-  rm(list = setdiff(ls(), c("rdatas", "i", "reportTheFn", "estrai", "str_spl") ) )
+  rm(list = setdiff(ls(), c("rdatas", "i", "reportTheFn", "estrai", "str_spl", "basedir") ) )
   # reportTheFn(i)
 }
 

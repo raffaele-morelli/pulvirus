@@ -64,27 +64,22 @@ library(mgcv)
   
   cat("# AICS \n")
   
-  tabella1 <- r"(```{r, echo=FALSE}
-  datatable(models %>% 
-              map(~ map_dbl(.x, AIC)) %>% 
-              do.call(cbind, .) %>% 
-              as.data.frame())
-```
-)"
-  
-  cat(tabella1, "\n\n")
+  cat("\n
+```{r, echo=FALSE}
+datatable(models %>% 
+  map(~ map_dbl(.x, AIC)) %>%  do.call(cbind, .) %>% 
+  as.data.frame())
+```\n\n")
   
   cat("\n# R squared \n")
   
-  tabella2 <- r"(```{r, echo=FALSE}
-  datatable(
+  cat("```{r, echo=FALSE}
+datatable(
     models[[1]] %>%
     map(summary.gam) %>%
     map_dbl(~.$r.sq) %>% as.data.frame()
   )
-```
-)"
-  cat(tabella2, "\n\n")
+```\n\n")
   
   cat("# P-values\n")
   

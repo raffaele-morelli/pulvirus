@@ -1,8 +1,13 @@
 ---
 author: 'GAM squad'
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
 params:
-  rdatafile: "~/R/pulvirus/analisi/GAM/output/no2_12.RData"
-  titolo: ""
+  rdatafile: "~/R/pulvirus/analisi/GAM/output/no2_2.RData"
+  titolo: "TEST"
 ---
 
 ---
@@ -82,14 +87,28 @@ datatable(rsquared)
 ```{r, echo=FALSE, results='asis'}
 j <- 1
 for (i in 1:length( models[[1]] ) ) {
-  cat("##", names(models[[1]][j]), sep = "\n")
+  cat("\n\n## ", names(models[[1]][j]), "\n\n")
   
+  b <- models[[1]][[j]]
   t <- estrai(models[[1]][[j]])
   t$s.table %>% 
     kable(format = "pipe", digits = 3) %>% 
     print()
   
   cat("\n\n")
+  type <- "deviance"  ## "pearson" & "response" are other valid choices
+  resid <- residuals(b, type = type)
+  linpred <- napredict(b$na.action, b$linear.predictors)
+  observed.y <- napredict(b$na.action, b$y)
+  
+  # grafici
+  qq.gam(b, rep = 0, level = 0.9, type = type, rl.col = 2, rep.col = "gray80")
+  
+  plot(linpred, resid, main = "Resids vs. linear pred.", xlab = "linear predictor", ylab = "residuals")
+  
+  plot(fitted(b), observed.y, xlab = "Fitted Values", ylab = "Response", main = "Response vs. Fitted Values")
+  cat("\n\n\n")
+
   j <- j + 1
 }
 ```

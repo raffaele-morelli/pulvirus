@@ -51,8 +51,20 @@ saveRData <- function(cod_eu = NA) {
 args <- commandArgs(trailingOnly = TRUE)
 setwd("~/R/pulvirus/analisi/GAM")
 
+# se non stiamo eseguendo da riga di comando allora devo impostare
+# i due parametri a mano 
+if(is.na(args[1])) {
+  pltnt <- "no2"
+  cod_reg <- 16
+}else{
+  pltnt <- args[1]
+  cod_reg <- args[2]
+}
+
 # Variabili ambiente ####
-out_dir <- "output/"
+out_dir <- glue::glue("output/{cod_reg}/{pltnt}")
+
+dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 # il set di variabili iniziali che voglio includere
 vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
@@ -60,15 +72,6 @@ vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
           "wspeed", "pwspeed", "jd")
 
 
-# se non stiamo eseguendo da riga di comando allora devo impostare
-# i due parametri a mano 
-if(is.na(args[1])) {
-  pltnt <- "no2"
-  cod_reg <- 12
-}else{
-  pltnt <- args[1]
-  cod_reg <- args[2]
-}
 
 dfStazioni <- preparaDataframe(pltnt, cod_reg)
 

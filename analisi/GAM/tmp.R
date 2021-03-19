@@ -52,7 +52,7 @@ for(i in rdatas) {
 
 # snip per generare i report ####
 rmarkdown::render("~/R/pulvirus/analisi/GAM/pulvirus_estrazioni_template.Rmd",
-                  params = list(rdatafile = glue("{basedir}/analisi/GAM/output/no2_12.RData"), titolo = "Lazio"),
+                  params = list(rdatafile = glue("{basedir}/analisi/GAM/output/no2_2.RData"), titolo = "VDA"),
                   output_dir = glue("{webdir}"),
-                  output_file = "no2_12"
+                  output_file = "no2_2"
                   )

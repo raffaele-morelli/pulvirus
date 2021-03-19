@@ -62,7 +62,7 @@ vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
 # i due parametri a mano 
 if(is.na(args[1])) {
   pltnt <- "no2"
-  cod_reg <- 2
+  cod_reg <- 12
 }else{
   pltnt <- args[1]
   cod_reg <- args[2]

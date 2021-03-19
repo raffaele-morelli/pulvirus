@@ -43,6 +43,8 @@ saveRData <- function(cod_eu = NA) {
   # salvataggio del file RData con le liste e variabili di interesse
   save(models, v_fixed, v_dead, AICS, cod_reg, pltnt,
        file = glue::glue("{out_dir}/{pltnt}_{cod_reg}_{cod_eu}.RData"))
+  
+  return(glue::glue("{out_dir}/{pltnt}_{cod_reg}_{cod_eu}.RData"))
 }
 
 # ARGOMENTI per l'esecuzione da riga di comando o da RStudio ####
@@ -92,6 +94,7 @@ for (cod_eu in dfStazioni$station_eu_code %>% unique()) {
   log_close()
   
   saveRData(cod_eu)
+  
 }
 
 

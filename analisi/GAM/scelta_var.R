@@ -75,8 +75,11 @@ bestMod <- function(models) {
   models %>% map(~ map_dbl(.x, AIC)) %>% do.call(rbind, .) %>% 
     as.data.frame() -> aics
   
+  log_print("")
+  log_print(aics, hide_notes = TRUE)
+
   # modello più performante
-  rownames(aics[-c(1),])[ apply(aics[-c(1),], 2, FUN = which.min)] %>%
+  rownames(aics)[ apply(aics, 2, FUN = which.min)] %>%
     data.frame("mod" = .) %>% 
     group_by(mod) %>% 
     tally(sort = TRUE) -> tab
@@ -84,10 +87,11 @@ bestMod <- function(models) {
   log_print("Modelli migliori" , hide_notes = TRUE)
   log_print(tab %>% as.data.frame() %>%  print() , hide_notes = TRUE)
   
-  
   # il minimo AIC
-  apply(aics[-c(1),], 2, FUN = min) %>% 
-    data.frame("aic" = .) %>% summarise(min(aic)) %>% as.numeric() -> minaic
+  apply(aics, 2, FUN = min) %>% 
+    data.frame("aic" = .) %>% 
+    summarise(min(aic)) %>% 
+    as.numeric() -> minaic
   
   # estrazioni variabili: prendo tutto ciò che è tra parentesi tonde
   nvar <- gsub("[\\(\\)]", "", regmatches(tab$mod, gregexpr("\\(.*?\\)", tab$mod) )[[1]])

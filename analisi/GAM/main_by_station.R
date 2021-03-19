@@ -71,9 +71,7 @@ if(is.na(args[1])) {
 dfStazioni <- preparaDataframe(pltnt, cod_reg)
 
 for (cod_eu in dfStazioni$station_eu_code %>% unique()) {
-  if( !(cod_eu %in% c("IT0983A")) ) {
-    next
-  }
+
   dfSub <- filter(dfStazioni, station_eu_code == cod_eu)
   
   # inizializzo le liste che popolerà la funzione "sceltaVar"
@@ -94,7 +92,6 @@ for (cod_eu in dfStazioni$station_eu_code %>% unique()) {
   log_close()
   
   saveRData(cod_eu)
-  # return("")
 }
 
 

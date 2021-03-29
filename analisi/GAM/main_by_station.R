@@ -55,7 +55,7 @@ setwd("~/R/pulvirus/analisi/GAM")
 # i due parametri a mano 
 if(is.na(args[1])) {
   pltnt <- "no2"
-  cod_reg <- 16
+  cod_reg <- 2
 }else{
   pltnt <- args[1]
   cod_reg <- args[2]
@@ -67,9 +67,9 @@ out_dir <- glue::glue("output/{cod_reg}/{pltnt}")
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 # il set di variabili iniziali che voglio includere
-vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
-          "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", 
-          "wspeed", "pwspeed", "jd")
+# vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
+#           "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", 
+#           "wspeed", "pwspeed", "jd")
 
 
 
@@ -93,11 +93,13 @@ for (cod_eu in dfStazioni$station_eu_code %>% unique()) {
   f_log <- file.path(out_dir, glue::glue("pulvirus_{pltnt}_{cod_reg}_{cod_eu}.log"))
   lf <- log_open(f_log)
   
+  log_print(sprintf("Stazione: %s", cod_eu), hide_notes = TRUE )
+  
   sceltaVar()
   log_close()
   
   saveRData(cod_eu)
-  
+  return("")
 }
 
 

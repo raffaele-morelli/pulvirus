@@ -35,15 +35,21 @@ buildMods <- function(backward = FALSE) {
   v_dead <- get("v_dead", envir = .GlobalEnv)
   
   if( l > 1 & backward == TRUE) {
+    # Si elimina la variabile (n-1), si bloccano le variabili da 1 a (n-2) e
+    # quella n e poi si sceglie tra le var rimanenti quella che minimizza l'AIC
+    
     # le combinazioni di classe N senza la penultima variabile
-    c1 <- combn(vars[!vars %in% c("value", names(AICS[-c(length(AICS)-1)]), names(v_fixed), v_dead ) ], 1) %>% 
+    c1 <- combn(vars[!vars %in% c("value", 
+                                  names(AICS[c(length(AICS)-1)]), 
+                                  names(AICS)[c(length(AICS))],
+                                  names(v_fixed), v_dead )], 1) %>% 
       data.frame()
     
     # sistemiamo le "spline" testuali
     y0 <- lapply(c1, function(x) paste0("s(", x, ")"))
     
     # costruisco le "spline" con le variabili in AICS tranne l'ultima
-    c2 <- lapply( c( names(AICS[-c(length(AICS))]), v_dead ), function(x) rep(x, length(c1)))
+    c2 <- lapply( c(names(AICS)[-c(length(AICS))], v_dead), function(x) rep(x, length(c1)))
     y1 <- lapply(c2, function(x) paste0("s(", x, ")"))
     y1 <- do.call(cbind, y1)
     
@@ -75,7 +81,7 @@ bestMod <- function(models) {
   models %>% map(~ map_dbl(.x, AIC)) %>% do.call(rbind, .) %>% 
     as.data.frame() -> aics
   
-  log_print("")
+  # log_print("")
   log_print(aics, hide_notes = TRUE)
 
   # modello più performante
@@ -84,8 +90,8 @@ bestMod <- function(models) {
     group_by(mod) %>% 
     tally(sort = TRUE) -> tab
   
-  log_print("Modelli migliori" , hide_notes = TRUE)
-  log_print(tab %>% as.data.frame() %>%  print() , hide_notes = TRUE)
+  # log_print("Modelli migliori" , hide_notes = TRUE)
+  # log_print(tab %>% as.data.frame() %>%  print() , hide_notes = TRUE)
   
   # il minimo AIC
   apply(aics, 2, FUN = min) %>% 
@@ -128,7 +134,7 @@ sceltaVar <- function() {
   
   # Log delle risultanze
   log_print(sprintf("Variabile scelta %s con AIC %s ", aicVar[2], aicVar[1]), hide_notes = TRUE )
-  log_print(sprintf("Ultima variabile: %s", paste(tmp, collapse = " -- ") ) , hide_notes = TRUE)
+  # log_print(sprintf("Ultima variabile: %s", paste(tmp, collapse = " -- ") ) , hide_notes = TRUE)
   
   # Salvataggio lista con gli AIC dei modelli elaborati finora
   assign("AICS", c(AICS, tmp), envir = .GlobalEnv)
@@ -143,7 +149,8 @@ sceltaVar <- function() {
       
       # seleziono il modello BACKWARD con AIC minimo
       w <- buildMods(backward = TRUE)
-      log_print("Calcolo BACKWARD", hide_notes = TRUE)
+      log_print("Modelli BACKWARD", hide_notes = TRUE)
+      # log_print(w %>% unlist() %>% as.data.frame() %>% print(), hide_notes = TRUE)
       models <- list()
       for(i in w) {
         # print(i)

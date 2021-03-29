@@ -1,13 +1,30 @@
 ---
-author: 'GAM squad'
+subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+subject: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+author: "GAM squad"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+documentclass: article
+link-citations: yes
+citecolor: blue
+linkcolor: blue
+fontsize: 11pt
+geometry: margin=1in
+lang: it
 output:
   html_document:
-    toc: true
+    toc: yes
     toc_depth: 2
-    toc_float: true
+    toc_float: yes
 params:
-  rdatafile: "~/R/pulvirus/analisi/GAM/output/no2_2.RData"
-  titolo: "TEST"
+  rdatafile: ~/R/pulvirus/analisi/GAM/output/12/no2/no2_12_IT0825A.RData
+  titolo: TEST
+header-includes:
+- \usepackage{titling}
+- \usepackage{hyperref}
+- \usepackage{pdflscape}
+- \usepackage{graphicx}
+- \usepackage{float}
+- \usepackage{subfig}
 ---
 
 ---
@@ -15,7 +32,24 @@ title: `r params$titolo`
 ---
 
 
-```{r, echo=FALSE, message=FALSE}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.align = 'center')
+
+theme_pulvirus <- function() {
+  theme_minimal() %+replace% 
+    
+  theme(plot.title = element_text(size = 10, family = "Tahoma", face = "bold"),
+        text = element_text(size = 10, family = "Tahoma"), legend.position = "top",
+        axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(size = 10),
+        panel.background = element_rect(fill = "white",colour = "white", size = 0.5, linetype = "solid"),
+        ##panel.grid.major = element_line(size = 0.5, linetype = 'dashed',colour = "#708090"), 
+        ##panel.grid.minor = element_line(size = 0.25, linetype = 'dashed', colour = "#708090"),
+        axis.line = element_line(colour = "darkblue", 
+                                 size = 0.5, linetype = "solid"))
+}
+
+
 library(dplyr)
 library(purrr)
 library(magrittr)
@@ -28,13 +62,9 @@ library(glue)
 library(DT)
 library(ggplot2)
 library(datiInquinanti)
+library(mgcViz)
 # basedir <- "~/R/pulvirus"
 
-# estrazione parametri GAM check ####
-estrai <- function(Out) {
-  gam_obj <- mgcv:::anova.gam(Out) 
-  return(gam_obj)
-}
 load(params$rdatafile)
 
 basedir <- "~/R/pulvirus"
@@ -59,11 +89,12 @@ aics <- models %>%
 
 ggplot(aics) + 
   geom_col(aes(x = rownames(aics), y = AIC), fill = 'dodgerblue')  +  
-  theme(axis.text.x = element_text(angle = 90)) + xlab("")
+  theme(axis.text.x = element_text(angle = 90)) + 
+  xlab("") + 
+  theme_pulvirus()
 
 datatable(aics)
 ```
-
 
 # R squared 
 
@@ -77,20 +108,22 @@ rsquared <- models[[1]] %>%
 
 ggplot(rsquared) + 
   geom_col(aes(x = rownames(rsquared), y = R), fill = 'red')  +  
-  theme(axis.text.x = element_text(angle = 90)) + xlab("")
+  theme(axis.text.x = element_text(angle = 90)) + 
+  xlab("") + 
+  theme_pulvirus()
 
 datatable(rsquared)
 ```
 
 # P-values
 
-```{r, echo=FALSE, results='asis'}
+```{r, results='asis', echo=FALSE}
 j <- 1
 for (i in 1:length( models[[1]] ) ) {
   cat("\n\n## ", names(models[[1]][j]), "\n\n")
   
   b <- models[[1]][[j]]
-  t <- estrai(models[[1]][[j]])
+  t <- mgcv:::anova.gam(models[[1]][[j]]) 
   t$s.table %>% 
     kable(format = "pipe", digits = 3) %>% 
     print()
@@ -106,7 +139,10 @@ for (i in 1:length( models[[1]] ) ) {
   
   plot(linpred, resid, main = "Resids vs. linear pred.", xlab = "linear predictor", ylab = "residuals")
   
+  hist(resid, xlab = "Residuals", breaks = 15, main = "Histogram of residuals")
+  
   plot(fitted(b), observed.y, xlab = "Fitted Values", ylab = "Response", main = "Response vs. Fitted Values")
+  cat("\n\n\n")
   cat("\n\n\n")
 
   j <- j + 1

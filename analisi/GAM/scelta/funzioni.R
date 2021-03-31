@@ -48,8 +48,8 @@ buildMods <- function(backward = FALSE) {
     # sistemiamo le "spline" testuali
     y0 <- lapply(c1, function(x) paste0("s(", x, ")"))
     
-    # costruisco le "spline" con le variabili in AICS tranne l'ultima
-    c2 <- lapply( c(names(AICS)[-c(length(AICS))], v_dead), function(x) rep(x, length(c1)))
+    # costruisco le "spline" con le variabili in AICS tranne la n-1
+    c2 <- lapply( c(names(AICS)[-c(length(AICS)-1)], v_dead), function(x) rep(x, length(c1)))
     y1 <- lapply(c2, function(x) paste0("s(", x, ")"))
     y1 <- do.call(cbind, y1)
     

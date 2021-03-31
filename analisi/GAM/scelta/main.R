@@ -13,9 +13,9 @@ library(datiMeteo)
 # remotes::install_github("raffaele-morelli/datiInquinanti", force = TRUE)
 # remotes::install_github("raffaele-morelli/datiMeteo", force = TRUE)
 
-setwd("~/R/pulvirus/analisi/GAM")
+setwd("~/R/pulvirus/analisi/GAM/scelta")
 
-source("scelta_var.R")
+source("funzioni.R")
 
 
 # ARGOMENTI per l'esecuzione da riga di comando o da RStudio ####

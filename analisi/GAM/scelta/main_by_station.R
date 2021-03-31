@@ -13,9 +13,9 @@ library(datiMeteo)
 # remotes::install_github("raffaele-morelli/datiInquinanti", force = TRUE)
 # remotes::install_github("raffaele-morelli/datiMeteo", force = TRUE)
 
-setwd("~/R/pulvirus/analisi/GAM")
+setwd("~/R/pulvirus/analisi/GAM/scelta/")
 
-source("scelta_var.R")
+source("funzioni.R")
 
 # Scrittura del file RData ####
 saveRData <- function(cod_eu = NA) {
@@ -49,7 +49,6 @@ saveRData <- function(cod_eu = NA) {
 
 # ARGOMENTI per l'esecuzione da riga di comando o da RStudio ####
 args <- commandArgs(trailingOnly = TRUE)
-setwd("~/R/pulvirus/analisi/GAM")
 
 # se non stiamo eseguendo da riga di comando allora devo impostare
 # i due parametri a mano 
@@ -66,13 +65,6 @@ out_dir <- glue::glue("output/{cod_reg}/{pltnt}")
 
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
-# il set di variabili iniziali che voglio includere
-# vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
-#           "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", 
-#           "wspeed", "pwspeed", "jd")
-
-
-
 dfStazioni <- preparaDataframe(pltnt, cod_reg)
 
 for (cod_eu in dfStazioni$station_eu_code %>% unique()) {
@@ -84,6 +76,7 @@ for (cod_eu in dfStazioni$station_eu_code %>% unique()) {
   v_dead <- list()
   v_fixed <- list()
   
+  # il set di variabili iniziali che voglio includere
   # variabili da inizializzare ad ogni tornata
   vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
             "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", 

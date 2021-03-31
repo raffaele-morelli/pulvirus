@@ -141,8 +141,8 @@ sceltaVar <- function() {
 
   # Carico gli AIC attuali e loggo
   AICS <- get("AICS", envir = .GlobalEnv)
-  log_print(sprintf("AICS: %s", ifelse(length(AICS) > 0, AICS, ""  )) , hide_notes = TRUE)
-  
+  # log_print(sprintf("AICS: %s", ifelse(length(AICS) > 0, AICS[length(AICS)] %>% print(), ""  )) , hide_notes = TRUE)
+
   n <- length(AICS) # quanti AIC ho finora
   if( n > 1) {
     if( as.numeric( AICS[[n]][1]) < as.numeric( AICS[[n-1]][1] ) ) {

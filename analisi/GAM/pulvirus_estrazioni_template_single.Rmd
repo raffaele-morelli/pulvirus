@@ -35,68 +35,68 @@ title: `r params$titolo`
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.align = 'center')
 
-check.ra <- function (obj, type = c("auto", "deviance", "pearson", "response", 
-    "tunif", "tnormal"), k.sample = 5000, k.rep = 200, maxpo = 10000, 
-    a.qq = list(), a.hist = list(), a.respoi = list(), ...) 
-{
-    if (!inherits(obj, "gamViz")) {
-        stop("Argument 'obj' should be of class 'gamViz'. See ?getViz")
-    }
-    if (inherits(obj, "qgam")) {
-        return(check.qgam(obj))
-    }
-    type <- match.arg(type)
-    if (type == "auto") {
-        type <- .getResTypeAndMethod(obj$family$family)$type
-    }
-    a.all <- .argMaster("check.gamViz")
-    for (nam in names(a.all)) {
-        assign(nam, .argSetup(a.all[[nam]], get(nam), nam, verbose = FALSE), 
-            envir = environment())
-    }
-    resid <- residuals(obj, type = type)
-    nres <- length(resid)
-    subS <- if (nres > maxpo) {
-        sample(c(rep(T, maxpo), rep(F, nres - maxpo)))
-    }
-    else {
-        rep(T, nres)
-    }
-    linpred <- if (is.matrix(obj$linear.predictors) && !is.matrix(resid)) {
-        napredict(obj$na.action, obj$linear.predictors[, 1])
-    }
-    else {
-        napredict(obj$na.action, obj$linear.predictors)
-    }
-    fv <- if (inherits(obj$family, "extended.family")) {
-        predict(obj, type = "response")
-    }
-    else {
-        fitted(obj)
-    }
-    if (is.matrix(fv) && !is.matrix(obj$y)) {
-        fv <- fv[, 1]
-    }
-    resp <- napredict(obj$na.action, obj$y)
-    df <- data.frame(linpred = linpred, resid = resid, response = resp, 
-        fv = fv)
-    dfS <- df[subS, ]
-
-    plots <- list()
-    plots[[1]] <- do.call("qq.gamViz", c(list(o = obj), a.qq))$ggObj
-    plots[[2]] <- ggplot(data = dfS, aes(x = linpred, y = resid)) + 
-        do.call("geom_point", a.respoi) + labs(title = "Resids vs. linear pred.", 
-        x = "linear predictor", y = "residuals")
-    plots[[3]] <- ggplot(data = df, mapping = aes(x = resid)) + 
-        do.call("geom_histogram", a.hist) + labs(title = "Histogram of residuals", 
-        xlab = "Residuals")
-    plots[[4]] <- ggplot(data = dfS, aes(x = fv, y = response)) + 
-        do.call("geom_point", a.respoi) + labs(title = "Response vs. Fitted Values", 
-        x = "Fitted Values", y = "Response")
-
-    class(plots) <- "checkGam"
-    return(plots)
-}
+# check.ra <- function (obj, type = c("auto", "deviance", "pearson", "response", 
+#     "tunif", "tnormal"), k.sample = 5000, k.rep = 200, maxpo = 10000, 
+#     a.qq = list(), a.hist = list(), a.respoi = list(), ...) 
+# {
+#     if (!inherits(obj, "gamViz")) {
+#         stop("Argument 'obj' should be of class 'gamViz'. See ?getViz")
+#     }
+#     if (inherits(obj, "qgam")) {
+#         return(check.qgam(obj))
+#     }
+#     type <- match.arg(type)
+#     if (type == "auto") {
+#         type <- .getResTypeAndMethod(obj$family$family)$type
+#     }
+#     a.all <- .argMaster("check.gamViz")
+#     for (nam in names(a.all)) {
+#         assign(nam, .argSetup(a.all[[nam]], get(nam), nam, verbose = FALSE), 
+#             envir = environment())
+#     }
+#     resid <- residuals(obj, type = type)
+#     nres <- length(resid)
+#     subS <- if (nres > maxpo) {
+#         sample(c(rep(T, maxpo), rep(F, nres - maxpo)))
+#     }
+#     else {
+#         rep(T, nres)
+#     }
+#     linpred <- if (is.matrix(obj$linear.predictors) && !is.matrix(resid)) {
+#         napredict(obj$na.action, obj$linear.predictors[, 1])
+#     }
+#     else {
+#         napredict(obj$na.action, obj$linear.predictors)
+#     }
+#     fv <- if (inherits(obj$family, "extended.family")) {
+#         predict(obj, type = "response")
+#     }
+#     else {
+#         fitted(obj)
+#     }
+#     if (is.matrix(fv) && !is.matrix(obj$y)) {
+#         fv <- fv[, 1]
+#     }
+#     resp <- napredict(obj$na.action, obj$y)
+#     df <- data.frame(linpred = linpred, resid = resid, response = resp, 
+#         fv = fv)
+#     dfS <- df[subS, ]
+# 
+#     plots <- list()
+#     plots[[1]] <- do.call("qq.gamViz", c(list(o = obj), a.qq))$ggObj
+#     plots[[2]] <- ggplot(data = dfS, aes(x = linpred, y = resid)) + 
+#         do.call("geom_point", a.respoi) + labs(title = "Resids vs. linear pred.", 
+#         x = "linear predictor", y = "residuals")
+#     plots[[3]] <- ggplot(data = df, mapping = aes(x = resid)) + 
+#         do.call("geom_histogram", a.hist) + labs(title = "Histogram of residuals", 
+#         xlab = "Residuals")
+#     plots[[4]] <- ggplot(data = dfS, aes(x = fv, y = response)) + 
+#         do.call("geom_point", a.respoi) + labs(title = "Response vs. Fitted Values", 
+#         x = "Fitted Values", y = "Response")
+# 
+#     class(plots) <- "checkGam"
+#     return(plots)
+# }
 
 theme_pulvirus <- function() {
   theme_minimal() %+replace% 
@@ -207,7 +207,7 @@ for (i in 1:length( models[[1]] ) ) {
     # geom_point() + xlab("Linear pred.") + ylab("Resids") + 
     # theme_pulvirus()
   
-  check.ra(bv, type = "deviance",
+  check(bv, type = "deviance",
       a.qq = list(method = "tnorm", a.cipoly = list(fill = "light blue")),
       a.respoi = list(size = 0.5),
       a.hist = list(bins = 25)) %>% print()

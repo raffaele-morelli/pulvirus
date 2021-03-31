@@ -54,7 +54,7 @@ args <- commandArgs(trailingOnly = TRUE)
 # i due parametri a mano 
 if(is.na(args[1])) {
   pltnt <- "no2"
-  cod_reg <- 2
+  cod_reg <- 18
 }else{
   pltnt <- args[1]
   cod_reg <- args[2]
@@ -92,7 +92,6 @@ for (cod_eu in dfStazioni$station_eu_code %>% unique()) {
   log_close()
   
   saveRData(cod_eu)
-  return("")
 }
 
 

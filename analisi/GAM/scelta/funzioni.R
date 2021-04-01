@@ -107,6 +107,7 @@ bestMod <- function(models) {
   return(c(as.numeric(minaic), nvar[!nvar %in% c("logvalue")]))
 }
 
+
 # Funzione chiave che rappresenta il diagramma di flusso 
 sceltaVar <- function() {
   AICS <- get("AICS", envir = .GlobalEnv)

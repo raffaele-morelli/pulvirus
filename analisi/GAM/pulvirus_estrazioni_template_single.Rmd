@@ -16,7 +16,7 @@ output:
     toc_depth: 2
     toc_float: yes
 params:
-  rdatafile: ~/R/pulvirus/analisi/GAM/output/12/no2/no2_12_IT0825A.RData
+  rdatafile: ~/R/pulvirus/analisi/GAM/scelta/output/12/no2/no2_12_IT0825A.RData
   titolo: TEST
 header-includes:
 - \usepackage{titling}
@@ -35,68 +35,6 @@ title: `r params$titolo`
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.align = 'center')
 
-# check.ra <- function (obj, type = c("auto", "deviance", "pearson", "response", 
-#     "tunif", "tnormal"), k.sample = 5000, k.rep = 200, maxpo = 10000, 
-#     a.qq = list(), a.hist = list(), a.respoi = list(), ...) 
-# {
-#     if (!inherits(obj, "gamViz")) {
-#         stop("Argument 'obj' should be of class 'gamViz'. See ?getViz")
-#     }
-#     if (inherits(obj, "qgam")) {
-#         return(check.qgam(obj))
-#     }
-#     type <- match.arg(type)
-#     if (type == "auto") {
-#         type <- .getResTypeAndMethod(obj$family$family)$type
-#     }
-#     a.all <- .argMaster("check.gamViz")
-#     for (nam in names(a.all)) {
-#         assign(nam, .argSetup(a.all[[nam]], get(nam), nam, verbose = FALSE), 
-#             envir = environment())
-#     }
-#     resid <- residuals(obj, type = type)
-#     nres <- length(resid)
-#     subS <- if (nres > maxpo) {
-#         sample(c(rep(T, maxpo), rep(F, nres - maxpo)))
-#     }
-#     else {
-#         rep(T, nres)
-#     }
-#     linpred <- if (is.matrix(obj$linear.predictors) && !is.matrix(resid)) {
-#         napredict(obj$na.action, obj$linear.predictors[, 1])
-#     }
-#     else {
-#         napredict(obj$na.action, obj$linear.predictors)
-#     }
-#     fv <- if (inherits(obj$family, "extended.family")) {
-#         predict(obj, type = "response")
-#     }
-#     else {
-#         fitted(obj)
-#     }
-#     if (is.matrix(fv) && !is.matrix(obj$y)) {
-#         fv <- fv[, 1]
-#     }
-#     resp <- napredict(obj$na.action, obj$y)
-#     df <- data.frame(linpred = linpred, resid = resid, response = resp, 
-#         fv = fv)
-#     dfS <- df[subS, ]
-# 
-#     plots <- list()
-#     plots[[1]] <- do.call("qq.gamViz", c(list(o = obj), a.qq))$ggObj
-#     plots[[2]] <- ggplot(data = dfS, aes(x = linpred, y = resid)) + 
-#         do.call("geom_point", a.respoi) + labs(title = "Resids vs. linear pred.", 
-#         x = "linear predictor", y = "residuals")
-#     plots[[3]] <- ggplot(data = df, mapping = aes(x = resid)) + 
-#         do.call("geom_histogram", a.hist) + labs(title = "Histogram of residuals", 
-#         xlab = "Residuals")
-#     plots[[4]] <- ggplot(data = dfS, aes(x = fv, y = response)) + 
-#         do.call("geom_point", a.respoi) + labs(title = "Response vs. Fitted Values", 
-#         x = "Fitted Values", y = "Response")
-# 
-#     class(plots) <- "checkGam"
-#     return(plots)
-# }
 
 theme_pulvirus <- function() {
   theme_minimal() %+replace% 
@@ -134,7 +72,7 @@ basedir <- "~/R/pulvirus"
 
 ```
 
-# Modello
+# Modello per la stazione `r names(models[[1]][1])`
 
 ```{r, echo=FALSE, results='asis'}
 cat(names(models))
@@ -142,79 +80,61 @@ cat(names(models))
 
 # AICS 
 
-```{r, echo=FALSE}
-aics <- models %>% 
+```{r, echo=FALSE, results='asis'}
+models %>% 
   map(~ map_dbl(.x, AIC)) %>%  
   do.call(cbind, .) %>% 
   as.data.frame() %>% 
   set_colnames(c('AIC')) %>% 
-  round(2) 
+  round(2) %>% kable() %>% kable_styling() %>%  print()
 
-# ggplot(aics) + 
-#   geom_col(aes(x = rownames(aics), y = AIC), fill = 'dodgerblue')  +  
-#   theme(axis.text.x = element_text(angle = 90)) + 
-#   xlab("") + 
-#   theme_pulvirus()
-
-datatable(aics)
 ```
 
 # R squared 
 
-```{r, echo=FALSE}
-rsquared <- models[[1]] %>%
+```{r, echo=FALSE, results='asis'}
+models[[1]] %>%
   map(summary.gam) %>%
   map_dbl(~.$r.sq) %>% 
   as.data.frame() %>% 
   set_colnames(c('R')) %>% 
-  round(3) 
+  round(3) %>% kable() %>% kable_styling() %>%  print()
 
-# ggplot(rsquared) + 
-#   geom_col(aes(x = rownames(rsquared), y = R), fill = 'red')  +  
-#   theme(axis.text.x = element_text(angle = 90)) + 
-#   xlab("") + 
-#   theme_pulvirus()
-
-datatable(rsquared)
 ```
 
-# P-values
+# P-values 
 
-```{r, results='markup', echo=FALSE}
-j <- 1
-for (i in 1:length( models[[1]] ) ) {
-  cat("\n\n## ", names(models[[1]][j]), "\n\n")
-  
-  b <- mgcv:::anova.gam(models[[1]][[j]]) 
-  b$s.table %>%
-    kable(format = "pipe", digits = 3) %>%
-    print()
-  
-  cat("\n\n")
-  type <- "deviance"  ## "pearson" & "response" are other valid choices
-  resid <- residuals(b, type = type)
-  linpred <- napredict(b$na.action, b$linear.predictors)
-  observed.y <- napredict(b$na.action, b$y)
-  
-  # grafici
-  # qq.gam(b, rep = 0, level = 0.9, type = type, rl.col = 2, rep.col = "gray80")
-  
-  bv <- getViz(models[[1]][[j]])
-  # qq(bv, method = "simul1", a.qqpoi = list(shape=19, size = 0.5), a.ablin = list("linetype" = 2)) + theme_pulvirus()
-  
-  # b.df <- data.frame("linpred" = linpred, "resid" = resid)
-  # ggplot(b.df, aes(x = linpred, y = resid)) + 
-    # geom_point() + xlab("Linear pred.") + ylab("Resids") + 
-    # theme_pulvirus()
-  
-  check(bv, type = "deviance",
+```{r, echo=FALSE}
+bv <- getViz(models[[1]][[1]])
+b <- mgcv:::anova.gam(models[[1]][[1]]) 
+# b$s.table %>%
+#   kable(format = "pipe") %>% kable_styling() %>%
+#   print()
+
+cat("\n\n")
+
+check(bv, type = "deviance",
       a.qq = list(method = "tnorm", a.cipoly = list(fill = "light blue")),
       a.respoi = list(size = 0.5),
-      a.hist = list(bins = 25)) %>% print()
-  cat("\n\n\n")
+      a.hist = list(bins = 25)) 
+cat("\n\n\n")
 
-  j <- j + 1
-}
 ```
 
- 
+# Plot JD
+
+```{r, echo=FALSE}
+indx <- grep("jd", bv[["smooth"]])
+
+plot(sm(bv, indx), allTerms = TRUE, select = 4) + 
+  geom_hline(yintercept = 0) + 
+  theme_pulvirus()
+
+o <- plot(sm(bv, indx) ) + ggtitle("Ultimo miglio") +  coord_cartesian(xlim=c(2000,2800))
+
+o + l_fitLine(colour = "red") + l_rug(mapping = aes(x=x, y=y), alpha = 0.8) +
+    l_ciLine(mul = 5, colour = "blue", linetype = 2) + 
+    l_points(shape = 19, size = 1, alpha = 0.1) + theme_pulvirus()
+
+```
+

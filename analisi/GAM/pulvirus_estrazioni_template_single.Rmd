@@ -145,7 +145,7 @@ plot(sm(bv, indx), allTerms = TRUE, select = 4) +
   geom_hline(yintercept = 0) + 
   theme_pulvirus()
 
-o <- plot(sm(bv, indx) ) + ggtitle("Ultimo miglio") +  coord_cartesian(xlim=c(2000,2800))
+o <- plot(sm(bv, indx) ) + ggtitle("Ultimo miglio") +  coord_cartesian(xlim = c(2500, 2750))
 
 o + l_fitLine(colour = "red") + l_rug(mapping = aes(x=x, y=y), alpha = 0.8) +
     l_ciLine(mul = 5, colour = "blue", linetype = 2) + 

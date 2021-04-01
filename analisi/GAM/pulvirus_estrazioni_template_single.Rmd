@@ -47,7 +47,6 @@ theme_pulvirus <- function() {
 
 
 library(dplyr)
-library(purrr)
 library(magrittr)
 library(mgcv)
 library(logr)
@@ -60,6 +59,7 @@ library(ggplot2)
 library(datiInquinanti)
 library(mgcViz)
 library(leaflet)
+library(purrr)
 # library(maps)
 # basedir <- "~/R/pulvirus"
 
@@ -73,7 +73,7 @@ basedir <- "~/R/pulvirus"
 title: `r names(models[[1]][1])`
 ---
 
-# Dati stazione e modello `r names(models[[1]][1])`
+# Dati stazione e modello
 
 ```{r, echo=FALSE, results='asis'}
 cat("Modello ", names(models), "\n\n")
@@ -97,7 +97,7 @@ leaflet() %>% addTiles() %>%
 
 ```{r, echo=FALSE, results='asis'}
 models %>% 
-  map(~ map_dbl(.x, AIC)) %>%  
+  purrr::map(~ purrr::map_dbl(.x, AIC)) %>%  
   do.call(cbind, .) %>% 
   as.data.frame() %>% 
   set_colnames(c('AIC')) %>% 
@@ -109,8 +109,8 @@ models %>%
 
 ```{r, echo=FALSE, results='asis'}
 models[[1]] %>%
-  map(summary.gam) %>%
-  map_dbl(~.$r.sq) %>% 
+  purrr::map(summary.gam) %>%
+  purrr::map_dbl(~.$r.sq) %>% 
   as.data.frame() %>% 
   set_colnames(c('R')) %>% 
   round(3) %>% kable() %>% kable_styling() %>%  print()

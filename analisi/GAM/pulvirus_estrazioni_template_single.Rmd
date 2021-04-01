@@ -27,14 +27,9 @@ header-includes:
 - \usepackage{subfig}
 ---
 
----
-title: `r params$titolo`
----
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.align = 'center')
-
 
 theme_pulvirus <- function() {
   theme_minimal() %+replace% 
@@ -43,11 +38,11 @@ theme_pulvirus <- function() {
         text = element_text(size = 10, family = "Tahoma"), legend.position = "top",
         axis.title = element_text(face = "bold"),
         axis.text.x = element_text(size = 10),
-        panel.background = element_rect(fill = "white",colour = "white", size = 0.5, linetype = "solid"),
+        panel.background = element_rect(fill = "white",colour = "white", size = 0.3, linetype = "solid"),
         ##panel.grid.major = element_line(size = 0.5, linetype = 'dashed',colour = "#708090"), 
         ##panel.grid.minor = element_line(size = 0.25, linetype = 'dashed', colour = "#708090"),
         axis.line = element_line(colour = "darkblue", 
-                                 size = 0.5, linetype = "solid"))
+                                 size = 0.4, linetype = "solid"))
 }
 
 
@@ -64,6 +59,8 @@ library(DT)
 library(ggplot2)
 library(datiInquinanti)
 library(mgcViz)
+library(leaflet)
+# library(maps)
 # basedir <- "~/R/pulvirus"
 
 load(params$rdatafile)
@@ -72,10 +69,28 @@ basedir <- "~/R/pulvirus"
 
 ```
 
-# Modello per la stazione `r names(models[[1]][1])`
+---
+title: `r names(models[[1]][1])`
+---
+
+# Dati stazione e modello `r names(models[[1]][1])`
 
 ```{r, echo=FALSE, results='asis'}
-cat(names(models))
+cat("Modello ", names(models), "\n\n")
+
+stazioniAria %>% filter(station_eu_code == names(models[[1]][1])) -> staz
+
+sprintf("%s - %s %s (%s)", 
+        staz$nome_stazione, staz$regione, staz$comune, staz$provincia) %>% cat("\n\n")
+sprintf("Zona %s (%s GG)", 
+        staz$zona_climatica, staz$gradi_giorno) %>% cat("\n\n")
+sprintf("zona/tipo %s, fascia climatica: %s", 
+        staz$zona_tipo, staz$descrizione) %>% cat("\n\n")
+
+
+leaflet() %>% addTiles() %>%
+  setView(lat = staz$st_y, lng = staz$st_x, zoom = 15) %>%
+  addMarkers(lat = staz$st_y, lng = staz$st_x)
 ```
 
 # AICS 

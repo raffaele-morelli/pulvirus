@@ -73,10 +73,13 @@ basedir <- "~/R/pulvirus"
 title: `r names(models[[1]][1])`
 ---
 
-# Dati stazione e modello
+# Modello
 
+Modello: **`r names(models)`**
+
+## Stazione
 ```{r, echo=FALSE, results='asis'}
-cat("Modello ", names(models), "\n\n")
+# cat("Modello: ", names(models), "\n\n")
 
 stazioniAria %>% filter(station_eu_code == names(models[[1]][1])) -> staz
 
@@ -89,7 +92,7 @@ sprintf("zona/tipo %s, fascia climatica: %s",
 
 
 leaflet() %>% addTiles() %>%
-  setView(lat = staz$st_y, lng = staz$st_x, zoom = 15) %>%
+  setView(lat = staz$st_y, lng = staz$st_x, zoom = 16) %>%
   addMarkers(lat = staz$st_y, lng = staz$st_x)
 ```
 

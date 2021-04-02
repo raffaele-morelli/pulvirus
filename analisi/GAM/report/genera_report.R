@@ -18,8 +18,8 @@ for (i in rdatas) {
   
   rmarkdown::render(glue::glue("{base.dir}/pulvirus_estrazioni_template_single.Rmd"),
                     params = list(rdatafile = glue("{i}")),
-                    output_dir = glue("{web.dir}"),
-                    output_file = glue("{parti[[1]][1]}_{parti[[1]][2]}_{fn}")
+                    output_dir = glue::glue("{web.dir}"),
+                    output_file = glue::glue("{parti[[1]][1]}_{parti[[1]][2]}_{fn}")
   )
   return(" ")
 }

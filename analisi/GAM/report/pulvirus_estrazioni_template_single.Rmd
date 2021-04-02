@@ -2,7 +2,7 @@
 subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 subject: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 author: "GAM squad"
-date: "`r format(Sys.time(), '%d %B %Y')`"
+date: "`r format(Sys.time(), '%d %B %Y - %H:%M')`"
 documentclass: article
 link-citations: yes
 citecolor: blue
@@ -95,13 +95,13 @@ leaflet() %>% addTiles() %>%
 
 # AICS 
 
-```{r, echo=FALSE, results='asis'}
+```{r, echo=FALSE}
 models %>% 
   purrr::map(~ purrr::map_dbl(.x, AIC)) %>%  
   do.call(cbind, .) %>% 
   as.data.frame() %>% 
   set_colnames(c('AIC')) %>% 
-  round(2) %>% kable() %>% kable_styling() %>%  print()
+  round(2) %>% kable() %>% kable_styling() 
 
 ```
 
@@ -113,7 +113,7 @@ models[[1]] %>%
   purrr::map_dbl(~.$r.sq) %>% 
   as.data.frame() %>% 
   set_colnames(c('R')) %>% 
-  round(3) %>% kable() %>% kable_styling() %>%  print()
+  round(3) %>% kable() %>% kable_styling() 
 
 ```
 
@@ -151,5 +151,9 @@ o + l_fitLine(colour = "red") + l_rug(mapping = aes(x=x, y=y), alpha = 0.8) +
     l_ciLine(mul = 5, colour = "blue", linetype = 2) + 
     l_points(shape = 19, size = 1, alpha = 0.1) + theme_pulvirus()
 
+```
+
+```{r, echo=FALSE, message=FALSE, fig.width=3, fig.height=2}
+# plot(bv)
 ```
 

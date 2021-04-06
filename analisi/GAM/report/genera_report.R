@@ -1,3 +1,8 @@
+require(glue)
+require(stringr)
+require(tools)
+require(rmarkdown)
+
 # il percorso dove risiede lo script
 base.dir <- "~/R/pulvirus/analisi/GAM/report"
 
@@ -14,12 +19,12 @@ rdatas <- list.files(path = glue("{rdata.dir}"),
 # snip per generare i report ####
 for (i in rdatas) {
   parti <- str_split(basename(i), "_")
-  fn <- tools::file_path_sans_ext(parti[[1]][3])
+  fn <- file_path_sans_ext(parti[[1]][3])
   
-  rmarkdown::render(glue::glue("{base.dir}/pulvirus_estrazioni_template_single.Rmd"),
+  render(glue::glue("{base.dir}/pulvirus_estrazioni_template_single.Rmd"),
                     params = list(rdatafile = glue("{i}")),
-                    output_dir = glue::glue("{web.dir}"),
-                    output_file = glue::glue("{parti[[1]][1]}_{parti[[1]][2]}_{fn}")
+                    output_dir = glue("{web.dir}"),
+                    output_file = glue("{parti[[1]][1]}_{parti[[1]][2]}_{fn}")
   )
   return(" ")
 }

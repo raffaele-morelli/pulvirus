@@ -159,7 +159,6 @@ o + l_fitLine(colour = "red") + l_rug(mapping = aes(x=x, y=y), alpha = 0.8) +
 
 ```{r, echo=FALSE, message=FALSE, fig.width=3, fig.height=2}
 # Da rimuovere il commento per le altre variabili
-
 # plot(bv)
 ```
 

@@ -17,6 +17,7 @@ output:
     toc_float: yes
 params:
   rdatafile: ~/R/pulvirus/analisi/GAM/scelta/output/12/no2/no2_12_IT0825A.RData
+  logfile: ~/R/pulvirus/analisi/GAM/scelta/output/12/no2/log/pulvirus_no2_12_IT0825A.log
   titolo: TEST
 header-includes:
 - \usepackage{titling}
@@ -78,6 +79,7 @@ title: `r names(models[[1]][1])`
 Modello: **`r names(models)`**
 
 ## Stazione
+
 ```{r, echo=FALSE, results='asis'}
 # cat("Modello: ", names(models), "\n\n")
 
@@ -160,5 +162,11 @@ o + l_fitLine(colour = "red") + l_rug(mapping = aes(x=x, y=y), alpha = 0.8) +
 ```{r, echo=FALSE, message=FALSE, fig.width=3, fig.height=2}
 # Da rimuovere il commento per le altre variabili
 # plot(bv)
+```
+
+# LOG file
+
+```{r results='markup', echo=FALSE}
+cat(readLines(params$logfile), sep = '\n')
 ```
 

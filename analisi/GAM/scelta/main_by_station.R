@@ -54,7 +54,7 @@ args <- commandArgs(trailingOnly = TRUE)
 # i due parametri a mano 
 if(is.na(args[1])) {
   pltnt <- "no2"
-  cod_reg <- 6
+  cod_reg <- 12
 }else{
   pltnt <- args[1]
   cod_reg <- args[2]

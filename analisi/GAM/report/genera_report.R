@@ -20,11 +20,12 @@ rdatas <- list.files(path = glue("{rdata.dir}"),
 for (i in rdatas) {
   parti <- str_split(basename(i), "_")
   fn <- file_path_sans_ext(parti[[1]][3])
+  log.fn <- glue("{rdata.dir}/{parti[[1]][2]}/{parti[[1]][1]}/log/pulvirus_{parti[[1]][1]}_{parti[[1]][2]}_{fn}.log")
   
   render(glue::glue("{base.dir}/pulvirus_estrazioni_template_single.Rmd"),
-                    params = list(rdatafile = glue("{i}")),
+                    params = list(rdatafile = glue("{i}"), logfile = log.fn),
                     output_dir = glue("{web.dir}"),
                     output_file = glue("{parti[[1]][1]}_{parti[[1]][2]}_{fn}")
   )
-  return(" ")
+  return("log.fn")
 }

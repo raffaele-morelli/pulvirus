@@ -135,14 +135,12 @@ sceltaVar <- function() {
   
   # Log delle risultanze
   log_print(sprintf("Variabile scelta %s con AIC %s ", aicVar[2], aicVar[1]), hide_notes = TRUE )
-  # log_print(sprintf("Ultima variabile: %s", paste(tmp, collapse = " -- ") ) , hide_notes = TRUE)
-  
+
   # Salvataggio lista con gli AIC dei modelli elaborati finora
   assign("AICS", c(AICS, tmp), envir = .GlobalEnv)
 
   # Carico gli AIC attuali e loggo
   AICS <- get("AICS", envir = .GlobalEnv)
-  # log_print(sprintf("AICS: %s", ifelse(length(AICS) > 0, AICS[length(AICS)] %>% print(), ""  )) , hide_notes = TRUE)
 
   n <- length(AICS) # quanti AIC ho finora
   if( n > 1) {
@@ -151,10 +149,9 @@ sceltaVar <- function() {
       # seleziono il modello BACKWARD con AIC minimo
       w <- buildMods(backward = TRUE)
       log_print("Modelli BACKWARD", hide_notes = TRUE)
-      # log_print(w %>% unlist() %>% as.data.frame() %>% print(), hide_notes = TRUE)
+      
       models <- list()
       for(i in w) {
-        # print(i)
         models[[i]] <- dfSub %>% split(.$station_eu_code) %>% 
           map(~eval(parse(text = i)))
       }
@@ -208,5 +205,6 @@ sceltaVar <- function() {
   log_print("Fine per scelta MODELLO", hide_notes = TRUE)
   log_print(paste(get("v_fixed", envir = .GlobalEnv), collapse = " + "), hide_notes = TRUE)
   log_print("----------------------")
+  return("----------------")
 }
 

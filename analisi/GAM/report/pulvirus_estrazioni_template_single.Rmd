@@ -1,14 +1,6 @@
 ---
-subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-subject: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 author: "GAM squad"
 date: "`r format(Sys.time(), '%d %B %Y - %H:%M')`"
-documentclass: article
-link-citations: yes
-citecolor: blue
-linkcolor: blue
-fontsize: 11pt
-geometry: margin=1in
 lang: it
 output:
   html_document:
@@ -16,16 +8,8 @@ output:
     toc_depth: 2
     toc_float: yes
 params:
-  rdatafile: ~/R/pulvirus/analisi/GAM/scelta/output/12/no2/no2_12_IT0825A.RData
-  logfile: ~/R/pulvirus/analisi/GAM/scelta/output/12/no2/log/pulvirus_no2_12_IT0825A.log
-  titolo: TEST
-header-includes:
-- \usepackage{titling}
-- \usepackage{hyperref}
-- \usepackage{pdflscape}
-- \usepackage{graphicx}
-- \usepackage{float}
-- \usepackage{subfig}
+  rdatafile: "~/R/pulvirus/analisi/GAM/scelta/output/12/no2/no2_12_IT0825A.RData"
+  logfile: "~/R/pulvirus/analisi/GAM/scelta/output/12/no2/log/pulvirus_no2_12_IT0825A.log"
 ---
 
 

@@ -27,5 +27,5 @@ for (i in rdatas) {
                     output_dir = glue("{web.dir}"),
                     output_file = glue("{parti[[1]][1]}_{parti[[1]][2]}_{fn}")
   )
-  return("log.fn")
+  # return("log.fn")
 }

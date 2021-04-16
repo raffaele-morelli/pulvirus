@@ -8,8 +8,8 @@ output:
     toc_depth: 2
     toc_float: yes
 params:
-  rdatafile: ~/R/pulvirus/analisi/GAM/scelta/output/12/no2/no2_12_IT0825A.RData
-  logfile: ~/R/pulvirus/analisi/GAM/scelta/output/12/no2/log/pulvirus_no2_12_IT0825A.log
+  rdatafile: ~/R/pulvirus/analisi/GAM/scelta/output/8/no2/no2_8_IT1672A.RData
+  logfile: ~/R/pulvirus/analisi/GAM/scelta/output/8/no2/log/pulvirus_no2_8_IT1672A.log
 ---
 
 
@@ -130,15 +130,21 @@ cat("\n\n\n")
 ```{r, echo=FALSE}
 indx <- grep("jd", bv[["smooth"]])
 
-plot(sm(bv, indx), allTerms = TRUE, select = 4) + 
-  geom_hline(yintercept = 0) + 
-  theme_pulvirus()
 
-o <- plot(sm(bv, indx) ) + ggtitle("Ultimo miglio") +  coord_cartesian(xlim = c(2500, 2750))
-
-o + l_fitLine(colour = "red") + l_rug(mapping = aes(x=x, y=y), alpha = 0.8) +
+if(length(indx) != 0) {
+  plot(sm(bv, indx), allTerms = TRUE, select = 4) + 
+    geom_hline(yintercept = 0) + 
+    theme_pulvirus()
+  
+  o <- plot(sm(bv, indx) ) + ggtitle("Ultimo miglio") +  coord_cartesian(xlim = c(2500, 2750))
+  
+  o + l_fitLine(colour = "red") + l_rug(mapping = aes(x=x, y=y), alpha = 0.8) +
     l_ciLine(mul = 5, colour = "blue", linetype = 2) + 
     l_points(shape = 19, size = 1, alpha = 0.1) + theme_pulvirus()
+}else{
+  print("Nessun jd ")
+}
+
 
 ```
 

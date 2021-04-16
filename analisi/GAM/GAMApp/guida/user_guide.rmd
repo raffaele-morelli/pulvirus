@@ -1,0 +1,61 @@
+---
+title: "PULVIRUS - GAM Dashboard"
+author: "ISPRA division of Air Quality"
+date: "Apr 2020"
+---
+
+# Introduzione
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor. Phasellus finibus congue laoreet. Aenean venenatis, nisl eu maximus condimentum, ligula ligula finibus mi, a placerat risus lectus aliquet libero. Integer consectetur convallis purus vitae blandit. Aliquam in erat a dolor sodales porttitor. Suspendisse potenti. Duis ut nisl sem.
+
+## Donec ut elementum orci
+Vivamus mollis libero et ligula pharetra, quis congue metus aliquet. Aliquam laoreet dolor ut ante scelerisque ultricies. Sed sed dolor vitae dolor malesuada vehicula. Sed auctor, risus et laoreet consectetur, massa orci placerat felis, eget facilisis ligula ex ac risus. Donec id laoreet tellus. Nunc scelerisque arcu id tellus rhoncus, scelerisque malesuada ex semper.
+
+### Vivamus sit amet velit 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor.
+
+![](mappa.png)  
+Figura 1. Mappa
+<br><br>
+
+
+## Outputs
+### Time series
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor. Phasellus finibus congue laoreet. Aenean venenatis, nisl eu maximus condimentum, ligula ligula finibus mi, a placerat risus lectus aliquet libero. Integer consectetur convallis purus vitae blandit. Aliquam in erat a dolor sodales porttitor. Suspendisse potenti. Duis ut nisl sem.
+
+![](serie.png) 
+Figure 2. Lorem ipsum dolor sit amet.
+<br><br>
+
+
+#### Boxplot
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor. Phasellus finibus congue laoreet. Aenean venenatis, nisl eu maximus condimentum, ligula ligula finibus mi, a placerat risus lectus aliquet libero. 
+
+![](boxplot.png) 
+Figure 3. Lorem ipsum dolor sit amet.
+<br><br>
+
+
+#### Pollution rose
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor. Phasellus finibus congue laoreet. Aenean venenatis, nisl eu maximus condimentum, ligula ligula finibus mi, a placerat risus lectus aliquet libero. 
+
+
+![](rose.png)  
+Figure 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor.
+<br><br>
+
+
+#### Polar plot
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor. Phasellus finibus congue laoreet. Aenean venenatis, nisl eu maximus condimentum, ligula ligula finibus mi, a placerat risus lectus aliquet libero. 
+
+![](polar.png)  
+Figure 4. Lorem ipsum dolor sit amet.
+<br><br>
+
+## Package dependencies & credits
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor. Phasellus finibus congue laoreet. Aenean venenatis, nisl eu maximus condimentum, ligula ligula finibus mi, a placerat risus lectus aliquet libero.
+
+
+## Help & feedback
+For additional help or to submit feedback or bug reports, please contact:  
+ISPRA  06 5007 1
+pulvirus@isprambiente.it

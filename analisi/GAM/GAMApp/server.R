@@ -71,7 +71,7 @@ shinyServer(function(input, output, session) {
             map=leaflet::addCircleMarkers(map, data = pm25Staz, lat = pm25Staz$st_y, lng = pm25Staz$st_x, group = "PM25", radius = ptsRadius, 
                                           # color = pal(pm25Staz$zona_climatica),
                                           color = "red",
-                                          layerId=paste("pm25", no2Staz$station_eu_code, sep = "_"), 
+                                          layerId=paste("pm25", pm25Staz$station_eu_code, sep = "_"), 
                                           popup = paste0(
                                               "Location ID: ", pm25Staz$station_eu_code,
                                               "<br> Name: ", pm25Staz$nome_stazione,
@@ -132,6 +132,7 @@ shinyServer(function(input, output, session) {
     observe({
         req(input$table_input_rows_selected)
         row_click = input$table_input_rows_selected
+        
         station_eu_code = stazioniAria[row_click, "station_eu_code"] %>% as.character()
         reactive_objects$sel_station_eu_code = station_eu_code
     })
@@ -168,15 +169,15 @@ shinyServer(function(input, output, session) {
         input_table_proxy %>% 
             DT::clearSearch() %>% 
             DT::updateSearch(keywords = list(global = "", columns=c( paste(reactive_objects$sel_station_eu_code), "" )))
-    })    
+    })
     
     # Serie storica
     output$serie = renderPlot({
         req(reactive_objects$sel_station_eu_code, reactive_objects$ts_pltnt)
+        showModal(modalDialog(title = "PLEASE WAIT...", "Please wait", size = "l", footer = NULL ) )
         
         filter(get(reactive_objects$ts_pltnt), station_eu_code == reactive_objects$sel_station_eu_code) -> df
-        # showModal(modalDialog(title = "PLEASE WAIT...", "Please wait", size = "l", footer = NULL ) )
-        
+
         if(nrow(df) > 0) {
             df %>% mutate(week = as.Date(date, '%Y-%V') ) %>% 
                 group_by(reporting_year, station_eu_code, week) %>% 
@@ -191,7 +192,7 @@ shinyServer(function(input, output, session) {
         }else{
             ggplot2::ggplot() + ggplot2::geom_blank() + annotate("text", x = 4, y = 25, label = "Non ci sono dati",  size = 9) + theme_void()
         }
-        # removeModal()
+        removeModal()
         
     })
     
@@ -240,6 +241,8 @@ shinyServer(function(input, output, session) {
     # Boxplot
     output$boxplot <- renderPlot({
         req(reactive_objects$sel_station_eu_code, reactive_objects$ts_pltnt)
+        showModal(modalDialog(title = "PLEASE WAIT...", "Please wait", size = "l", footer = NULL ) )
+        
 
         filter(get(reactive_objects$ts_pltnt), station_eu_code == reactive_objects$sel_station_eu_code) %>% 
             select(reporting_year, date, value) -> bp
@@ -273,7 +276,8 @@ shinyServer(function(input, output, session) {
         }else{
             ggplot2::ggplot() + ggplot2::geom_blank() + annotate("text", x = 4, y = 25, label = "Non ci sono dati",  size = 9) + theme_void()
         }
-
+        removeModal()
+        
     })
 
     # Descrittive
@@ -325,17 +329,6 @@ shinyServer(function(input, output, session) {
             options = list(scrollY = '600px', paging = FALSE, scrollX = TRUE, dom = "ltipr") 
         ) %>% DT::formatRound(c(2:19), 2)
     })
-    
-    # output$gam_model <- renderUI({
-    #     req(reactive_objects$sel_station_eu_code, reactive_objects$ts_pltnt)
-    #     stazioniAria %>% filter(station_eu_code == reactive_objects$sel_station_eu_code) %>% select(region_id) -> rec
-    #     # load("/home/rmorelli/R/pulvirus/analisi/GAM/scelta/output/")
-    #     f <- paste0("/home/rmorelli/R/pulvirus/analisi/GAM/scelta/output/", 
-    #            rec$region_id, "/", reactive_objects$ts_pltnt, "/",
-    #            reactive_objects$ts_pltnt, "_", rec$region_id, "_", reactive_objects$sel_station_eu_code, ".RData")
-    #     load(f)
-    #     names(models)
-    # })
     
     output$gam_output <- renderUI({
         req(reactive_objects$models)
@@ -400,6 +393,15 @@ shinyServer(function(input, output, session) {
             l_points(shape = 19, size = 1, alpha = 0.1) + theme_pulvirus()
 
     })
+
+    output$residui <- renderPlot({
+        bv <- getViz(reactive_objects$models[[1]][[1]])
+
+        check(bv, type = "deviance",
+              a.qq = list(method = "tnorm", a.cipoly = list(fill = "light blue")),
+              a.respoi = list(size = 0.5),
+              a.hist = list(bins = 25))     
+    })  
     
     output$date_slider <- renderUI({
     

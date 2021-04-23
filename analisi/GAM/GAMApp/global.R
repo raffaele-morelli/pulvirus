@@ -3,7 +3,7 @@ library(leaflet)
 library(dplyr)
 library(lubridate)
 library(ggplot2)
-library(ggplotify)
+# library(ggplotify)
 library(gridExtra)
 library(scales)
 library(openair)
@@ -16,7 +16,6 @@ library(magrittr)
 
 library(shiny)
 library(shinythemes)
-library(leaflet)
 
 
 library(datiInquinanti)

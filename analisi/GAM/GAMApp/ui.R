@@ -1,7 +1,7 @@
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(headerPanel(
-    title = "Lorem ipsum",
+    title = "Navigazione dei dati e risultati",
 ),
 
 fluidRow(
@@ -20,7 +20,7 @@ fluidRow(
                                         tabPanel("Tabella",
                                                  column(
                                                      12,
-                                                     h4("Click su una stazione"), div(DT::dataTableOutput("table_input"), style = "font-size:90%")
+                                                     h4("Cerca una stazione e seleziona la riga"), div(DT::dataTableOutput("table_input"), style = "font-size:90%")
                                                  ))
                             )
            ),
@@ -35,7 +35,7 @@ fluidRow(
                             # uiOutput("date_slider"),
                             selectInput("ts_pltnt", label = "Inquinante:", choices = c("NO2" = "no2", "PM10" = "pm10", "PM25" = "pm25")),
                             radioButtons("ts_plot_type", "Tipo di plot:", choices = c("Serie", "Pollution rose", "Polar freq", "Boxplot"), inline = T),
-                            conditionalPanel(condition = "input.ts_plot_type=='Boxplot'", plotOutput("boxplot", width = "90%", height = "800px")),
+                            conditionalPanel(condition = "input.ts_plot_type=='Boxplot'", plotOutput("boxplot", width = "90%", height = "900px")),
                             conditionalPanel(condition = "input.ts_plot_type=='Pollution rose'", plotOutput("pollution_rose")),
                             conditionalPanel(condition = "input.ts_plot_type=='Serie'", plotOutput("serie", width = "90%", height = "500px")),
                             conditionalPanel(condition = "input.ts_plot_type=='Polar freq'", plotOutput("polar"))
@@ -51,10 +51,11 @@ fluidRow(
                                  htmlOutput("gam_output"),
                                  htmlOutput("gam_summary"),
                                  plotOutput("jd_plot"),
-                                 plotOutput("jd_plot_last")
+                                 plotOutput("jd_plot_last"),
+                                 plotOutput("residui")
                  ))
         ),
-        tabPanel("User guide",
+        tabPanel("Guida",
                  fluidRow(
                      column(8,
                             includeMarkdown('./guida/user_guide.rmd')

@@ -5,57 +5,56 @@ date: "Apr 2020"
 ---
 
 # Introduzione
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor. Phasellus finibus congue laoreet. Aenean venenatis, nisl eu maximus condimentum, ligula ligula finibus mi, a placerat risus lectus aliquet libero. Integer consectetur convallis purus vitae blandit. Aliquam in erat a dolor sodales porttitor. Suspendisse potenti. Duis ut nisl sem.
+Questa applicazione consente la visualizzazione interattiva dei risultati, delle principali statistiche descrittive e dei relativi grafici per le serie di dati valide (secondo i criteri stabiliti) del progetto PULVIRUS.
 
-## Donec ut elementum orci
-Vivamus mollis libero et ligula pharetra, quis congue metus aliquet. Aliquam laoreet dolor ut ante scelerisque ultricies. Sed sed dolor vitae dolor malesuada vehicula. Sed auctor, risus et laoreet consectetur, massa orci placerat felis, eget facilisis ligula ex ac risus. Donec id laoreet tellus. Nunc scelerisque arcu id tellus rhoncus, scelerisque malesuada ex semper.
+## Dati
+Tutti i dati utilizzati per le analisi sono disponibili per il download attraverso *github* (pacchettizzati per R o in formato csv)
 
-### Vivamus sit amet velit 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor.
+I dati sono relativi ai principali inquinanti atmosferici rilevati dalle stazioni appartenenti alle reti regionali di monitoraggio della qualità dell'aria, distribuite sul territorio nazionale, nello specifico: PM10, PM2.5, NO<sub>2</sub>
 
-![](mappa.png)  
-Figura 1. Mappa
-<br><br>
+## Utilizzo dell'applicazione
+Sono disponibili due metodi per selezionare la stazione di interesse: mappa e tabella.
+Cliccando sulla stazione dalla mappa o selezionando una riga dalla tabella vengono generati diversi plot, la tabella delle descrittive ed i risultati del modello GAM individuato per la stazione/inquinante.
 
+Scegliendo una riga dalla tabella la mappa viene immediatamente centrata sul punto relativo nella mappa. Analogamente, scegliendo un punto sulla mappa la tabella viene filtrata per mostrare le informazioni sulla stazione. ed un *pop up* le riassume anche sulla mappa stessa.
+
+I grafici vengono generati in automatico ad ogni modifica delle opzioni disponibili.
+
+**IMPORTANTE**: i layer disponibili sulla mappa (Figura 1) mostrano soltanto le serie valide per le quali possono essere visualizzati i dati/risultati per l'inquinante scelto. Per visualizzare i dati/risultati è necessario selezionare l'inquinante dal menù a tendina/dropdown nel tab **"Plot"** (Figura 1a) che di fatto comanda rispetto a ciò che viene rappresentato sulla mappa.
+
+
+![](mappa.png)
+<br>Figura 1. Mappa<br>
+
+![](dropdown_pltnt.png)
+<br>Figura 1a. Scelta inquinante<br>
 
 ## Outputs
-### Time series
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor. Phasellus finibus congue laoreet. Aenean venenatis, nisl eu maximus condimentum, ligula ligula finibus mi, a placerat risus lectus aliquet libero. Integer consectetur convallis purus vitae blandit. Aliquam in erat a dolor sodales porttitor. Suspendisse potenti. Duis ut nisl sem.
+### Serie storica
 
-![](serie.png) 
-Figure 2. Lorem ipsum dolor sit amet.
-<br><br>
+Per rendere più chiaro l'andamento della serie nel corso degli anni viene prodotto un plot delle medie settimanali delle concentrazioni.
 
+![](serie.png)
+<br>Figura 2. Serie delle medie settimanali<br>
 
-#### Boxplot
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor. Phasellus finibus congue laoreet. Aenean venenatis, nisl eu maximus condimentum, ligula ligula finibus mi, a placerat risus lectus aliquet libero. 
+### Boxplot
+I boxplot dei primi 6 mesi dell'anno, quelli di interesse per inizio e fine *lockdown*. 
 
-![](boxplot.png) 
-Figure 3. Lorem ipsum dolor sit amet.
-<br><br>
+![](boxplot.png)
+<br>Figure 3. Boxplot con media e mediana.<br>
 
+### Pollution rose
+E' il tradizionale grafico della rosa dei venti che traccia la velocità e la direzione del vento a diversi intervalli prestabiliti, nella fattispecie l'anno. In questa versione la velocità del vento è sostituita dalla concentrazione dell'inquinante. 
 
-#### Pollution rose
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor. Phasellus finibus congue laoreet. Aenean venenatis, nisl eu maximus condimentum, ligula ligula finibus mi, a placerat risus lectus aliquet libero. 
+![](rose.png)
+<br>Figure 4. Pollution rose<br>
 
+### Polar plot
+Il grafico polare della concentrazione in relazione alla velocità e direzione del vento. Le concentrazioni medie sono calcolate su "slot" (es. 0-1, 1-2 m/s,... e 0-10, 10-20 gradi etc.).
 
-![](rose.png)  
-Figure 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor.
-<br><br>
-
-
-#### Polar plot
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor. Phasellus finibus congue laoreet. Aenean venenatis, nisl eu maximus condimentum, ligula ligula finibus mi, a placerat risus lectus aliquet libero. 
-
-![](polar.png)  
-Figure 4. Lorem ipsum dolor sit amet.
-<br><br>
-
-## Package dependencies & credits
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pulvinar tincidunt nisl. Proin sit amet porta tortor. Phasellus finibus congue laoreet. Aenean venenatis, nisl eu maximus condimentum, ligula ligula finibus mi, a placerat risus lectus aliquet libero.
-
+![](polar.png)
+<br>Figure 5. Polar plot<br>
 
 ## Help & feedback
 For additional help or to submit feedback or bug reports, please contact:  
-ISPRA  06 5007 1
-pulvirus@isprambiente.it
+ISPRA  06 5007 1 - pulvirus@isprambiente.it

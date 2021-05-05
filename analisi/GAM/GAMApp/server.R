@@ -4,12 +4,7 @@
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
   # Loading modal to keep user out of trouble while map draws...
-  showModal(modalDialog(
-    title = "PLEASE WAIT...",
-    "Please wait",
-    size = "l",
-    footer = NULL
-  ))
+  showModal(modalDialog(title = "PLEASE WAIT...", "Please wait", size = "l", footer = NULL))
   
   # Remove modal when app is ready
   observe({
@@ -29,30 +24,48 @@ shinyServer(function(input, output, session) {
   session$onFlushed(once = T, function() {
     output$aqMap <- renderLeaflet({
       zoneclimatiche <- unique(stazioniAria$zona_climatica) %>% sort()
-      pal <- colorRampPalette(RColorBrewer::brewer.pal(6, "Oranges"))
-      pal = leaflet::colorFactor(pal(length(unique(stazioniAria$zona_climatica))), domain = zoneclimatiche)
       
-      map = leaflet(stazioniAria) %>% addTiles()
-      # addMarkers(~ st_x, ~ st_y, layerId = stazioniAria$station_eu_code)
+      pal <- colorRampPalette(RColorBrewer::brewer.pal(4, "Spectral"))
       
+      stazioniAria %>%
+        mutate(tipo_s = case_when(
+          zona_tipo == "FU" ~ "Fondo urbano/suburbano",
+          zona_tipo == "FS" ~ "Fondo urbano/suburbano",
+          zona_tipo == "TU" ~ "Traffico",
+          zona_tipo == "TS" ~ "Traffico",
+          tipo_zona == "R" ~ "Rurale",
+          tipo_zona == "R-nearcity" ~ "Rurale",
+          tipo_zona == "R-regional" ~ "Rurale",
+          tipo_zona == "R-remote" ~ "Rurale",
+          tipo_stazione == "I" ~ "Industriale",
+          tipo_stazione == "F/I" ~ "Industriale",
+        )) %>% filter(station_eu_code %in% stazUniche) -> stazioniAria
+      
+      pal = leaflet::colorFactor(pal(length(unique(stazioniAria$tipo_s))), domain = unique(stazioniAria$tipo_s))
+      
+      map = leaflet() %>% addTiles()
+
       map = leaflet::addProviderTiles(
         map, "Esri.WorldImagery", group = "Satellite",
         options = providerTileOptions(updateWhenZooming = FALSE, updateWhenIdle = TRUE)
       )
+      
       map = leaflet::addProviderTiles(
         map, "Esri.WorldTopoMap", group = "Topo",
         options = providerTileOptions(updateWhenZooming = FALSE, updateWhenIdle = TRUE)
       )
       
-      ptsRadius <- 3
+      ptsRadius <- 5
       # map = addMapPane(map, "markers", zIndex = 400)
       
       map = leaflet::addCircleMarkers(
         map,
         data = no2Staz, lat = no2Staz$st_y, lng = no2Staz$st_x, group = "NO2",
         radius = ptsRadius,
-        # color = pal(no2Staz$zona_climatica),
-        color = "black",
+        color = "black", # pal(no2Staz$tipo_s),
+        opacity = 0.2,
+        fillColor = pal(stazioniAria$tipo_s), #"black",
+        fillOpacity = 1,
         layerId = paste("no2", no2Staz$station_eu_code, sep = "_"),
         popup = paste0("Location ID: ", no2Staz$station_eu_code,
           "<br> Name: ", no2Staz$nome_stazione,
@@ -66,8 +79,10 @@ shinyServer(function(input, output, session) {
         map,
         data = pm10Staz, lat = pm10Staz$st_y, lng = pm10Staz$st_x, group = "PM10",
         radius = ptsRadius,
-        # color = pal(pm10Staz$zona_climatica),
-        color = "green",
+        color = "black", # pal(no2Staz$tipo_s),
+        opacity = 0.2,
+        fillColor = pal(stazioniAria$tipo_s), #"black",
+        fillOpacity = 1,
         layerId = paste("pm10", pm10Staz$station_eu_code, sep = "_"),
         popup = paste0(
           "Location ID: ", pm10Staz$station_eu_code,
@@ -82,8 +97,10 @@ shinyServer(function(input, output, session) {
         map,
         data = pm25Staz, lat = pm25Staz$st_y, lng = pm25Staz$st_x, group = "PM25",
         radius = ptsRadius,
-        # color = pal(pm25Staz$zona_climatica),
-        color = "red",
+        color = "black", # pal(no2Staz$tipo_s),
+        opacity = 0.2,
+        fillColor = pal(stazioniAria$tipo_s), #"black",
+        fillOpacity = 1,
         layerId = paste("pm25", pm25Staz$station_eu_code, sep = "_"),
         popup = paste0(
           "Location ID: ", pm25Staz$station_eu_code,
@@ -97,20 +114,21 @@ shinyServer(function(input, output, session) {
       map = leaflet::addLayersControl(
         map,
         position = "topleft",
-        baseGroups = c("Topo", "Satellite"),
-        overlayGroups = c("NO2", "PM10", "PM25"),
-        options = leaflet::layersControlOptions(collapsed = FALSE, autoZIndex =
-                                                  TRUE)
+        # baseGroups = c("Topo", "Satellite"),
+        # overlayGroups = c("NO2", "PM10", "PM25"),
+        baseGroups = c("NO2", "PM10", "PM25"),
+        options = leaflet::layersControlOptions(collapsed = FALSE, autoZIndex = TRUE)
       )
       
       # TODO riorganizzare il livelli per ordinare la zona climatica
-      # map = leaflet::addLegend(
-      #     map,
-      #     position = 'topright',
-      #     title = "Zona climatica",
-      #     colors = unique(pal(stazioniAria$zona_climatica)),
-      #     labels = unique(stazioniAria$zona_climatica)
-      # )
+      map = leaflet::addLegend(
+          map,
+          opacity = 1,
+          position = 'topright',
+          title = "Tipo stazione",
+          colors = unique(pal(stazioniAria$tipo_s)),
+          labels = unique(stazioniAria$tipo_s)
+      )
       
       map = hideGroup(map, c("NO2", "PM25", "PM10"))
     })
@@ -118,8 +136,10 @@ shinyServer(function(input, output, session) {
   
   # Table interface
   output$table_input = DT::renderDataTable({
+    
     DT::datatable(
-      stazioniAria %>% dplyr::select(station_eu_code, regione, provincia, comune, nome_stazione),
+      stazioniAria %>% filter(station_eu_code %in% stazUniche) %>% 
+        dplyr::select(station_eu_code, regione, provincia, comune, nome_stazione),
       selection = 'single',
       rownames = FALSE,
       filter = "top",
@@ -189,13 +209,13 @@ shinyServer(function(input, output, session) {
     }
     
   })
-  
+
   output$nota_pltnt <- renderUI({
-    HTML(
-      "<br /><p style='color: red; background-color: yellow;'><b style='color: black;'>Importante</b> Scegliere un inquinante di una serie valida (visualizzata sulla mappa) per mostrare
-              i plot, le descrittive ed il modello GAM</p>"
-    )
-  })
+    HTML("<br><div  style='color: red; background-color: yellow; font-size: 1.2em; padding: 0.5em;'><h4 style='color: black;'>IMPORTANTE</h4>
+    <p> I layer disponibili sulla mappa mostrano <u>soltanto le serie valide</u>.</p>
+<p>I plot, le statistiche descrittive e le risultanze del modello GAM per l'inquinante scelto dal menù a tendina/dropdown che segue
+saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa o dalla tabella.</p></div>")
+  }) 
   
   # Change map zoom on table click & update selected heatmap_param to selected row param
   map_proxy = leaflet::leafletProxy("aqMap")
@@ -209,7 +229,6 @@ shinyServer(function(input, output, session) {
                                    zoom = 15)
     # updateSelectInput(session, "heatmap_param", selected = reactive_objects$sel_param)
   })
-  
   
   # Filter table to match clicked site from map
   input_table_proxy = DT::dataTableProxy('table_input')
@@ -386,55 +405,27 @@ shinyServer(function(input, output, session) {
       
       # print(bp)
       
-      bp %>% filter(month %in% c(
-        "gennaio",
-        "febbraio",
-        "marzo",
-        "aprile",
-        "maggio",
-        "giugno"
-      )) %>%
+      bp %>% filter(month %in% c("gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno")) %>%
         ggplot(aes(x = reporting_year, y = value)) +
-        stat_boxplot(
-          geom = "errorbar",
-          position = position_dodge(width = 0.9),
-          color = "#87CEFA",
-          width = 0.5
-        ) +
+        stat_boxplot(geom = "errorbar", position = position_dodge(width = 0.9), color = "#87CEFA", width = 0.5 ) +
         geom_boxplot(position = position_dodge(width = 0.9), color = "#87CEFA") +
         xlab("Anno") + ylab("Concentrazione") +
-        stat_summary(
-          fun.y = mean,
-          geom = "point",
-          shape = 20,
-          size = 3,
-          color = "#000080",
-          fill = "#B0E0E6"
-        ) +
-        geom_smooth(method = "loess",
-                    se = TRUE,
-                    color = "#000080",
-                    aes(group = 1)) +
+        stat_summary(fun.y = mean, geom = "point", shape = 20, size = 3, color = "#000080",  fill = "#B0E0E6") +
+        geom_smooth(method = "loess", se = TRUE, color = "#000080", aes(group = 1)) +
         facet_wrap( ~ month) +
         theme_pulvirus() -> p1
       
-      filter(
-        get(reactive_objects$ts_pltnt),
-        station_eu_code == reactive_objects$sel_station_eu_code
-      ) %>%
-        mutate(month = month(date)) %>%
-        ggplot(aes(factor(month), y = value)) +
-        geom_boxplot() + xlab("Mese") + ylab("Concentrazione") +
-        facet_grid(cols = vars(reporting_year)) + theme_pulvirus() -> p2
+      # filter(get(reactive_objects$ts_pltnt), station_eu_code == reactive_objects$sel_station_eu_code) %>%
+      #   mutate(month = month(date)) %>%
+      #   ggplot(aes(factor(month), y = value)) +
+      #   geom_boxplot() + xlab("Mese") + ylab("Concentrazione") +
+      #   facet_grid(cols = vars(reporting_year)) + theme_pulvirus() -> p2
       
-      grid.arrange(p1, p2)
+      grid.arrange(p1)
       
     } else{
-      ggplot2::ggplot() + ggplot2::geom_blank() + annotate(
-        "text",
-        x = 4,
-        y = 25,
-        label = paste("Non ci sono dati per", reactive_objects$ts_pltnt, "<br>Scegliere un inquinante diverso!" ),
+      ggplot2::ggplot() + ggplot2::geom_blank() + 
+        annotate("text", x = 4, y = 25, label = paste("Non ci sono dati per", reactive_objects$ts_pltnt, "<br>Scegliere un inquinante diverso!" ),
         size = 9
       ) + theme_void()
     }
@@ -444,91 +435,100 @@ shinyServer(function(input, output, session) {
   
   # Descrittive
   output$descrittive = DT::renderDataTable({
-    req(reactive_objects$sel_station_eu_code,
-        reactive_objects$ts_pltnt)
+    req(reactive_objects$sel_station_eu_code, reactive_objects$ts_pltnt)
     
-    filter(
-      get(reactive_objects$ts_pltnt),
-      station_eu_code == reactive_objects$sel_station_eu_code
-    ) %>%
-      inner_join(dati_meteo, by = c("station_eu_code", "date")) -> df
+    filter(get(reactive_objects$ts_pltnt), station_eu_code == reactive_objects$sel_station_eu_code ) -> df
     
     # statistiche descrittive annuali#####
     df <- cutData(df, type = c("month", "monthyear", "season"))
     
-    stat_yy <- df %>%
-      group_by(station_eu_code, reporting_year) %>%
-      skim(value)
+    stat_yy <- df %>% group_by(station_eu_code, reporting_year) %>% skim(value)
     
     # calcolo percentili ####
     p <- c(0.05, 0.904, 0.95, 0.98, 0.999)
     p_names <- map_chr(p, ~ paste0(.x * 100, "percentile"))
     
-    p_funs <-
-      map(p, ~ partial(
-        quantile,
-        probs = .x,
-        type = 8,
-        na.rm = TRUE
-      )) %>%
-      set_names(nm = p_names)
+    p_funs <- map(p, ~ partial(quantile, probs = .x, type = 8, na.rm = TRUE )) %>% set_names(nm = p_names)
     
-    perc <- df %>%
-      group_by(station_eu_code, reporting_year) %>%
-      summarize_at(vars(value), funs(!!!p_funs))
+    perc <- df %>% group_by(station_eu_code, reporting_year) %>% summarize_at(vars(value), funs(!!!p_funs))
     
     perc$ID <- seq.int(nrow(perc))
     
     stat_yy <- stat_yy[, c(3:13)]
-    names(stat_yy)[5:11] <-
-      c("Valore medio annuo",
-        "sd",
-        "min",
-        "25th",
-        "mediana",
-        "75th",
-        "max")
-    
-    
+
     # conteggio dati disponibili per anno ####
-    conteggio <-
-      df %>% group_by(reporting_year) %>% count(station_eu_code)
+    conteggio <- df %>% group_by(reporting_year) %>% count(station_eu_code)
     
     # unisco statistiche, percentili e conteggi
     # unione conteggi ####
-    stat_yy1 <-
-      inner_join(
-        stat_yy,
-        perc,
-        by = c("station_eu_code", "reporting_year"),
-        all = TRUE
-      )
-    stat_yy2 <-
-      inner_join(
-        stat_yy1,
-        conteggio,
-        by = c("station_eu_code", "reporting_year"),
-        all.x = TRUE
-      )
+    stat_yy1 <- inner_join(stat_yy, perc, by = c("station_eu_code", "reporting_year"), all = TRUE )
+    stat_yy2 <- inner_join(stat_yy1, conteggio, by = c("station_eu_code", "reporting_year"), all.x = TRUE)
     
     # validi per anno ####
     stat_yy2 <-
-      stat_yy2 %>% mutate(n_validi = n - n_missing,
-                          percentuale_validi = n_validi / n)
+      stat_yy2 %>% mutate(n_validi = n - n_missing, percentuale_validi = n_validi / n) %>% 
+      select(-c(station_eu_code, ID, n_validi, n, "98percentile", "99.9percentile" ))
     
-    DT::datatable(
-      stat_yy2 %>% select(-c(station_eu_code)),
-      rownames = FALSE,
-      filter = "top",
+    # [1] "station_eu_code" "reporting_year"  "n_missing"       "complete_rate"   "numeric.mean"    "numeric.sd"     
+    # [7] "numeric.p0"      "numeric.p25"     "numeric.p50"     "numeric.p75"     "numeric.p100"    "5percentile"    
+    # [13] "90percentile"    "95percentile"    "98percentile"    "99.9percentile"  "ID"              "n"
+
+    colnames(stat_yy2) <- c("Anno", "mancanti", "compl", "Media", "SD", "Min","25th", "Mediana", "75th", "Max", "5th", "90.4th", "95th", "validi")
+    
+    DT::datatable(stat_yy2 , rownames = FALSE, filter = c("none"),
+      # filter = "top",
       options = list(
-        scrollY = '600px',
+        # scrollY = '600px',
         paging = FALSE,
         scrollX = TRUE,
         dom = "ltipr"
-      )
-    ) %>% DT::formatRound(c(2:19), 2)
+      )) %>% DT::formatRound(c(2:14), 2)
+  })
+
+  # differenze percentuali
+  output$diff_plot <- renderPlot({
+    req(reactive_objects$sel_station_eu_code, reactive_objects$ts_pltnt)
+    
+    filter(get(reactive_objects$ts_pltnt), station_eu_code == reactive_objects$sel_station_eu_code ) -> df
+    
+    # calcolo medie mensili (per mesi con almeno il 75% di dati validi) ####
+    mm <- timeAverage(df, pollutant = "value", type = "station_eu_code", avg.time = "month", data.thresh = 75)
+    
+    # creo tabella mese tipico periodo 2013-2019 ####
+    mm <- cutData(mm, type = c("year", "month", "monthyear", "season"))
+    
+    mm  %>%
+      group_by(station_eu_code, month) %>%
+      summarise(
+        n = n(),
+        mean_pr = mean(value, na.rm = T)) -> mm.pre.mese
+    
+    names(mm.pre.mese)[c(2)] <- c("mese")
+    names(mm.pre.mese)[c(4)] <- c("media_2013_2019")
+    
+    # creo tabella mese tipico periodo 2020 ####
+    mm.post <- selectByDate(mm, year = 2020)
+    
+    mm.post  %>%
+      group_by(station_eu_code,month) %>%
+      summarise(
+        n = n(),
+        mean_post = mean(value, na.rm = T))->mm.post.mese
+    names(mm.post.mese)[c(2)] <- c("mese")
+    names(mm.post.mese)[c(4)] <- c("media_2020")
+    
+    
+    # calcolo le differenze percentuali ####
+    diff_mm <- merge(mm.post.mese, mm.pre.mese, by = c("station_eu_code","mese"), all = TRUE)
+    diff_mm <- diff_mm %>%
+      mutate(diff_perc = (((media_2020 - media_2013_2019)/(media_2013_2019)*100)) )
+    
+    ggplot(diff_mm) + geom_col(aes(mese, diff_perc), fill = "dodgerblue") + 
+      xlab("Mese") + ylab("Diff %") + 
+      theme_pulvirus() + ggtitle("Differenze percentuali 2013-19 Vs 2020")
   })
   
+  # output GAM
   output$gam_output <- renderUI({
     req(reactive_objects$models)
     
@@ -572,6 +572,22 @@ shinyServer(function(input, output, session) {
       mgcv::summary.gam(reactive_objects$models[[1]][[1]])
     
     sommario$p.table %>% kable(format = "html") %>% kable_styling() %>% HTML()
+  })
+  
+  # info stazione
+  output$info_stazione <- renderUI({
+    req(reactive_objects$sel_station_eu_code)
+    
+    as.character( reactive_objects$sel_station_eu_code ) -> cod
+    
+    stazioniAria %>% 
+      filter(station_eu_code == cod) %>% 
+      select(nome_stazione, tipo_zona, tipo_stazione, zona_tipo, zone_name, descrizione, gradi_giorno, zona_climatica) %>% 
+      as.data.frame() %>% t() %>% 
+      set_rownames(c("Nome stazione", "Tipo", "Zona", "Tipo/zona", "Nome zona", "Descrizione", "GG", "Zona climatica")) %>% 
+      kable() %>% 
+      kable_styling() %>% 
+      HTML()
   })
   
   output$jd_plot <- renderPlot({

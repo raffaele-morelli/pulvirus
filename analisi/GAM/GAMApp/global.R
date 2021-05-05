@@ -3,7 +3,6 @@ library(leaflet)
 library(dplyr)
 library(lubridate)
 library(ggplot2)
-# library(ggplotify)
 library(gridExtra)
 library(scales)
 library(openair)
@@ -17,13 +16,14 @@ library(magrittr)
 library(shiny)
 library(shinythemes)
 
-
 library(datiInquinanti)
 library(datiMeteo)
 
 no2Staz <- no2 %>% select(station_eu_code) %>% unique() %>% left_join(stazioniAria, by = c("station_eu_code"))
 pm10Staz <- pm10 %>% select(station_eu_code) %>% unique() %>% left_join(stazioniAria, by = c("station_eu_code")) 
-pm25Staz <- pm25 %>% select(station_eu_code) %>% unique() %>% left_join(stazioniAria, by = c("station_eu_code")) 
+pm25Staz <- pm25 %>% select(station_eu_code) %>% unique() %>% left_join(stazioniAria, by = c("station_eu_code"))
+
+stazUniche <- c(unique(no2Staz$station_eu_code), unique( pm10Staz$station_eu_code ), unique( pm25$station_eu_code) ) %>% unique()
 
 theme_pulvirus <- function() {
   theme_minimal() %+replace% 
@@ -33,8 +33,6 @@ theme_pulvirus <- function() {
           axis.title = element_text(face = "bold"),
           axis.text.x = element_text(size = 10),
           panel.background = element_rect(fill = "white",colour = "white", size = 0.3, linetype = "solid"),
-          ##panel.grid.major = element_line(size = 0.5, linetype = 'dashed',colour = "#708090"), 
-          ##panel.grid.minor = element_line(size = 0.25, linetype = 'dashed', colour = "#708090"),
           axis.line = element_line(colour = "darkblue", 
                                    size = 0.4, linetype = "solid"))
 }

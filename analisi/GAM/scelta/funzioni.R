@@ -102,9 +102,9 @@ bestMod <- function(models) {
   # estrazioni variabili: prendo tutto ciò che è tra parentesi tonde
   nvar <- gsub("[\\(\\)]", "", regmatches(tab$mod, gregexpr("\\(.*?\\)", tab$mod) )[[1]])
 
-  log_print(sprintf("Modello migliore: %s", paste(nvar[!nvar %in% c("logvalue")], collapse = " - ") ) , hide_notes = TRUE)
+  log_print(sprintf("Modello migliore: %s", paste(nvar[!nvar %in% c("value", "logvalue", "link=log")], collapse = " - ") ) , hide_notes = TRUE)
   
-  return(c(as.numeric(minaic), nvar[!nvar %in% c("logvalue")]))
+  return(c(as.numeric(minaic), nvar[!nvar %in% c("value", "logvalue", "link=log")]))
 }
 
 

@@ -30,7 +30,7 @@ saveRData <- function(cod_eu = NA) {
   z <- data.frame(mod = apply(y1, 1, paste0, collapse = " + "))
   
   # w conterrà le stringhe dei modelli
-  w <- lapply(z[, ncol(z)], function(x) paste0("gam(log(value) ~ ", x, ", data = .)"))
+  w <- lapply(z[, ncol(z)], function(x) paste0("gam((value) ~ ", x, ", gamma=1.4, family=gaussian(link=log), data = .)"))
   
   # calcolo il modello finale per tutte le stazioni
   models <- list()
@@ -54,7 +54,7 @@ args <- commandArgs(trailingOnly = TRUE)
 # i due parametri a mano 
 if(is.na(args[1])) {
   pltnt <- "no2"
-  cod_reg <- 12
+  cod_reg <- 2
 }else{
   pltnt <- args[1]
   cod_reg <- args[2]

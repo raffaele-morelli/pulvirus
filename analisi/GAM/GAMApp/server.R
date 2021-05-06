@@ -45,10 +45,10 @@ shinyServer(function(input, output, session) {
       
       map = leaflet() %>% addTiles()
 
-      map = leaflet::addProviderTiles(
-        map, "Esri.WorldImagery", group = "Satellite",
-        options = providerTileOptions(updateWhenZooming = FALSE, updateWhenIdle = TRUE)
-      )
+      # map = leaflet::addProviderTiles(
+      #   map, "Esri.WorldImagery", group = "Satellite",
+      #   options = providerTileOptions(updateWhenZooming = FALSE, updateWhenIdle = TRUE)
+      # )
       
       map = leaflet::addProviderTiles(
         map, "Esri.WorldTopoMap", group = "Topo",
@@ -609,13 +609,8 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
       plot(sm(bv, indx)) + ggtitle("Ultimo miglio") +  coord_cartesian(xlim = c(2500, 2750))
     
     o + l_fitLine(colour = "red") + l_rug(mapping = aes(x = x, y = y), alpha = 0.8) +
-      l_ciLine(mul = 5,
-               colour = "blue",
-               linetype = 2) +
-      l_points(shape = 19,
-               size = 1,
-               alpha = 0.1) + theme_pulvirus() + ggtitle("Julian day ultimi 250gg")
-    
+      l_ciLine(mul = 5, colour = "blue", linetype = 2) + l_points(shape = 19, size = 1, alpha = 0.1) + theme_pulvirus() + ggtitle("Julian day ultimi 250gg")
+    o
   })
   
   output$residui <- renderPlot({

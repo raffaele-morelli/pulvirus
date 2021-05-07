@@ -4,11 +4,11 @@ date: "`r format(Sys.time(), '%d %B %Y - %H:%M')`"
 lang: it
 output:
   html_document:
-    toc: yes
+    toc: no
     toc_depth: 2
     toc_float: yes
 params:
-  rdatafile: ~/R/pulvirus/analisi/GAM/scelta/output/8/no2/no2_8_IT1672A.RData
+  rdatafile: ~/R/pulvirus/analisi/GAM/scelta/output/tmp/no2/IT0828A.RData
   logfile: ~/R/pulvirus/analisi/GAM/scelta/output/8/no2/log/pulvirus_no2_8_IT1672A.log
 ---
 
@@ -108,7 +108,7 @@ models[[1]] %>%
 
 # P-values 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.width=9, fig.height=8}
 bv <- getViz(models[[1]][[1]])
 b <- mgcv:::anova.gam(models[[1]][[1]]) 
 # b$s.table %>%
@@ -134,13 +134,16 @@ indx <- grep("jd", bv[["smooth"]])
 if(length(indx) != 0) {
   plot(sm(bv, indx), allTerms = TRUE, select = 4) + 
     geom_hline(yintercept = 0) + 
-    theme_pulvirus()
+    theme_pulvirus() -> p
   
-  o <- plot(sm(bv, indx) ) + ggtitle("Ultimo miglio") +  coord_cartesian(xlim = c(2500, 2750))
+  print(p)
   
-  o + l_fitLine(colour = "red") + l_rug(mapping = aes(x=x, y=y), alpha = 0.8) +
-    l_ciLine(mul = 5, colour = "blue", linetype = 2) + 
-    l_points(shape = 19, size = 1, alpha = 0.1) + theme_pulvirus()
+    o <-
+      plot(sm(bv, indx)) + ggtitle("Ultimo miglio") +  coord_cartesian(xlim = c(2500, 2750))
+    
+    o + l_fitLine(colour = "red") + l_rug(mapping = aes(x = x, y = y), alpha = 0.8) +
+      l_ciLine(mul = 5, colour = "blue", linetype = 2) + l_points(shape = 19, size = 1, alpha = 0.1) + theme_pulvirus() + ggtitle("Julian day ultimi 250gg")
+    print(o)
 }else{
   print("Nessun jd ")
 }
@@ -157,6 +160,6 @@ if(length(indx) != 0) {
 # LOG file
 
 ```{r results='markup', echo=FALSE}
-cat(readLines(params$logfile), sep = '\n')
+# cat(readLines(params$logfile), sep = '\n')
 ```
 

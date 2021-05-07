@@ -70,8 +70,8 @@ shinyServer(function(input, output, session) {
         popup = paste0("Location ID: ", no2Staz$station_eu_code,
           "<br> Name: ", no2Staz$nome_stazione,
           "<br> Type: ", no2Staz$zona_tipo,
-          "<br> Lat: ", no2Staz$st_x,
-          "<br> Long: ", no2Staz$st_y
+          "<br> Lat: ", no2Staz$st_y,
+          "<br> Long: ", no2Staz$st_x
         )
       )
       
@@ -88,8 +88,8 @@ shinyServer(function(input, output, session) {
           "Location ID: ", pm10Staz$station_eu_code,
           "<br> Name: ", pm10Staz$nome_stazione,
           "<br> Type: ", pm10Staz$zona_tipo,
-          "<br> Lat: ", pm10Staz$st_x,
-          "<br> Long: ", pm10Staz$st_y
+          "<br> Lat: ", pm10Staz$st_y,
+          "<br> Long: ", pm10Staz$st_x
         )
       )
       
@@ -106,8 +106,8 @@ shinyServer(function(input, output, session) {
           "Location ID: ", pm25Staz$station_eu_code,
           "<br> Name: ", pm25Staz$nome_stazione,
           "<br> Type: ", pm25Staz$zona_tipo,
-          "<br> Lat: ", pm25Staz$st_x,
-          "<br> Long: ", pm25Staz$st_y
+          "<br> Lat: ", pm25Staz$st_y,
+          "<br> Long: ", pm25Staz$st_x
         )
       )
       
@@ -175,7 +175,7 @@ shinyServer(function(input, output, session) {
     req(input$table_input_rows_selected)
     row_click = input$table_input_rows_selected
     
-    station_eu_code = stazioniAria[row_click, "station_eu_code"] %>% as.character()
+    station_eu_code = stazioniAria %>% filter(station_eu_code %in% stazUniche) %>% select(station_eu_code) %>% slice(row_click) %>% as.character()
     reactive_objects$sel_station_eu_code = station_eu_code
   })
   
@@ -219,15 +219,14 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
   
   # Change map zoom on table click & update selected heatmap_param to selected row param
   map_proxy = leaflet::leafletProxy("aqMap")
+  
   observeEvent(input$table_input_rows_selected, {
-    lat = filter(stazioniAria,
-                 station_eu_code == reactive_objects$sel_station_eu_code) %>% select(st_y) %>% as.numeric()
-    long = filter(stazioniAria,
-                  station_eu_code == reactive_objects$sel_station_eu_code) %>% select(st_x) %>% as.numeric()
-    map_proxy %>% leaflet::setView(lng = long,
-                                   lat = lat,
-                                   zoom = 15)
-    # updateSelectInput(session, "heatmap_param", selected = reactive_objects$sel_param)
+    lati = filter(stazioniAria, station_eu_code == reactive_objects$sel_station_eu_code) %>% 
+      select(st_y) %>% as.numeric()
+    long = filter(stazioniAria, station_eu_code == reactive_objects$sel_station_eu_code) %>% 
+      select(st_x) %>% as.numeric()
+    
+    map_proxy %>% leaflet::setView(lng = long, lat = lati, zoom = 15)
   })
   
   # Filter table to match clicked site from map

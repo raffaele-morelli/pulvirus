@@ -12,9 +12,7 @@ web.dir <- "~/public_html/pulvirus"
 # directory con i file RData
 rdata.dir <- "~/R/pulvirus/analisi/GAM/scelta/output"
 
-rdatas <- list.files(path = glue("{rdata.dir}"),
-                     pattern = "*.RData", recursive = TRUE,
-                     full.names = TRUE)
+rdatas <- list.files(path = glue("{rdata.dir}"), pattern = "*.RData", recursive = TRUE, full.names = TRUE)
 
 # snip per generare i report ####
 for (i in rdatas) {

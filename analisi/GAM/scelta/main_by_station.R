@@ -24,8 +24,18 @@ saveRData <- function(cod_eu = NA) {
   v_dead <- get("v_dead", envir = .GlobalEnv)
   AICS <- get("AICS", envir = .GlobalEnv)
   
+  nanni <- dfSub$reporting_year %>% unique() %>% length()
+  cappa <- 2*nanni +1 
+  
   # costruisco la stringa del modello a partire dalle variabili scelte
-  y0 <- lapply(v_fixed, function(x) paste0("s(", x, ")"))
+  # y0 <- lapply(v_fixed, function(x) paste0("s(", x, ")"))
+  y0 <- lapply(v_fixed, 
+               function(x) { if( x == "jd") { 
+                 paste0("s(", x, ", k=", cappa, ")" ) 
+               }else{ 
+                 paste0("s(", x, ")" )} 
+               }
+  )
   y1 <- do.call(cbind, y0)
   z <- data.frame(mod = apply(y1, 1, paste0, collapse = " + "))
   

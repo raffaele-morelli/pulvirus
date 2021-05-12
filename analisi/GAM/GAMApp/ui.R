@@ -43,7 +43,7 @@ shinyUI(fluidPage(
                  fluidRow(
                    column(12,
                           htmlOutput("nota_pltnt"),
-                          selectInput("ts_pltnt", label = "Inquinante:", choices = c("NO2" = "no2", "PM10" = "pm10", "PM25" = "pm25")
+                          selectInput("ts_pltnt", label = "Inquinante:", choices = c("NO2" = "no2", "PM10" = "pm10", "PM25" = "pm25", "NOx" = "nox")
                           ))
                  )),
         tabPanel("Plot",
@@ -51,9 +51,9 @@ shinyUI(fluidPage(
                    column(12,
                      # uiOutput("date_slider"),
                      radioButtons("ts_plot_type", "Tipo di plot:", choices = c("Serie", "Pollution rose", "Polar freq", "Boxplot"), inline = T),
-                     conditionalPanel(condition = "input.ts_plot_type=='Boxplot'", plotOutput("boxplot", width = "98%", height = "600px")),
+                     conditionalPanel(condition = "input.ts_plot_type=='Boxplot'", plotOutput("boxplot", width = "98%", height = "700px")),
                      conditionalPanel(condition = "input.ts_plot_type=='Pollution rose'", plotOutput("pollution_rose")),
-                     conditionalPanel(condition = "input.ts_plot_type=='Serie'", plotOutput("serie", width = "98%", height = "500px")),
+                     conditionalPanel(condition = "input.ts_plot_type=='Serie'", plotOutput("serie", width = "98%", height = "600px")),
                      conditionalPanel(condition = "input.ts_plot_type=='Polar freq'", plotOutput("polar"))
                    )
                  )),
@@ -74,7 +74,7 @@ shinyUI(fluidPage(
           )),
           fluidRow(column(6, plotOutput("jd_plot")),
                    column(6, plotOutput("jd_plot_last"))),
-          fluidRow(column(12, plotOutput("residui", width = "98%", height = "600px"))),
+          fluidRow(column(12, plotOutput("residui", width = "95%", height = "750px"))),
         ),
         tabPanel("Info stazione", fluidRow(column(8, htmlOutput("info_stazione")))),
         tabPanel("Guida", fluidRow(column(8, includeMarkdown('./guida/user_guide.rmd'))))

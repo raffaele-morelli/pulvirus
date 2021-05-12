@@ -14,7 +14,7 @@ preparaDataframe <- function(pltnt, cod_reg) {
   # subset solo con covariate e concentrazione, tolgo le variabili che non mi servono
   # con una select
   dfSub <- df %>% 
-    select(-c(date, pollutant_fk, station_code, coordx, coordy, altitude, altitudedem))
+    select(-c(pollutant_fk, station_code, coordx, coordy, altitude, altitudedem))
   
   # aggiunta del Julian day
   dfSub$jd = as.numeric( df$date - ymd(20130101) )
@@ -207,4 +207,3 @@ sceltaVar <- function() {
   log_print("----------------------")
   return("----------------")
 }
-

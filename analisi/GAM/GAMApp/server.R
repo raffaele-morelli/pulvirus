@@ -111,12 +111,30 @@ shinyServer(function(input, output, session) {
         )
       )
       
+      map = leaflet::addCircleMarkers(
+        map,
+        data = noxStaz, lat = noxStaz$st_y, lng = noxStaz$st_x, group = "NOX",
+        radius = ptsRadius,
+        color = "black", # pal(no2Staz$tipo_s),
+        opacity = 0.2,
+        fillColor = pal(stazioniAria$tipo_s), #"black",
+        fillOpacity = 1,
+        layerId = paste("nox", noxStaz$station_eu_code, sep = "_"),
+        popup = paste0(
+          "Location ID: ", noxStaz$station_eu_code,
+          "<br> Name: ", noxStaz$nome_stazione,
+          "<br> Type: ", noxStaz$zona_tipo,
+          "<br> Lat: ", noxStaz$st_y,
+          "<br> Long: ", noxStaz$st_x
+        )
+      )
+      
       map = leaflet::addLayersControl(
         map,
         position = "topleft",
         # baseGroups = c("Topo", "Satellite"),
         # overlayGroups = c("NO2", "PM10", "PM25"),
-        baseGroups = c("NO2", "PM10", "PM25"),
+        baseGroups = c("NO2", "PM10", "PM25", "NOX"),
         options = leaflet::layersControlOptions(collapsed = FALSE, autoZIndex = TRUE)
       )
       
@@ -130,7 +148,7 @@ shinyServer(function(input, output, session) {
           labels = unique(stazioniAria$tipo_s)
       )
       
-      map = hideGroup(map, c("NO2", "PM25", "PM10"))
+      map = hideGroup(map, c("NO2", "PM25", "PM10", "NOX"))
     })
   })
   
@@ -191,23 +209,16 @@ shinyServer(function(input, output, session) {
     stazioniAria %>% filter(station_eu_code == reactive_objects$sel_station_eu_code) %>% select(region_id) -> rec
     f <-
       paste0(
-        "/home/rmorelli/R/pulvirus/analisi/GAM/scelta/output/",
-        rec$region_id,
-        "/",
-        reactive_objects$ts_pltnt,
-        "/",
-        reactive_objects$ts_pltnt,
-        "_",
-        rec$region_id,
-        "_",
-        reactive_objects$sel_station_eu_code,
-        ".RData"
+        "data/", rec$region_id,
+        "/", reactive_objects$ts_pltnt,
+        "/", reactive_objects$ts_pltnt,
+        "_", rec$region_id,
+        "_", reactive_objects$sel_station_eu_code, ".RData"
       )
     if (file.exists(f)) {
       load(f)
       reactive_objects$models <- models
     }
-    
   })
 
   output$nota_pltnt <- renderUI({
@@ -241,8 +252,7 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
   
   # Serie storica
   output$serie = renderPlot({
-    req(reactive_objects$sel_station_eu_code,
-        reactive_objects$ts_pltnt)
+    req(reactive_objects$sel_station_eu_code, reactive_objects$ts_pltnt)
     # showModal(modalDialog(title = "PLEASE WAIT...", "Please wait", size = "l", footer = NULL ) )
     
     filter(
@@ -250,28 +260,37 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
       station_eu_code == reactive_objects$sel_station_eu_code
     ) -> df
     
+    titolo <- case_when(
+      reactive_objects$ts_pltnt == "no2" ~ bquote("Inquinante "~NO[2]),
+      reactive_objects$ts_pltnt == "pm10" ~ bquote("Inquinante "~PM[10]),
+      reactive_objects$ts_pltnt == "pm25" ~ bquote("Inquinante "~PM[25]),
+      reactive_objects$ts_pltnt == "nox" ~ bquote("Inquinante "~NO[x])
+    )
+  
     if (nrow(df) > 0) {
+      req(reactive_objects$models)
+      
+      modello <-  names(reactive_objects$models)
+      
+      b <- mgcv:::anova.gam(reactive_objects$models[[1]][[1]])
+      formGAM <- gsub("value", "media", b[["formula"]]) # sostituire value con y
+      
       df %>% mutate(week = as.Date(date, '%Y-%V')) %>%
         group_by(reporting_year, station_eu_code, week) %>%
         summarise(media = mean(value, na.rm = TRUE)) %>%
         ggplot(aes(week, media)) + geom_line(color = "dodgerblue") +
         # facet_grid(vars(reporting_year), scales = "free") +
-        xlab("Settimana") + ylab("Concentrazione media") +
-        geom_smooth(method = "loess",
-                    se = TRUE,
-                    color = "#000080",
-                    aes(group = 1)) +
+        xlab("Settimana") + 
+        # ylab(expression(paste0("Concentrazione media, ", mu, "g/", m^3) )) +
+        ylab("Concentrazione media (\U003BCg/m³)") +
+        geom_smooth(method = "gam", formula = y ~ s(x) , se = TRUE, color = "#000080", aes(group = 1)) +
         scale_x_date(labels = date_format("%Y")) +
-        ggtitle(paste("Inquinante: ", reactive_objects$ts_pltnt)) +
+        ggtitle(titolo) +
         theme_pulvirus()
     } else{
-      ggplot2::ggplot() + ggplot2::geom_blank() + annotate(
-        "text",
-        x = 4,
-        y = 25,
-        label = paste("Non ci sono dati per", reactive_objects$ts_pltnt, 
-                      "Scegliere un inquinante diverso!", sep = "\n" ),
-        size = 9
+      ggplot2::ggplot() + ggplot2::geom_blank() + 
+        annotate( "text", x = 4, y = 25, label = paste("Non ci sono dati per", reactive_objects$ts_pltnt, 
+                      "Scegliere un inquinante diverso!", sep = "\n" ), size = 9
       ) + theme_void()
     }
     # removeModal()
@@ -282,50 +301,27 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
   output$pollution_rose = renderPlot({
     req(reactive_objects$sel_station_eu_code,
         reactive_objects$ts_pltnt)
-    showModal(modalDialog(
-      title = "PLEASE WAIT...",
-      "Please wait",
-      size = "l",
-      footer = NULL
-    ))
+    showModal(modalDialog(title = "PLEASE WAIT...", "Please wait", size = "l", footer = NULL ))
     
     filter(
       get(reactive_objects$ts_pltnt),
       station_eu_code == reactive_objects$sel_station_eu_code
     ) %>%
       inner_join(dati_meteo, by = c("station_eu_code", "date")) %>%
-      select(reporting_year,
-             date,
-             value,
-             wdir,
-             wspeed,
-             pbl00,
-             pbl12,
-             pblmin,
-             pblmax) -> gr
+      select(reporting_year, date, value, wdir, wspeed, pbl00, pbl12, pblmin, pblmax) -> gr
     
     if (nrow(gr) > 0) {
-      names(gr)[4:5] <- c("wd", "ws")
+      pltnt <- as.character(reactive_objects$ts_pltnt)
+      names(gr)[3:5] <- c(pltnt, "wd", "ws")
       gr$reporting_year <-
         as.character(as.numeric(gr$reporting_year))
       
-      polarPlot(
-        gr,
-        pollutant = c("value"),
-        type = "reporting_year",
-        cols = "jet",
-        key.header = "--",
-        key.footer = "--",
-        key.position = "right"
-      )
+      polarPlot(gr, pollutant = c(pltnt), type = "reporting_year", cols = "jet", key.position = "right")
     } else{
-      ggplot2::ggplot() + ggplot2::geom_blank() + annotate(
-        "text",
-        x = 4,
-        y = 25,
+      ggplot2::ggplot() + ggplot2::geom_blank() + 
+        annotate("text", x = 4, y = 25,
         label = paste("Non ci sono dati per", reactive_objects$ts_pltnt, 
-                      "Scegliere un inquinante diverso!", sep = "\n" ),        size = 9
-      ) + theme_void()
+                      "Scegliere un inquinante diverso!", sep = "\n" ), size = 9) + theme_void()
     }
     
     removeModal()
@@ -333,43 +329,26 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
   
   # Polar plot
   output$polar <- renderPlot({
-    req(reactive_objects$sel_station_eu_code,
-        reactive_objects$ts_pltnt)
-    showModal(
-      modalDialog(
-        title = "PLEASE WAIT...",
-        "Please wait for plot to draw",
-        size = "l",
-        footer = NULL
-      )
-    )
+    req(reactive_objects$sel_station_eu_code, reactive_objects$ts_pltnt)
+    showModal(modalDialog(title = "PLEASE WAIT...", "Please wait for plot to draw", size = "l", footer = NULL ))
     
     filter(
       get(reactive_objects$ts_pltnt),
       station_eu_code == reactive_objects$sel_station_eu_code
     ) %>%
       inner_join(dati_meteo, by = c("station_eu_code", "date")) %>%
-      select(reporting_year,
-             date,
-             value,
-             wdir,
-             wspeed,
-             pbl00,
-             pbl12,
-             pblmin,
-             pblmax) -> gr
+      select(reporting_year, date, value, wdir, wspeed, pbl00, pbl12, pblmin, pblmax) -> gr
     
+    pltnt <- reactive_objects$ts_pltnt
     if (nrow(gr) > 0) {
-      names(gr)[4:5] <- c("wd", "ws")
-      gr$reporting_year <-
-        as.character(as.numeric(gr$reporting_year))
+      names(gr)[3:5] <- c(pltnt, "wd", "ws")
+      
+      gr$reporting_year <- as.character(as.numeric(gr$reporting_year))
       # print(gr)
-      polarFreq(gr, cols = "jet", type = "year")
+      polarFreq(gr, pollutant = c(pltnt), cols = "jet", type = "year")
     } else{
-      ggplot2::ggplot() + ggplot2::geom_blank() + annotate(
-        "text",
-        x = 4,
-        y = 25,
+      ggplot2::ggplot() + ggplot2::geom_blank() + 
+        annotate("text", x = 4, y = 25,
         label = paste("Non ci sono dati per", reactive_objects$ts_pltnt, 
                       "Scegliere un inquinante diverso!", sep = "\n" ),        size = 9
       ) + theme_void()
@@ -380,38 +359,33 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
   
   # Boxplot
   output$boxplot <- renderPlot({
-    req(reactive_objects$sel_station_eu_code,
-        reactive_objects$ts_pltnt)
-    showModal(modalDialog(
-      title = "PLEASE WAIT...",
-      "Please wait",
-      size = "l",
-      footer = NULL
-    ))
+    req(reactive_objects$sel_station_eu_code, reactive_objects$ts_pltnt)
+    showModal(modalDialog(title = "PLEASE WAIT...", "Please wait", size = "l", footer = NULL))
     
-    
-    filter(
-      get(reactive_objects$ts_pltnt),
-      station_eu_code == reactive_objects$sel_station_eu_code
-    ) %>%
+    filter(get(reactive_objects$ts_pltnt), station_eu_code == reactive_objects$sel_station_eu_code) %>%
       select(reporting_year, date, value) -> bp
     
     if (nrow(bp) > 0) {
       bp <- cutData(bp, type = c("month"))
       
-      bp$reporting_year <-
-        as.character(as.numeric(bp$reporting_year))
+      bp$reporting_year <- as.character(as.numeric(bp$reporting_year))
       
       # print(bp)
-      
+      titolo <- case_when(
+        reactive_objects$ts_pltnt == "no2" ~ bquote("Inquinante "~NO[2]),
+        reactive_objects$ts_pltnt == "pm10" ~ bquote("Inquinante "~PM[10]),
+        reactive_objects$ts_pltnt == "pm25" ~ bquote("Inquinante "~PM[25]),
+        reactive_objects$ts_pltnt == "nox" ~ bquote("Inquinante "~NO[x])
+      )
       bp %>% filter(month %in% c("gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno")) %>%
         ggplot(aes(x = reporting_year, y = value)) +
         stat_boxplot(geom = "errorbar", position = position_dodge(width = 0.9), color = "#87CEFA", width = 0.5 ) +
         geom_boxplot(position = position_dodge(width = 0.9), color = "#87CEFA") +
-        xlab("Anno") + ylab("Concentrazione") +
+        xlab("Anno") + ylab("Concentrazione media (\U003BCg/m³)") +
         stat_summary(fun.y = mean, geom = "point", shape = 20, size = 3, color = "#000080",  fill = "#B0E0E6") +
         geom_smooth(method = "loess", se = TRUE, color = "#000080", aes(group = 1)) +
         facet_wrap( ~ month) +
+        ggtitle(titolo) +
         theme_pulvirus() -> p1
       
       # filter(get(reactive_objects$ts_pltnt), station_eu_code == reactive_objects$sel_station_eu_code) %>%
@@ -532,9 +506,7 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
     req(reactive_objects$models)
     
     modello <-
-      paste("<h4>Modello</h4><b>",
-            names(reactive_objects$models),
-            "</b>")
+      paste("<h4>Modello</h4><b>", names(reactive_objects$models), "</b>")
     
     b <- mgcv:::anova.gam(reactive_objects$models[[1]][[1]])
     b$s.table %>%

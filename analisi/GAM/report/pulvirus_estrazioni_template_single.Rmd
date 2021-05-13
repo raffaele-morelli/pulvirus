@@ -8,7 +8,7 @@ output:
     toc_depth: 2
     toc_float: yes
 params:
-  rdatafile: ~/R/pulvirus/analisi/GAM/scelta/output/tmp/no2/IT0828A.RData
+  rdatafile: ~/R/pulvirus/analisi/GAM/scelta/output/tmp/no2/IT1919A.RData
   logfile: ~/R/pulvirus/analisi/GAM/scelta/output/8/no2/log/pulvirus_no2_8_IT1672A.log
 ---
 

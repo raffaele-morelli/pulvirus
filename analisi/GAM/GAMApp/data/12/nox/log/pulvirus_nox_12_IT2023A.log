@@ -1,0 +1,536 @@
+========================================================================= 
+Log Path: output/12/nox/log/pulvirus_nox_12_IT2023A.log 
+Working Directory: /home/rmorelli/R/pulvirus/analisi/GAM/scelta 
+User Name: rmorelli 
+R Version: 4.0.5 (2021-03-31) 
+Machine: pasqualino x86_64 
+Operating System: Linux 4.19.0-13-amd64 #1 SMP Debian 4.19.160-2 (2020-11-28) 
+Log Start Time: 2021-05-11 14:01:21 
+========================================================================= 
+
+Stazione: IT2023A 
+
+---------- START ---------- 
+
+                                            IT2023A
+gam(log(value) ~ s(t2m), data = .)         2062.225
+gam(log(value) ~ s(tmin2m), data = .)      2078.411
+gam(log(value) ~ s(tmax2m), data = .)      2182.586
+gam(log(value) ~ s(tp), data = .)          2562.284
+gam(log(value) ~ s(ptp), data = .)         2590.389
+gam(log(value) ~ s(rh), data = .)          2488.848
+gam(log(value) ~ s(u10m), data = .)        2231.177
+gam(log(value) ~ s(v10m), data = .)        2392.943
+gam(log(value) ~ s(sp), data = .)          2376.950
+gam(log(value) ~ s(nirradiance), data = .) 2160.181
+gam(log(value) ~ s(pbl00), data = .)       2573.509
+gam(log(value) ~ s(pbl12), data = .)       1976.252
+gam(log(value) ~ s(pblmin), data = .)      2569.294
+gam(log(value) ~ s(pblmax), data = .)      2080.044
+gam(log(value) ~ s(wdir), data = .)        2297.429
+gam(log(value) ~ s(wspeed), data = .)      2561.502
+gam(log(value) ~ s(pwspeed), data = .)     2595.283
+gam(log(value) ~ s(jd), data = .)          2071.249
+
+Modello migliore: pbl12 
+
+Variabile scelta pbl12 con AIC 1976.25198902516  
+
+---------- START ---------- 
+
+                                                       IT2023A
+gam(log(value) ~ s(t2m) + s(pbl12), data = .)         1810.908
+gam(log(value) ~ s(tmin2m) + s(pbl12), data = .)      1800.638
+gam(log(value) ~ s(tmax2m) + s(pbl12), data = .)      1874.150
+gam(log(value) ~ s(tp) + s(pbl12), data = .)          1865.732
+gam(log(value) ~ s(ptp) + s(pbl12), data = .)         1969.657
+gam(log(value) ~ s(rh) + s(pbl12), data = .)          1886.667
+gam(log(value) ~ s(u10m) + s(pbl12), data = .)        1757.739
+gam(log(value) ~ s(v10m) + s(pbl12), data = .)        1750.028
+gam(log(value) ~ s(sp) + s(pbl12), data = .)          1892.657
+gam(log(value) ~ s(nirradiance) + s(pbl12), data = .) 1873.830
+gam(log(value) ~ s(pbl00) + s(pbl12), data = .)       1939.516
+gam(log(value) ~ s(pbl12) + s(pbl12), data = .)       1976.252
+gam(log(value) ~ s(pblmin) + s(pbl12), data = .)      1945.238
+gam(log(value) ~ s(pblmax) + s(pbl12), data = .)      1974.167
+gam(log(value) ~ s(wdir) + s(pbl12), data = .)        1766.496
+gam(log(value) ~ s(wspeed) + s(pbl12), data = .)      1957.907
+gam(log(value) ~ s(pwspeed) + s(pbl12), data = .)     1971.716
+gam(log(value) ~ s(jd) + s(pbl12), data = .)          1808.709
+
+Modello migliore: v10m - pbl12 
+
+Variabile scelta v10m con AIC 1750.02800017861  
+
+Modelli BACKWARD 
+
+                                                      IT2023A
+gam(log(value) ~ s(t2m) + s(v10m), data = .)         1788.383
+gam(log(value) ~ s(tmin2m) + s(v10m), data = .)      1868.119
+gam(log(value) ~ s(tmax2m) + s(v10m), data = .)      1823.356
+gam(log(value) ~ s(tp) + s(v10m), data = .)          2391.657
+gam(log(value) ~ s(ptp) + s(v10m), data = .)         2390.706
+gam(log(value) ~ s(rh) + s(v10m), data = .)          2099.383
+gam(log(value) ~ s(u10m) + s(v10m), data = .)        2087.991
+gam(log(value) ~ s(sp) + s(v10m), data = .)          2238.135
+gam(log(value) ~ s(nirradiance) + s(v10m), data = .) 1765.307
+gam(log(value) ~ s(pbl00) + s(v10m), data = .)       2380.186
+gam(log(value) ~ s(pblmin) + s(v10m), data = .)      2384.419
+gam(log(value) ~ s(pblmax) + s(v10m), data = .)      1796.443
+gam(log(value) ~ s(wdir) + s(v10m), data = .)        2143.308
+gam(log(value) ~ s(wspeed) + s(v10m), data = .)      2293.535
+gam(log(value) ~ s(pwspeed) + s(v10m), data = .)     2382.387
+gam(log(value) ~ s(jd) + s(v10m), data = .)          1750.959
+
+Modello migliore: jd - v10m 
+
+Dati backward:  1750.95940502613::jd::v10m 
+
+Scelgo il modello N 
+
+---------- START ---------- 
+
+                                                                 IT2023A
+gam(log(value) ~ s(t2m) + s(pbl12) + s(v10m), data = .)         1590.713
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m), data = .)      1608.038
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m), data = .)      1619.886
+gam(log(value) ~ s(tp) + s(pbl12) + s(v10m), data = .)          1712.029
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m), data = .)         1746.961
+gam(log(value) ~ s(rh) + s(pbl12) + s(v10m), data = .)          1712.725
+gam(log(value) ~ s(u10m) + s(pbl12) + s(v10m), data = .)        1596.076
+gam(log(value) ~ s(sp) + s(pbl12) + s(v10m), data = .)          1720.611
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(v10m), data = .) 1633.600
+gam(log(value) ~ s(pbl00) + s(pbl12) + s(v10m), data = .)       1712.061
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m), data = .)      1719.157
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m), data = .)      1747.652
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m), data = .)        1642.916
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m), data = .)      1698.619
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m), data = .)     1740.010
+gam(log(value) ~ s(jd) + s(pbl12) + s(v10m), data = .)          1545.391
+
+Modello migliore: jd - pbl12 - v10m 
+
+Variabile scelta jd con AIC 1545.3906154421  
+
+Modelli BACKWARD 
+
+                                                               IT2023A
+gam(log(value) ~ s(t2m) + s(pbl12) + s(jd), data = .)         1711.264
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(jd), data = .)      1699.474
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(jd), data = .)      1765.958
+gam(log(value) ~ s(tp) + s(pbl12) + s(jd), data = .)          1705.022
+gam(log(value) ~ s(ptp) + s(pbl12) + s(jd), data = .)         1801.057
+gam(log(value) ~ s(rh) + s(pbl12) + s(jd), data = .)          1683.939
+gam(log(value) ~ s(u10m) + s(pbl12) + s(jd), data = .)        1556.535
+gam(log(value) ~ s(sp) + s(pbl12) + s(jd), data = .)          1718.875
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(jd), data = .) 1732.215
+gam(log(value) ~ s(pbl00) + s(pbl12) + s(jd), data = .)       1733.684
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(jd), data = .)      1736.847
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(jd), data = .)      1807.112
+gam(log(value) ~ s(wdir) + s(pbl12) + s(jd), data = .)        1618.155
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(jd), data = .)      1758.589
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(jd), data = .)     1794.926
+
+Modello migliore: u10m - pbl12 - jd 
+
+Dati backward:  1556.53531494671::u10m::pbl12::jd 
+
+Scelgo il modello N 
+
+---------- START ---------- 
+
+                                                                         IT2023A
+gam(log(value) ~ s(t2m) + s(pbl12) + s(v10m) + s(jd), data = .)         1471.614
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(jd), data = .)      1485.185
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(jd), data = .)      1495.282
+gam(log(value) ~ s(tp) + s(pbl12) + s(v10m) + s(jd), data = .)          1509.773
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(jd), data = .)         1542.737
+gam(log(value) ~ s(rh) + s(pbl12) + s(v10m) + s(jd), data = .)          1501.911
+gam(log(value) ~ s(u10m) + s(pbl12) + s(v10m) + s(jd), data = .)        1334.157
+gam(log(value) ~ s(sp) + s(pbl12) + s(v10m) + s(jd), data = .)          1512.249
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(v10m) + s(jd), data = .) 1508.139
+gam(log(value) ~ s(pbl00) + s(pbl12) + s(v10m) + s(jd), data = .)       1488.855
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(jd), data = .)      1504.841
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(jd), data = .)      1541.541
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(jd), data = .)        1425.314
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(jd), data = .)      1462.754
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(jd), data = .)     1525.765
+
+Modello migliore: u10m - pbl12 - v10m - jd 
+
+Variabile scelta u10m con AIC 1334.15679134849  
+
+Modelli BACKWARD 
+
+                                                                           IT2023A
+gam(log(value) ~ s(t2m) + s(pbl12) + s(v10m) + s(u10m), data = .)         1379.442
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(u10m), data = .)      1398.005
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(u10m), data = .)      1416.284
+gam(log(value) ~ s(tp) + s(pbl12) + s(v10m) + s(u10m), data = .)          1514.708
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(u10m), data = .)         1592.939
+gam(log(value) ~ s(rh) + s(pbl12) + s(v10m) + s(u10m), data = .)          1555.474
+gam(log(value) ~ s(sp) + s(pbl12) + s(v10m) + s(u10m), data = .)          1563.680
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(v10m) + s(u10m), data = .) 1478.930
+gam(log(value) ~ s(pbl00) + s(pbl12) + s(v10m) + s(u10m), data = .)       1553.020
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(u10m), data = .)      1574.982
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(u10m), data = .)      1594.724
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(u10m), data = .)        1593.967
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(u10m), data = .)      1596.508
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(u10m), data = .)     1592.852
+
+Modello migliore: t2m - pbl12 - v10m - u10m 
+
+Dati backward:  1379.44214278168::t2m::pbl12::v10m::u10m 
+
+Scelgo il modello N 
+
+---------- START ---------- 
+
+                                                                                   IT2023A
+gam(log(value) ~ s(t2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m), data = .)         1237.074
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m), data = .)      1250.747
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m), data = .)      1266.157
+gam(log(value) ~ s(tp) + s(pbl12) + s(v10m) + s(jd) + s(u10m), data = .)          1268.432
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(jd) + s(u10m), data = .)         1332.912
+gam(log(value) ~ s(rh) + s(pbl12) + s(v10m) + s(jd) + s(u10m), data = .)          1270.548
+gam(log(value) ~ s(sp) + s(pbl12) + s(v10m) + s(jd) + s(u10m), data = .)          1308.623
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(v10m) + s(jd) + s(u10m), data = .) 1292.433
+gam(log(value) ~ s(pbl00) + s(pbl12) + s(v10m) + s(jd) + s(u10m), data = .)       1280.696
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(jd) + s(u10m), data = .)      1308.972
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(jd) + s(u10m), data = .)      1331.033
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(jd) + s(u10m), data = .)        1335.282
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m), data = .)      1334.884
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m), data = .)     1325.255
+
+Modello migliore: t2m - pbl12 - v10m - jd - u10m 
+
+Variabile scelta t2m con AIC 1237.07409790079  
+
+Modelli BACKWARD 
+
+                                                                                  IT2023A
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(jd) + s(t2m), data = .)      1473.084
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(jd) + s(t2m), data = .)      1461.353
+gam(log(value) ~ s(tp) + s(pbl12) + s(v10m) + s(jd) + s(t2m), data = .)          1444.724
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(jd) + s(t2m), data = .)         1467.905
+gam(log(value) ~ s(rh) + s(pbl12) + s(v10m) + s(jd) + s(t2m), data = .)          1440.984
+gam(log(value) ~ s(sp) + s(pbl12) + s(v10m) + s(jd) + s(t2m), data = .)          1409.606
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(v10m) + s(jd) + s(t2m), data = .) 1454.395
+gam(log(value) ~ s(pbl00) + s(pbl12) + s(v10m) + s(jd) + s(t2m), data = .)       1411.091
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(jd) + s(t2m), data = .)      1437.629
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(jd) + s(t2m), data = .)      1470.377
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(jd) + s(t2m), data = .)        1326.801
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(jd) + s(t2m), data = .)      1391.864
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(jd) + s(t2m), data = .)     1436.302
+
+Modello migliore: wdir - pbl12 - v10m - jd - t2m 
+
+Dati backward:  1326.80105769309::wdir::pbl12::v10m::jd::t2m 
+
+Scelgo il modello N 
+
+---------- START ---------- 
+
+                                                                                            IT2023A
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m), data = .)      1239.032
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m), data = .)      1227.598
+gam(log(value) ~ s(tp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m), data = .)          1173.374
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m), data = .)         1235.710
+gam(log(value) ~ s(rh) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m), data = .)          1184.399
+gam(log(value) ~ s(sp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m), data = .)          1194.220
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m), data = .) 1217.359
+gam(log(value) ~ s(pbl00) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m), data = .)       1178.191
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m), data = .)      1214.784
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m), data = .)      1235.414
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m), data = .)        1238.106
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m), data = .)      1236.989
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m), data = .)     1217.394
+
+Modello migliore: tp - pbl12 - v10m - jd - u10m - t2m 
+
+Variabile scelta tp con AIC 1173.37430643242  
+
+Modelli BACKWARD 
+
+                                                                                           IT2023A
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(tp), data = .)      1192.797
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(tp), data = .)      1185.678
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(tp), data = .)         1269.888
+gam(log(value) ~ s(rh) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(tp), data = .)          1235.322
+gam(log(value) ~ s(sp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(tp), data = .)          1255.515
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(tp), data = .) 1232.738
+gam(log(value) ~ s(pbl00) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(tp), data = .)       1228.641
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(tp), data = .)      1251.421
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(tp), data = .)      1266.246
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(tp), data = .)        1268.442
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(tp), data = .)      1269.563
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(tp), data = .)     1262.973
+
+Modello migliore: tmax2m - pbl12 - v10m - jd - u10m - tp 
+
+Dati backward:  1185.67841300696::tmax2m::pbl12::v10m::jd::u10m::tp 
+
+Scelgo il modello N 
+
+---------- START ---------- 
+
+                                                                                                    IT2023A
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp), data = .)      1169.055
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp), data = .)      1171.819
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp), data = .)         1174.544
+gam(log(value) ~ s(rh) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp), data = .)          1151.471
+gam(log(value) ~ s(sp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp), data = .)          1158.926
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp), data = .) 1161.537
+gam(log(value) ~ s(pbl00) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp), data = .)       1129.389
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp), data = .)      1159.464
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp), data = .)      1173.081
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp), data = .)        1173.087
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp), data = .)      1173.345
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp), data = .)     1157.796
+
+Modello migliore: pbl00 - pbl12 - v10m - jd - u10m - t2m - tp 
+
+Variabile scelta pbl00 con AIC 1129.38941157948  
+
+Modelli BACKWARD 
+
+                                                                                                       IT2023A
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(pbl00), data = .)      1177.891
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(pbl00), data = .)      1173.723
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(pbl00), data = .)         1179.699
+gam(log(value) ~ s(rh) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(pbl00), data = .)          1134.231
+gam(log(value) ~ s(sp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(pbl00), data = .)          1147.767
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(pbl00), data = .) 1154.729
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(pbl00), data = .)      1177.587
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(pbl00), data = .)      1176.472
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(pbl00), data = .)        1178.508
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(pbl00), data = .)      1178.855
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(pbl00), data = .)     1178.214
+
+Modello migliore: rh - pbl12 - v10m - jd - u10m - t2m - pbl00 
+
+Dati backward:  1134.23148236549::rh::pbl12::v10m::jd::u10m::t2m::pbl00 
+
+Scelgo il modello N 
+
+---------- START ---------- 
+
+                                                                                                               IT2023A
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00), data = .)      1120.337
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00), data = .)      1126.284
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00), data = .)         1129.373
+gam(log(value) ~ s(rh) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00), data = .)          1110.432
+gam(log(value) ~ s(sp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00), data = .)          1119.263
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00), data = .) 1112.582
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00), data = .)      1128.689
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00), data = .)      1129.034
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00), data = .)        1128.171
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00), data = .)      1129.804
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00), data = .)     1128.794
+
+Modello migliore: rh - pbl12 - v10m - jd - u10m - t2m - tp - pbl00 
+
+Variabile scelta rh con AIC 1110.43213280425  
+
+Modelli BACKWARD 
+
+                                                                                                            IT2023A
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(rh), data = .)      1149.737
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(rh), data = .)      1152.099
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(rh), data = .)         1153.249
+gam(log(value) ~ s(sp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(rh), data = .)          1135.504
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(rh), data = .) 1145.087
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(rh), data = .)      1137.479
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(rh), data = .)      1152.783
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(rh), data = .)        1149.876
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(rh), data = .)      1152.182
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(rh), data = .)     1138.026
+
+Modello migliore: sp - pbl12 - v10m - jd - u10m - t2m - tp - rh 
+
+Dati backward:  1135.50393637772::sp::pbl12::v10m::jd::u10m::t2m::tp::rh 
+
+Scelgo il modello N 
+
+---------- START ---------- 
+
+                                                                                                                       IT2023A
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh), data = .)      1103.341
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh), data = .)      1108.374
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh), data = .)         1111.337
+gam(log(value) ~ s(sp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh), data = .)          1100.233
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh), data = .) 1101.278
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh), data = .)      1108.941
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh), data = .)      1111.348
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh), data = .)        1107.872
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh), data = .)      1111.403
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh), data = .)     1111.015
+
+Modello migliore: sp - pbl12 - v10m - jd - u10m - t2m - tp - pbl00 - rh 
+
+Variabile scelta sp con AIC 1100.23287538702  
+
+Modelli BACKWARD 
+
+                                                                                                                       IT2023A
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(sp), data = .)      1108.530
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(sp), data = .)      1115.924
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(sp), data = .)         1116.944
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(sp), data = .) 1101.874
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(sp), data = .)      1118.492
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(sp), data = .)      1119.834
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(sp), data = .)        1118.138
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(sp), data = .)      1120.003
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(sp), data = .)     1117.430
+
+Modello migliore: nirradiance - pbl12 - v10m - jd - u10m - t2m - tp - pbl00 - sp 
+
+Dati backward:  1101.87386445674::nirradiance::pbl12::v10m::jd::u10m::t2m::tp::pbl00::sp 
+
+Scelgo il modello N 
+
+---------- START ---------- 
+
+                                                                                                                               IT2023A
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)      1092.713
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)      1096.486
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)         1099.765
+gam(log(value) ~ s(nirradiance) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .) 1089.284
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)      1098.408
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)      1101.881
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)        1097.613
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)      1101.509
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)     1100.226
+
+Modello migliore: nirradiance - pbl12 - v10m - jd - u10m - t2m - tp - pbl00 - rh - sp 
+
+Variabile scelta nirradiance con AIC 1089.28448384368  
+
+Modelli BACKWARD 
+
+                                                                                                                                    IT2023A
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(nirradiance), data = .)  1098.231
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(nirradiance), data = .)  1101.589
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(nirradiance), data = .)     1101.888
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(nirradiance), data = .)  1100.030
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(nirradiance), data = .)  1102.946
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(nirradiance), data = .)    1099.359
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(nirradiance), data = .)  1101.379
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(nirradiance), data = .) 1101.000
+
+Modello migliore: tmin2m - pbl12 - v10m - jd - u10m - t2m - tp - pbl00 - rh - nirradiance 
+
+Dati backward:  1098.23110054645::tmin2m::pbl12::v10m::jd::u10m::t2m::tp::pbl00::rh::nirradiance 
+
+Scelgo il modello N-1 
+
+---------- START ---------- 
+
+                                                                                                                           IT2023A
+gam(log(value) ~ s(tmin2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)  1092.713
+gam(log(value) ~ s(tmax2m) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)  1096.486
+gam(log(value) ~ s(ptp) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)     1099.765
+gam(log(value) ~ s(pblmin) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)  1098.408
+gam(log(value) ~ s(pblmax) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)  1101.881
+gam(log(value) ~ s(wdir) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)    1097.613
+gam(log(value) ~ s(wspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .)  1101.509
+gam(log(value) ~ s(pwspeed) + s(pbl12) + s(v10m) + s(jd) + s(u10m) + s(t2m) + s(tp) + s(pbl00) + s(rh) + s(sp), data = .) 1100.226
+
+Modello migliore: tmin2m - pbl12 - v10m - jd - u10m - t2m - tp - pbl00 - rh - sp 
+
+Variabile scelta tmin2m con AIC 1092.71276744886  
+
+Fine per scelta MODELLO 
+
+pbl12 + v10m + jd + u10m + t2m + tp + pbl00 + rh + sp 
+
+---------------------- 
+
+NOTE: Log Print Time:  2021-05-11 14:03:19 
+NOTE: Elapsed Time in seconds: 1.96815975109736 
+
+Fine per scelta MODELLO 
+
+pbl12 + v10m + jd + u10m + t2m + tp + pbl00 + rh + sp 
+
+---------------------- 
+
+NOTE: Log Print Time:  2021-05-11 14:03:19 
+NOTE: Elapsed Time in seconds: 0.00106906890869141 
+
+Fine per scelta MODELLO 
+
+pbl12 + v10m + jd + u10m + t2m + tp + pbl00 + rh + sp 
+
+---------------------- 
+
+NOTE: Log Print Time:  2021-05-11 14:03:19 
+NOTE: Elapsed Time in seconds: 0.00096893310546875 
+
+Fine per scelta MODELLO 
+
+pbl12 + v10m + jd + u10m + t2m + tp + pbl00 + rh + sp 
+
+---------------------- 
+
+NOTE: Log Print Time:  2021-05-11 14:03:19 
+NOTE: Elapsed Time in seconds: 0.000980138778686523 
+
+Fine per scelta MODELLO 
+
+pbl12 + v10m + jd + u10m + t2m + tp + pbl00 + rh + sp 
+
+---------------------- 
+
+NOTE: Log Print Time:  2021-05-11 14:03:19 
+NOTE: Elapsed Time in seconds: 0.000962257385253906 
+
+Fine per scelta MODELLO 
+
+pbl12 + v10m + jd + u10m + t2m + tp + pbl00 + rh + sp 
+
+---------------------- 
+
+NOTE: Log Print Time:  2021-05-11 14:03:19 
+NOTE: Elapsed Time in seconds: 0.00096440315246582 
+
+Fine per scelta MODELLO 
+
+pbl12 + v10m + jd + u10m + t2m + tp + pbl00 + rh + sp 
+
+---------------------- 
+
+NOTE: Log Print Time:  2021-05-11 14:03:19 
+NOTE: Elapsed Time in seconds: 0.000961780548095703 
+
+Fine per scelta MODELLO 
+
+pbl12 + v10m + jd + u10m + t2m + tp + pbl00 + rh + sp 
+
+---------------------- 
+
+NOTE: Log Print Time:  2021-05-11 14:03:19 
+NOTE: Elapsed Time in seconds: 0.000989913940429688 
+
+Fine per scelta MODELLO 
+
+pbl12 + v10m + jd + u10m + t2m + tp + pbl00 + rh + sp 
+
+---------------------- 
+
+NOTE: Log Print Time:  2021-05-11 14:03:19 
+NOTE: Elapsed Time in seconds: 0.000963687896728516 
+
+Fine per scelta MODELLO 
+
+pbl12 + v10m + jd + u10m + t2m + tp + pbl00 + rh + sp 
+
+---------------------- 
+
+NOTE: Log Print Time:  2021-05-11 14:03:19 
+NOTE: Elapsed Time in seconds: 0.000962734222412109 
+
+========================================================================= 
+Log End Time: 2021-05-11 14:03:19 
+Log Elapsed Time: 0 00:00:01 
+========================================================================= 

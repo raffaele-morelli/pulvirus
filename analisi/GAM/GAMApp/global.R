@@ -22,17 +22,44 @@ library(shinythemes)
 library(datiInquinanti)
 library(datiMeteo)
 
-no2Staz <- no2 %>% select(station_eu_code) %>% unique() %>% left_join(stazioniAria, by = c("station_eu_code"))
-noxStaz <- nox %>% select(station_eu_code) %>% unique() %>% left_join(stazioniAria, by = c("station_eu_code"))
-pm10Staz <- pm10 %>% select(station_eu_code) %>% unique() %>% left_join(stazioniAria, by = c("station_eu_code")) 
-pm25Staz <- pm25 %>% select(station_eu_code) %>% unique() %>% left_join(stazioniAria, by = c("station_eu_code"))
+# riclassificazione stazioni nel campo "tipo_s"
+stazioniAria %>%
+  mutate(tipo_s = case_when(
+    zona_tipo == "FU" ~ "Fondo urbano/suburbano",
+    zona_tipo == "FS" ~ "Fondo urbano/suburbano",
+    # zona_tipo == "U" ~ "Fondo urbano/suburbano",
+    # zona_tipo == "S" ~ "Fondo urbano/suburbano",
+    # zona_tipo == "METEOS" ~ "Fondo urbano/suburbano",
+    # zona_tipo == "METEOU" ~ "Fondo urbano/suburbano",
+    zona_tipo == "TU" ~ "Traffico",
+    zona_tipo == "TS" ~ "Traffico",
+    tipo_zona == "R" ~ "Rurale",
 
-c(
-  unique(no2Staz$station_eu_code),
-  unique(pm10Staz$station_eu_code),
-  unique(pm25$station_eu_code),
-  unique(nox$station_eu_code)
-) %>% unique() -> stazUniche 
+    tipo_zona == "R-nearcity" ~ "Rurale",
+    tipo_zona == "R-regional" ~ "Rurale",
+    tipo_zona == "R-remote" ~ "Rurale",
+    tipo_stazione == "I" ~ "Industriale",
+    tipo_stazione == "F/I" ~ "Industriale",
+  )) -> stazioniAria
+
+
+# selezione delle sole stazioni presenti nei dataset degl inquinanti
+# per i layer leaflet
+no2Staz <- no2 %>% select(station_eu_code) %>% unique() %>% inner_join(stazioniAria, by = c("station_eu_code"))
+noxStaz <- nox %>% select(station_eu_code) %>% unique() %>% inner_join(stazioniAria, by = c("station_eu_code"))
+pm10Staz <- pm10 %>% select(station_eu_code) %>% unique() %>% inner_join(stazioniAria, by = c("station_eu_code")) 
+pm25Staz <- pm25 %>% select(station_eu_code) %>% unique() %>% inner_join(stazioniAria, by = c("station_eu_code"))
+
+stazUniche <- c(
+  unique(no2Staz$station_eu_code), 
+  unique(pm10Staz$station_eu_code ), 
+  unique(pm25Staz$station_eu_code),
+  unique(noxStaz$station_eu_code)
+  ) %>% unique()
+
+# usiamo una paletta divergente 
+paletta = leaflet::colorFactor(RColorBrewer::brewer.pal(5, "Spectral"), domain = unique(stazioniAria$tipo_s))
+
 
 theme_pulvirus <- function() {
   theme_minimal() %+replace% 

@@ -1,12 +1,10 @@
-# Define UI for application that draws a histogram
 shinyUI(fluidPage(
   # Header
   headerPanel(
     title = tags$a(
       href = 'https://pulvirus.isprambiente.it',
-      tags$img(src = 'ispra_snpa.png', height = 90, width = 100 * 2.85 * 1.75 ), target = "_blank"),
+      tags$img(src = 'ispra_snpa.png', height = 100, width = 100 * 2.5 * 1.75 ), target = "_blank"),
     tags$head(
-      tags$link(rel = "icon", type = "image/png", href = "dwq_logo_small.png"),
       windowTitle = "Pulvirus/GAM dashboard"
     )
   ),
@@ -49,11 +47,10 @@ shinyUI(fluidPage(
         tabPanel("Plot",
                  fluidRow(
                    column(12,
-                     # uiOutput("date_slider"),
                      radioButtons("ts_plot_type", "Tipo di plot:", choices = c("Serie", "Pollution rose", "Polar freq", "Boxplot"), inline = T),
                      conditionalPanel(condition = "input.ts_plot_type=='Boxplot'", plotOutput("boxplot", width = "98%", height = "700px")),
                      conditionalPanel(condition = "input.ts_plot_type=='Pollution rose'", plotOutput("pollution_rose")),
-                     conditionalPanel(condition = "input.ts_plot_type=='Serie'", plotOutput("serie", width = "98%", height = "600px")),
+                     conditionalPanel(condition = "input.ts_plot_type=='Serie'", plotOutput("serie", width = "98%", height = "750px")),
                      conditionalPanel(condition = "input.ts_plot_type=='Polar freq'", plotOutput("polar"))
                    )
                  )),
@@ -63,18 +60,9 @@ shinyUI(fluidPage(
                  ),
         tabPanel(
           "GAM",
-          fluidRow(column(
-            12,
-            # selectInput("ts_pltnt", label = "Inquinante:", choices = c("NO2" = "no2", "PM10" = "pm10", "PM25" = "pm25")),
-            htmlOutput("gam_output"),
-            htmlOutput("gam_summary"),
-            # plotOutput("jd_plot", width = "500px", height = "400px"),
-            # plotOutput("jd_plot_last", width = "500px", height = "400px"),
-            # plotOutput("residui", width = "600px", height = "600px")
-          )),
-          fluidRow(column(6, plotOutput("jd_plot")),
-                   column(6, plotOutput("jd_plot_last"))),
-          fluidRow(column(12, plotOutput("residui", width = "95%", height = "750px"))),
+          fluidRow(column(12, htmlOutput("gam_output"), htmlOutput("gam_summary"))),
+          fluidRow(column(6, plotOutput("jd_plot")), column(6, plotOutput("jd_plot_last"))),
+          fluidRow(column(12, plotOutput("residui", width = "100%", height = "750px"))),
         ),
         tabPanel("Info stazione", fluidRow(column(8, htmlOutput("info_stazione")))),
         tabPanel("Guida", fluidRow(column(8, includeMarkdown('./guida/user_guide.rmd'))))

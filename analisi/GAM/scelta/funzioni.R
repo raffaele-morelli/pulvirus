@@ -9,7 +9,9 @@ preparaDataframe <- function(pltnt, cod_reg) {
         filter(region_id == cod_reg) %>% 
         select(c("station_eu_code")), by = c("station_eu_code")
     ) %>% 
-    mutate(value = ifelse(value <= 0.2, 0.2, value), lsp = lag(sp, 1) )
+    mutate(value = ifelse(value <= 0.2, 0.2, value), 
+           lsp = (lag(sp, 1) - sp) )
+  
   
   # subset solo con covariate e concentrazione, tolgo le variabili che non mi servono
   # con una select
@@ -46,7 +48,16 @@ buildMods <- function(backward = FALSE) {
       data.frame()
     
     # sistemiamo le "spline" testuali
-    y0 <- lapply(c1, function(x) paste0("s(", x, ")"))
+    y0 <- lapply(c1, 
+                 # function(x) paste0("s(", x, ")")
+                 function(x) {
+                   # print(x)
+                   if( x == "wkd") {
+                     paste0(x)
+                   }else{
+                     paste0("s(", x, ")" )}
+                 }    
+                 )
     
     # costruisco le "spline" con le variabili in AICS tranne la n-1
     c2 <- lapply( c(names(AICS)[-c(length(AICS)-1)], v_dead), function(x) rep(x, length(c1)))
@@ -58,10 +69,28 @@ buildMods <- function(backward = FALSE) {
     c1 <- combn(vars[!vars %in% c("value", names(v_fixed), v_dead)], 1) %>% 
       data.frame()
     
-    y0 <- lapply(c1, function(x) paste0("s(", x, ")"))
+    y0 <- lapply(c1, 
+                 # function(x) paste0("s(", x, ")")
+                 function(x) {
+                   # print(x)
+                   if( x == "wkd") {
+                     paste0(x)
+                   }else{
+                     paste0("s(", x, ")" )}
+                 }                 
+                 )
     
     c2 <- lapply(names(AICS)[!names(AICS) %in% v_dead], function(x) rep(x, length(c1)))
-    y1 <- lapply(c2, function(x) paste0("s(", x, ")"))
+    y1 <- lapply(c2, 
+                 # function(x) paste0("s(", x, ")")
+                 function(x) {
+                   # print(x)
+                   if( x == "wkd") {
+                     paste0(x)
+                   }else{
+                     paste0("s(", x, ")" )}
+                 }
+                 )
     y1 <- do.call(cbind, y1)
   }
   
@@ -99,10 +128,16 @@ bestMod <- function(models) {
     summarise(min(aic)) %>% 
     as.numeric() -> minaic
   
+  log_print(sprintf("Modello migliore %s", tab$mod), hide_notes = TRUE)
+  
   # estrazioni variabili: prendo tutto ciò che è tra parentesi tonde
   nvar <- gsub("[\\(\\)]", "", regmatches(tab$mod, gregexpr("\\(.*?\\)", tab$mod) )[[1]])
 
-  log_print(sprintf("Modello migliore: %s", paste(nvar[!nvar %in% c("value", "logvalue", "link=log")], collapse = " - ") ) , hide_notes = TRUE)
+  if( grepl("wkd", tab$mod, fixed = TRUE) ) {
+    nvar <- c(nvar, "wkd")
+    log_print(sprintf("selezionato weekday, %s", nvar), hide_notes = TRUE)
+  }
+  # log_print(sprintf("Modello migliore: %s", paste(nvar[!nvar %in% c("value", "logvalue", "link=log")], collapse = " - ") ) , hide_notes = TRUE)
   
   return(c(as.numeric(minaic), nvar[!nvar %in% c("value", "logvalue", "link=log")]))
 }
@@ -143,8 +178,8 @@ sceltaVar <- function() {
   AICS <- get("AICS", envir = .GlobalEnv)
 
   n <- length(AICS) # quanti AIC ho finora
-  if( n > 1) {
-    if( as.numeric( AICS[[n]][1]) < as.numeric( AICS[[n-1]][1] ) ) {
+  if( n > 1 ) {
+    if( as.numeric( AICS[[n]][1]) < as.numeric( AICS[[n-1]][1]) ) {
       
       # seleziono il modello BACKWARD con AIC minimo
       w <- buildMods(backward = TRUE)

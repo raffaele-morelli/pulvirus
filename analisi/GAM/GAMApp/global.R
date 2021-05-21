@@ -22,6 +22,10 @@ library(shinythemes)
 library(datiInquinanti)
 library(datiMeteo)
 
+
+base_path <- "/home/rmorelli/R/pulvirus/analisi/GAM/scelta/output/"
+
+
 # riclassificazione stazioni nel campo "tipo_s"
 stazioniAria %>%
   mutate(tipo_s = case_when(

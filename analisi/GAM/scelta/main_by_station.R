@@ -27,13 +27,17 @@ saveRData <- function(cod_eu = NA) {
   nanni <- dfSub$reporting_year %>% unique() %>% length()
   cappa <- 2*nanni +1 
   
+  if(length(v_fixed) == 0)
+    return("v_fixed non può essere vuoto")
+  
   # costruisco la stringa del modello a partire dalle variabili scelte
   # y0 <- lapply(v_fixed, function(x) paste0("s(", x, ")"))
   y0 <- lapply(v_fixed, 
-               function(x) { if( x == "jd") { 
-                 paste0("s(", x, ", k=", cappa, ")" ) 
-               }else{ 
-                 paste0("s(", x, ")" )} 
+               function(x) { 
+                 ifelse( x == "jd", 
+                         paste0("s(", x, ", k=", cappa, ")" ),
+                         ifelse(x == "wkd", "wkd", paste0("s(", x, ")"))
+                         ) 
                }
   )
   y1 <- do.call(cbind, y0)
@@ -63,15 +67,15 @@ args <- commandArgs(trailingOnly = TRUE)
 # se non stiamo eseguendo da riga di comando allora devo impostare
 # i due parametri a mano 
 if(is.na(args[1])) {
-  pltnt <- "no2"
-  cod_reg <- 2
+  pltnt <- "pm10"
+  cod_reg <- 1
 }else{
   pltnt <- args[1]
   cod_reg <- args[2]
 }
 
 # Variabili ambiente ####
-out_dir <- glue::glue("output/{cod_reg}/{pltnt}")
+out_dir <- glue::glue("output2/{cod_reg}/{pltnt}")
 
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
@@ -90,7 +94,7 @@ for (cod_eu in dfStazioni$station_eu_code %>% unique()) {
   # variabili da inizializzare ad ogni tornata
   vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
             "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", 
-            "wspeed", "pwspeed", "jd")
+            "wspeed", "pwspeed", "lsp", "jd")
   
   # apro il file di log
   f_log <- file.path(out_dir, glue::glue("pulvirus_{pltnt}_{cod_reg}_{cod_eu}.log"))

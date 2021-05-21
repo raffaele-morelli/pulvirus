@@ -149,7 +149,7 @@ shinyServer(function(input, output, session) {
     stazioniAria %>% filter(station_eu_code == reactive_objects$sel_station_eu_code) %>% select(region_id) -> rec
     f <-
       paste0(
-        "data/", rec$region_id,
+        base_path, rec$region_id,
         "/", reactive_objects$ts_pltnt,
         "/", reactive_objects$ts_pltnt,
         "_", rec$region_id,
@@ -209,10 +209,10 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
     if (nrow(df) > 0) {
       req(reactive_objects$models)
       
-      modello <-  names(reactive_objects$models)
+      # modello <-  names(reactive_objects$models)
       
-      b <- mgcv:::anova.gam(reactive_objects$models[[1]][[1]])
-      formGAM <- gsub("value", "media", b[["formula"]]) 
+      # b <- mgcv:::anova.gam(reactive_objects$models[[1]][[1]])
+      # formGAM <- gsub("value", "media", b[["formula"]]) 
       
       df %>% mutate(week = as.Date(date, '%Y-%V')) %>%
         group_by(reporting_year, station_eu_code, week) %>%
@@ -221,7 +221,7 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
         facet_wrap(~reporting_year, scales = "free_x") +
         xlab("Settimana") + 
         ylab("Concentrazione media (\U003BCg/m³)") +
-        geom_smooth(method = "gam", formula = y ~ s(x, k = 15) , se = TRUE, color = "#000080", aes(group = 1)) +
+        geom_smooth(method = "gam", formula = y ~ s(x, k = 10) , se = TRUE, color = "#000080", aes(group = 1)) +
         scale_x_date(labels = date_format("%Y")) +
         ggtitle(titolo) +
         theme_pulvirus()

@@ -155,6 +155,7 @@ shinyServer(function(input, output, session) {
         "_", rec$region_id,
         "_", reactive_objects$sel_station_eu_code, ".RData"
       )
+    
     if (file.exists(f)) {
       load(f)
       reactive_objects$models <- models
@@ -459,8 +460,17 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
     
     bv <- getViz(reactive_objects$models[[1]][[1]])
     indx <- grep("jd", bv[["smooth"]])
+    
+    if(length(indx) != 0) {
+      
     plot(sm(bv, indx), allTerms = TRUE, select = 4) +
       geom_hline(yintercept = 0) -> g
+    }else{
+      ggplot2::ggplot() + ggplot2::geom_blank() + 
+        annotate("text", x = 4, y = 25, label = paste("Non c'è il JD" ),
+                 size = 9
+        ) + theme_void()
+    }
     
     aic <- paste("<b>AIC</b>:", aic)
     rquadro <- paste("<b>Rsquared</b>:", rquadro)
@@ -497,7 +507,8 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
     
     b <- getViz(reactive_objects$models[[1]][[1]])
     indx <- grep("jd", b[["smooth"]])
-    
+    if(length(indx) != 0) {
+      
     plot(sm(b, indx)) + 
       # l_points(shape = 19, size = 1, color = "orange", alpha = 0.5) +
       l_fitLine(colour = "red", size = 1) + 
@@ -506,14 +517,22 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
       # geom_hline(yintercept = 0) +
       # coord_cartesian(ylim = c(-30, 30)) +
       ggtitle("Julian day")
+    }else{
+      ggplot2::ggplot() + ggplot2::geom_blank() + 
+        annotate("text", x = 4, y = 25, label = paste("Non c'è il JD" ),
+                 size = 9
+        ) + theme_void()
+    }
   })
   
   output$jd_plot_last <- renderPlot({
     req(reactive_objects$models)
     
     b <- getViz(reactive_objects$models[[1]][[1]])
-    indx <- grep("jd", b[["smooth"]])
     
+    indx <- grep("jd", b[["smooth"]])
+    if(length(indx) != 0) {
+      
     plot( sm(b, indx) ) + 
       # l_points(shape = 19, size = 1, color = "orange", alpha = 0.5) +
       l_fitLine(colour = "red", size = 1) + 
@@ -521,7 +540,12 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
       l_ciLine(mul = 5, colour = "blue", linetype = 2) +
       coord_cartesian(xlim = c(2500, 2750)) +
       ggtitle("Julian day ultimi 250gg")
-
+    }else{
+      ggplot2::ggplot() + ggplot2::geom_blank() + 
+        annotate("text", x = 4, y = 25, label = paste("Non c'è il JD" ),
+                 size = 9
+        ) + theme_void()
+}
   })
   
   output$residui <- renderPlot({

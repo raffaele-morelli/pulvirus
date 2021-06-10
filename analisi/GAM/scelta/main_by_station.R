@@ -68,14 +68,14 @@ args <- commandArgs(trailingOnly = TRUE)
 # i due parametri a mano 
 if(is.na(args[1])) {
   pltnt <- "pm10"
-  cod_reg <- 1
+  cod_reg <- 10
 }else{
   pltnt <- args[1]
   cod_reg <- args[2]
 }
 
 # Variabili ambiente ####
-out_dir <- glue::glue("output2/{cod_reg}/{pltnt}")
+out_dir <- glue::glue("output/{cod_reg}/{pltnt}")
 
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
@@ -94,7 +94,7 @@ for (cod_eu in dfStazioni$station_eu_code %>% unique()) {
   # variabili da inizializzare ad ogni tornata
   vars <- c("t2m", "tmin2m", "tmax2m", "tp", "ptp", "rh", "u10m", "v10m",
             "sp", "nirradiance", "pbl00", "pbl12", "pblmin", "pblmax", "wdir", 
-            "wspeed", "pwspeed", "lsp", "jd")
+            "wspeed", "pwspeed", "jd")
   
   # apro il file di log
   f_log <- file.path(out_dir, glue::glue("pulvirus_{pltnt}_{cod_reg}_{cod_eu}.log"))

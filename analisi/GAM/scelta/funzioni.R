@@ -9,8 +9,7 @@ preparaDataframe <- function(pltnt, cod_reg) {
         filter(region_id == cod_reg) %>% 
         select(c("station_eu_code")), by = c("station_eu_code")
     ) %>% 
-    mutate(value = ifelse(value <= 0.2, 0.2, value), 
-           lsp = (lag(sp, 1) - sp) )
+    mutate(value = ifelse(value <= 0.2, 0.2, value) )
   
   
   # subset solo con covariate e concentrazione, tolgo le variabili che non mi servono

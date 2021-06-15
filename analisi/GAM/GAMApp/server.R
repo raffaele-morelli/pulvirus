@@ -201,10 +201,10 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
     ) -> df
     
     titolo <- case_when(
-      reactive_objects$ts_pltnt == "no2" ~ bquote("Inquinante "~NO[2]),
-      reactive_objects$ts_pltnt == "pm10" ~ bquote("Inquinante "~PM[10]),
-      reactive_objects$ts_pltnt == "pm25" ~ bquote("Inquinante "~PM[25]),
-      reactive_objects$ts_pltnt == "nox" ~ bquote("Inquinante "~NO[x])
+      reactive_objects$ts_pltnt == "no2" ~ bquote("Medie settimanatli "~NO[2]),
+      reactive_objects$ts_pltnt == "pm10" ~ bquote("Medie settimanatli "~PM[10]),
+      reactive_objects$ts_pltnt == "pm25" ~ bquote("Medie settimanatli "~PM[25]),
+      reactive_objects$ts_pltnt == "nox" ~ bquote("Medie settimanatli "~NO[x])
     )
   
     if (nrow(df) > 0) {
@@ -223,7 +223,7 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
         xlab("Settimana") + 
         ylab("Concentrazione media (\U003BCg/m³)") +
         geom_smooth(method = "gam", formula = y ~ s(x, k = 10) , se = TRUE, color = "#000080", aes(group = 1)) +
-        scale_x_date(labels = date_format("%Y")) +
+        scale_x_date(labels = date_format("%m %w")) +
         ggtitle(titolo) +
         theme_pulvirus()
     } else{
@@ -560,6 +560,29 @@ saranno visibili solo dopo aver selezionato la stazione di interesse dalla mappa
       a.respoi = list(size = 0.5),
       a.hist = list(bins = 25, fill = "dodgerblue")
     )
+  })
+  
+  output$randomForest <- renderPlot({
+    req(reactive_objects$sel_station_eu_code)
+    
+    model <- readRDS(glue::glue("/home/rmorelli/R/pulvirus/analisi/GAM/GAMApp/data/{reactive_objects$sel_station_eu_code}_model.rds"))
+    
+    model %>% 
+      rmw_model_importance() %>% 
+      rmw_plot_importance()
+  })
+  
+  output$diagRanger <- renderPlot({
+    req(reactive_objects$sel_station_eu_code)
+    
+    diag_ranger <- readRDS(glue::glue("/home/rmorelli/R/pulvirus/analisi/GAM/GAMApp/data/{reactive_objects$sel_station_eu_code}_diag_ranger.rds"))
+    
+    p1 <- plot(diag_ranger)
+    p2 <- plot(diag_ranger, variable = "y", yvariable = "residuals")
+    p3 <-plot(diag_ranger, variable = "y", yvariable = "y_hat") +
+      geom_abline(colour = "red", intercept = 0, slope = 1)
+    p4 <-plot(diag_ranger, variable = "ids", yvariable = "residuals")
+    gridExtra::grid.arrange(p1, p2, p3, p4,nrow = 2)
   })
   
   # output$date_slider <- renderUI({

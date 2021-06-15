@@ -10,6 +10,9 @@ library(skimr)
 library(purrr)
 library(kableExtra)
 
+require(rmweather) 
+require(DALEX)
+
 library(mgcv)
 library(mgcViz)
 library(magrittr)

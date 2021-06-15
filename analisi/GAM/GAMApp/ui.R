@@ -65,6 +65,11 @@ shinyUI(fluidPage(
           fluidRow(column(12, plotOutput("residui", width = "100%", height = "750px"))),
         ),
         tabPanel("Info stazione", fluidRow(column(8, htmlOutput("info_stazione")))),
+        tabPanel("RNDFRST", 
+                 fluidRow(column(8, plotOutput("randomForest"))),
+                 fluidRow(column(8, plotOutput("diagRanger")))
+                 
+                 ),
         tabPanel("Guida", fluidRow(column(8, includeMarkdown('./guida/user_guide.rmd'))))
         
       )
